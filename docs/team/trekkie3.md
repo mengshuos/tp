@@ -1,6 +1,6 @@
 ---
 layout: page
-title: John Doe's Project Portfolio Page
+title: Trekkie3's Project Portfolio Page
 ---
 
 ### Project: AddressBook Level 3
@@ -42,5 +42,3 @@ Given below are my contributions to the project.
 * **Tools**:
   * Integrated a third party library (Natty) to the project ([\#42]())
   * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
