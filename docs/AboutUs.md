@@ -9,22 +9,23 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Jasper Ang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jsprdev.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/trekkie3.md)]
+
+[[github](https://github.com/jsprdev)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Project Advisor
 
-### Jane Doe
+### Meng Shuo
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/mengshuos.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/trekkie3.md)]
+[[github](http://github.com/mengshuos)] [[portfolio](team/mengshuos.md)]
+[[portfolio](team/mengshuos.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
@@ -33,27 +34,28 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/trekkie3.png" width="200px">
 
-[[github](http://github.com/trekkie3)] [[portfolio](team/trekkie3.md)]
+[[github](http://github.com/trekkie3)]
+[[portfolio](team/trekkie3.md)]
 
 * Role: Developer
 * Responsibilities: Features + Testing
 
-### Jean Doe
+### Tan Chee Hin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/cheezels.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/trekkie3.md)]
+[[github](http://github.com/cheezels)]
+[[portfolio](team/cheezels.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Arun
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/arunblue3.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/trekkie3.md)]
+[[github](http://github.com/arunblue3)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: UI
