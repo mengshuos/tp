@@ -20,24 +20,25 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/mengshuos.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
 ### Meng Shuo
 
 <img src="images/mengshuos.png" width="200px">
 
 [[github](http://github.com/mengshuos)] [[portfolio](team/mengshuos.md)]
+[[portfolio](team/mengshuos.md)]
+
+* Role: Team Lead
+* Responsibilities: UI
+
+### Trekkie3
+
+<img src="images/trekkie3.png" width="200px">
+
+[[github](http://github.com/trekkie3)]
+[[portfolio](team/trekkie3.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Features + Testing
 
 ### Tan Chee Hin
 
