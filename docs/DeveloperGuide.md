@@ -262,27 +262,34 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* has a need to keep track of multiple students
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* is a tutor (school or private)
+* wants to record attendance, participation, and progress
+* needs to manage student contact info and meetings
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
+
+* manage contacts faster than a typical mouse/GUI driven app
+* centralises management of students for tutors instead of multiple trackers over unsynced platforms
+* lightweight, fast to load, and easy to use
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​           | I want to …​                            | So that I can…​                                         |
+| -------- |-------------------|-----------------------------------------|---------------------------------------------------------|
+| `* * *`  | tutor             | I want to track student names and phone numbers           | so that I can contact them                              |
+| `* * *`  | tutor             | I want to search for a student by name or contact  | so I can quickly find their records.                    |
+| `* * *`  | tutor             |I want to see the student's chosen name/ nickname                      | so that I know how to address them                      |
+| `* * *`  | multi-group tutor | I want to add my students to a group                | I want to add my students to a group                    |
+| `* *`    | multi-class tutor | I want to keep track of what class I am teaching to each student           | so that I can prepare the necessary materials for them. |
+| `*`      | multi-class tutor | I want to sort or group by class                 | so that I can organise by class                         |
 
 *{More to be added}*
 
