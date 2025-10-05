@@ -290,30 +290,137 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a person**
 
-**MSS**
+**MSS:**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a new person.
+2.  System validates relevant parameters.
+3.  System adds the person.
+4.  System confirms that person has been added.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. Person already exists in the address book.
+  * 2a1. System rejects the addition as a duplicate.
 
-  Use case ends.
+* 2b. Required field missing.
+  * 2b1. System prompts the User to request addition again with the missing details.
 
-* 3a. The given index is invalid.
+* 2c. Any field contains invalid data.
+    * 2c1. System rejects the addition and displays an appropriate error message.
 
-    * 3a1. AddressBook shows an error message.
+**Use case: Delete a person**
 
-      Use case resumes at step 2.
+**MSS:**
 
-*{More to be added}*
+1.  User requests to delete a specific person in the list
+2.  System deletes the person
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list of persons in address book is empty.
+
+    Use case ends.
+
+* 2b. The parameter is invalid.
+    * 2b1. System rejects the deletion and displays an appropriate error message.
+
+**Use case: Search for a Person by Name** 
+
+**Preconditions:**
+- The persons list is not empty.
+
+**MSS:**
+
+1. User requests to find a person by providing a name or partial name.
+2. System searches through all stored persons.
+3. System shows a list of persons whose names match the query.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No name provided.
+  * 1a1. System prompts User to provide a name
+
+* 3a. No matching persons found
+  * 3a1. System informs the User that no results were found.
+
+**Use case: Create a Group**
+
+**MSS:**
+1. User requests to create a new group by specifying a group name.
+2. System validates the group name.
+3. System creates the new group.
+4. System confirms the successful creation.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. Invalid group name 
+  * 2a1. System rejects the request and shows an appropriate error message.
+* 2b. Group name already exists 
+  * 2b1. System rejects the request to prevent duplicates.
+* 2c. No group name provided 
+  * 2c1. System asks the user to input a valid name.
+
+**Use case: Assign Persons to a Group**
+
+**Preconditions:**
+- The group and persons exist in the system.
+
+**MSS:**
+1. User requests to assign one or more persons to an existing group.
+2. System verifies that the specified group exists.
+3. System validates that the referenced persons exist.
+4. System assigns those persons to the group.
+5. System confirms that the persons were successfully added to the group.
+
+**Extensions:**
+- 2a. The specified group does not exist 
+  - 2a1. System informs the user that the group is invalid.
+- 3a. One or more person references are invalid 
+  - 3a1. System informs the user which entries are invalid.
+- 4a. Some persons are already assigned to the group 
+  - 4a1. System informs the user about the duplicates and rejects the assignment.
+
+**Use case: Unassign a Person from a Group**
+
+**Preconditions:**
+- The group exists and the person is already assigned to it.
+
+**MSS:**
+1. User requests to remove a person from a group.
+2. System verifies that the person belongs to the specified group.
+3. System removes the person from the group.
+4. System confirms that the unassignment is complete.
+
+**Extensions:**
+- 1a. The specified group does not exist
+    - 1a1. System informs the user that the group is invalid.
+- 2a. The person is not assigned to that group 
+  - 2a1. System rejects the unassignment request.
+
+**Use case: Select a Group**
+
+**Preconditions:**
+- The group already exists.
+
+**MSS:**
+1. User requests to view a specific group.
+2. System verifies that the group exists.
+3. System retrieves and displays all persons in that group.
+
+**Extensions:**
+- 2a. Group name invalid or nonexistent 
+  - 2a1. System informs the user.
+- 3a. Group exists but contains no persons 
+  - 3a1. System informs the user that the group is empty.
 
 ### Non-Functional Requirements
 
