@@ -262,13 +262,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* has a need to keep track of multiple students
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* is a tutor (school or private)
+* wants to record attendance, participation, and progress
+* needs to manage student contact info and meetings
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
+
+* manage contacts faster than a typical mouse/GUI driven app
+* centralises management of students for tutors instead of multiple trackers over unsynced platforms
+* lightweight, fast to load, and easy to use
 
 
 ### User stories
