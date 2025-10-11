@@ -2,7 +2,6 @@ package edutrack.logic;
 
 import java.nio.file.Path;
 
-import edutrack.model.Model;
 import javafx.collections.ObservableList;
 import edutrack.commons.core.GuiSettings;
 import edutrack.logic.commands.CommandResult;
@@ -27,7 +26,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see edutrack.model.Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 

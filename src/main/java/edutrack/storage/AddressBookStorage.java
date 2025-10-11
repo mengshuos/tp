@@ -5,11 +5,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import edutrack.commons.exceptions.DataLoadingException;
-import edutrack.model.AddressBook;
 import edutrack.model.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link AddressBook}.
+ * Represents a storage for {@link edutrack.model.AddressBook}.
  */
 public interface AddressBookStorage {
 
