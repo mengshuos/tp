@@ -1,7 +1,7 @@
 package edutrack.model.tag;
 
-import static java.util.Objects.requireNonNull;
 import static edutrack.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Tag in the address book.

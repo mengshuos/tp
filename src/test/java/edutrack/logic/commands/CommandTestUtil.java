@@ -1,13 +1,13 @@
 package edutrack.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 import static edutrack.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

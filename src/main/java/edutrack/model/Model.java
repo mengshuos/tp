@@ -3,9 +3,9 @@ package edutrack.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import edutrack.commons.core.GuiSettings;
 import edutrack.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

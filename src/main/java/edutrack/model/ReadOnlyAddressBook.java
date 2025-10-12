@@ -1,7 +1,7 @@
 package edutrack.model;
 
-import javafx.collections.ObservableList;
 import edutrack.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book

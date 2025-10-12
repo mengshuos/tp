@@ -1,12 +1,12 @@
 package edutrack.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static edutrack.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static edutrack.testutil.Assert.assertThrows;
 import static edutrack.testutil.TypicalPersons.ALICE;
 import static edutrack.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

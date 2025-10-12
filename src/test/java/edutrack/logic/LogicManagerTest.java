@@ -1,6 +1,5 @@
 package edutrack.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static edutrack.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -9,6 +8,7 @@ import static edutrack.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static edutrack.testutil.Assert.assertThrows;
 import static edutrack.testutil.TypicalPersons.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

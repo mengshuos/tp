@@ -5,7 +5,6 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import edutrack.commons.core.GuiSettings;
 import edutrack.commons.core.LogsCenter;
 import edutrack.logic.commands.Command;
@@ -17,6 +16,7 @@ import edutrack.model.Model;
 import edutrack.model.ReadOnlyAddressBook;
 import edutrack.model.person.Person;
 import edutrack.storage.Storage;
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

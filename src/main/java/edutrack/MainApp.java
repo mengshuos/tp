@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 import edutrack.commons.core.Config;
 import edutrack.commons.core.LogsCenter;
 import edutrack.commons.core.Version;
@@ -30,6 +28,8 @@ import edutrack.storage.StorageManager;
 import edutrack.storage.UserPrefsStorage;
 import edutrack.ui.Ui;
 import edutrack.ui.UiManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

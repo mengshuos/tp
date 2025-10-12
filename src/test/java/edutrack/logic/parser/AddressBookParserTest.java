@@ -1,11 +1,11 @@
 package edutrack.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static edutrack.testutil.Assert.assertThrows;
 import static edutrack.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;

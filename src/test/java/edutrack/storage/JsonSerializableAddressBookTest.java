@@ -1,7 +1,7 @@
 package edutrack.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static edutrack.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

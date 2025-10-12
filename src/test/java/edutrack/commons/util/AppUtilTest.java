@@ -1,7 +1,7 @@
 package edutrack.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static edutrack.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 

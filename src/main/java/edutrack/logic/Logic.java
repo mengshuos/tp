@@ -2,13 +2,13 @@ package edutrack.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import edutrack.commons.core.GuiSettings;
 import edutrack.logic.commands.CommandResult;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.ReadOnlyAddressBook;
 import edutrack.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

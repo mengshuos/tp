@@ -1,7 +1,7 @@
 package edutrack.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static edutrack.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import edutrack.model.Model;
 

@@ -1,9 +1,9 @@
 package edutrack.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static edutrack.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static edutrack.testutil.Assert.assertThrows;
 import static edutrack.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

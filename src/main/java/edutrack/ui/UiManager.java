@@ -2,15 +2,15 @@ package edutrack.ui;
 
 import java.util.logging.Logger;
 
+import edutrack.MainApp;
+import edutrack.commons.core.LogsCenter;
+import edutrack.commons.util.StringUtil;
+import edutrack.logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import edutrack.MainApp;
-import edutrack.commons.core.LogsCenter;
-import edutrack.commons.util.StringUtil;
-import edutrack.logic.Logic;
 
 /**
  * The manager of the UI component.

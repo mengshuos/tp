@@ -1,11 +1,11 @@
 package edutrack.logic.commands;
 
+import static edutrack.testutil.Assert.assertThrows;
+import static edutrack.testutil.TypicalPersons.ALICE;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static edutrack.testutil.Assert.assertThrows;
-import static edutrack.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import edutrack.commons.core.GuiSettings;
 import edutrack.logic.Messages;
 import edutrack.logic.commands.exceptions.CommandException;
@@ -24,6 +23,7 @@ import edutrack.model.ReadOnlyAddressBook;
 import edutrack.model.ReadOnlyUserPrefs;
 import edutrack.model.person.Person;
 import edutrack.testutil.PersonBuilder;
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 

@@ -2,13 +2,13 @@ package edutrack.ui;
 
 import java.util.logging.Logger;
 
+import edutrack.commons.core.LogsCenter;
+import edutrack.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import edutrack.commons.core.LogsCenter;
-import edutrack.model.person.Person;
 
 /**
  * Panel containing the list of persons.

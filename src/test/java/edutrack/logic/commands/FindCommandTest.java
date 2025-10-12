@@ -1,14 +1,14 @@
 package edutrack.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static edutrack.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static edutrack.testutil.TypicalPersons.CARL;
 import static edutrack.testutil.TypicalPersons.ELLE;
 import static edutrack.testutil.TypicalPersons.FIONA;
 import static edutrack.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

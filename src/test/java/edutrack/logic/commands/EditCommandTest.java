@@ -1,8 +1,5 @@
 package edutrack.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static edutrack.logic.commands.CommandTestUtil.DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -14,6 +11,9 @@ import static edutrack.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static edutrack.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static edutrack.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static edutrack.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
