@@ -20,8 +20,8 @@ public class Phone {
      * @param phone A valid phone number.
      */
     public Phone(String phone) {
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        value = (phone == null || phone.isEmpty()) ? "" : phone;
+        checkArgument(isValidPhone(value), MESSAGE_CONSTRAINTS);
     }
 
     /**
