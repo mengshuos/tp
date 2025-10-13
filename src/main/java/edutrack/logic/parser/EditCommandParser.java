@@ -3,6 +3,7 @@ package edutrack.logic.parser;
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,6 +18,7 @@ import edutrack.commons.core.index.Index;
 import edutrack.logic.commands.EditCommand;
 import edutrack.logic.commands.EditCommand.EditPersonDescriptor;
 import edutrack.logic.parser.exceptions.ParseException;
+import edutrack.model.group.Group;
 import edutrack.model.tag.Tag;
 
 /**
@@ -32,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                        PREFIX_TAG, PREFIX_GROUP);
 
         Index index;
 
@@ -42,7 +45,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_GROUP);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -58,11 +61,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
+            editPersonDescriptor.setGroup(argMultimap.getValue(PREFIX_GROUP).get());
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseGroupsForEdit(argMultimap.getAllValues(PREFIX_GROUP)).ifPresent(editPersonDescriptor::setGroups);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
+
 
         return new EditCommand(index, editPersonDescriptor);
     }
@@ -80,6 +88,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    private Optional<Set<Group>> parseGroupsForEdit(Collection<String> groups) throws ParseException {
+        assert groups != null;
+
+        if (groups.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> groupSet = groups.size() == 1 && groups.contains("") ? Collections.emptySet() : groups;
+        return Optional.of(ParserUtil.parseGroups(groupSet));
     }
 
 }

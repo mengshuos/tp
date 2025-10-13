@@ -36,6 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setGroup(person.getGroup());
         descriptor.setTags(person.getTags());
     }
 
@@ -68,6 +69,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withGroup(String group) {
+        descriptor.setGroup(group);
         return this;
     }
 

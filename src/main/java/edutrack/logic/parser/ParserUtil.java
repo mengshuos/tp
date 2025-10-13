@@ -9,6 +9,7 @@ import java.util.Set;
 import edutrack.commons.core.index.Index;
 import edutrack.commons.util.StringUtil;
 import edutrack.logic.parser.exceptions.ParseException;
+import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
@@ -121,4 +122,32 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String group} into a {@code Group}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code group} is invalid.
+     */
+    public static Group parseGroup(String group) throws ParseException {
+        requireNonNull(group);
+        String trimmedGroup = group.trim();
+        if (!Group.isValidGroupName(trimmedGroup)) {
+            throw new ParseException(Group.MESSAGE_CONSTRAINTS);
+        }
+        return new Group(trimmedGroup);
+    }
+
+    /**
+     * Parses {@code Collection<String> groups} into a {@code Set<Group>}.
+     */
+    public static Set<Group> parseGroups(Collection<String> groups) throws ParseException {
+        requireNonNull(groups);
+        final Set<Group> groupSet = new HashSet<>();
+        for (String groupName : groups) {
+            groupSet.add(parseGroup(groupName));
+        }
+        return groupSet;
+    }
+
 }

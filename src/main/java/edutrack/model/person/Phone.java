@@ -1,7 +1,6 @@
 package edutrack.model.person;
 
 import static edutrack.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -21,15 +20,17 @@ public class Phone {
      * @param phone A valid phone number.
      */
     public Phone(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        value = (phone == null || phone.isEmpty()) ? "" : phone;
+        checkArgument(isValidPhone(value), MESSAGE_CONSTRAINTS);
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
+        if (test == null || test.isEmpty()) {
+            return true; // Allow null/empty for optional field
+        }
         return test.matches(VALIDATION_REGEX);
     }
 
