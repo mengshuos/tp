@@ -29,7 +29,7 @@ public class Person {
 
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null, except group which can be null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups) {
         requireAllNonNull(name, phone, email, address, tags, groups);
@@ -55,6 +55,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public String getGroup() {
+        return group;
     }
 
     /**
@@ -108,7 +112,6 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
                 && groups.equals(otherPerson.groups);
-
     }
 
     @Override
