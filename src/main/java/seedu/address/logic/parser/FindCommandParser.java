@@ -25,9 +25,19 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        // Determine if searching by group or by name
+        if (trimmedArgs.startsWith("/g ")) {
+            String groupName = trimmedArgs.substring(3).trim();
+            if (groupName.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_GROUP_USAGE));
+            }
+            return new FindCommand(new GroupNameContainsKeywordsPredicate(Arrays.asList(groupName.split("\\s+"))));
+        } else {
+            String[] nameKeywords = trimmedArgs.split("\\s+");
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
     }
 
 }

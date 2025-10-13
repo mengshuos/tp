@@ -47,6 +47,9 @@ public class Messages {
                 .append(person.getGroup() != null ? person.getGroup() : "None")
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
+
+        builder.append("; Groups: ");
+        person.getGroups().forEach(builder::append);
         return builder.toString();
     }
 

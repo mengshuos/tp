@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.group.Group;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,20 +24,21 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final String group;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Group> groups = new HashSet<>();
+
 
     /**
      * Every field must be present and not null, except group which can be null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, String group, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups) {
+        requireAllNonNull(name, phone, email, address, tags, groups);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.group = group;
         this.tags.addAll(tags);
+        this.groups.addAll(groups);
     }
 
     public Name getName() {
@@ -65,6 +67,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable group set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Group> getGroups() {
+        return Collections.unmodifiableSet(groups);
     }
 
     /**
@@ -100,14 +110,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && Objects.equals(group, otherPerson.group)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && groups.equals(otherPerson.groups);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, group, tags);
+        return Objects.hash(name, phone, email, address, tags, groups);
     }
 
     @Override
@@ -117,8 +127,8 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("group", group)
                 .add("tags", tags)
+                .add("groups", groups)
                 .toString();
     }
 
