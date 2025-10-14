@@ -10,16 +10,32 @@ import edutrack.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
+    public enum Mode { NAME, GROUP, BOTH };
     private final List<String> keywords;
+    private final Mode mode;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public NameContainsKeywordsPredicate(List<String> keywords, Mode mode) {
         this.keywords = keywords;
+        this.mode = mode;
     }
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
+        boolean nameMatch = keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        boolean groupMatch = person.getGroups().stream()
+                .anyMatch(group -> keywords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(group.groupName, keyword)));
+        switch (mode) {
+        case NAME:
+            return nameMatch;
+        case GROUP:
+            return groupMatch;
+        case BOTH:
+            return nameMatch || groupMatch;
+        default:
+            return false;
+        }
     }
 
     @Override
