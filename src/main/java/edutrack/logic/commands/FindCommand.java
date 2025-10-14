@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import edutrack.commons.util.ToStringBuilder;
 import edutrack.logic.Messages;
 import edutrack.model.Model;
+import edutrack.model.person.GroupNameContainsKeywordsPredicate;
 import edutrack.model.person.NameContainsKeywordsPredicate;
 
 /**

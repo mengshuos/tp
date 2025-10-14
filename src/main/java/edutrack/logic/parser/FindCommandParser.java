@@ -7,6 +7,7 @@ import java.util.Arrays;
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.person.NameContainsKeywordsPredicate;
+import edutrack.model.person.GroupNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
