@@ -44,7 +44,7 @@ public class Messages {
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; Group: ")
-                .append(person.getGroup() != null ? person.getGroup() : "None")
+                .append(person.getGroups() != null ? person.getGroups() : "None")
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
 
