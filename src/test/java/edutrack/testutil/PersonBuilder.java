@@ -3,6 +3,7 @@ package edutrack.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
@@ -25,7 +26,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private String group;
+    private Set<Group> groups;
     private Set<Tag> tags;
 
     /**
@@ -36,7 +37,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        group = null;
+        groups = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -48,8 +49,8 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        group = personToCopy.getGroup();
         tags = new HashSet<>(personToCopy.getTags());
+        groups = new HashSet<>(personToCopy.getGroups());
     }
 
     /**
@@ -95,13 +96,13 @@ public class PersonBuilder {
     /**
      * Sets the {@code Group} of the {@code Person} that we are building.
      */
-    public PersonBuilder withGroup(String group) {
-        this.group = group;
+    public PersonBuilder withGroup(String ... groups) {
+        this.groups = SampleDataUtil.getGroupSet(groups);
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, group, tags);
+        return new Person(name, phone, email, address, tags, groups);
     }
 
 }

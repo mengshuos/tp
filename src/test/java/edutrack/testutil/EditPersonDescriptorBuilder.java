@@ -36,8 +36,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
-        descriptor.setGroup(person.getGroup());
         descriptor.setTags(person.getTags());
+        descriptor.setGroups(person.getGroups());
     }
 
     /**
@@ -72,13 +72,13 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withGroup(String group) {
-        descriptor.setGroup(group);
-        return this;
-    }
+    ///**
+    // * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
+    // */
+    //public EditPersonDescriptorBuilder withGroup(String group) {
+    //    descriptor.setGroups(group);
+    //    return this;
+    //}
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}

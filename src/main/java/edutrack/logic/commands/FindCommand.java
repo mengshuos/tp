@@ -20,8 +20,8 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    public static final String MESSAGE_GROUP_USAGE = COMMAND_WORD + ": Finds all persons who are in the specified group "
-            + "and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_GROUP_USAGE = COMMAND_WORD + ": Finds all persons who are in the specified "
+            + "group and displays them as a list with index numbers.\n"
             + "Parameters: /g GROUP_NAME\n"
             + "Example: " + COMMAND_WORD + " /g CS2103T";
 

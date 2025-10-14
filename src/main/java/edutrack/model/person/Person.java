@@ -8,8 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import edutrack.commons.util.ToStringBuilder;
-import edutrack.model.tag.Tag;
 import edutrack.model.group.Group;
+import edutrack.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
