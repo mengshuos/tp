@@ -39,15 +39,17 @@ public class Email {
      * @param email A valid email address.
      */
     public Email(String email) {
-        requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
-        value = email;
+        value = (email == null || email.isEmpty()) ? "" : email;
+        checkArgument(isValidEmail(value), MESSAGE_CONSTRAINTS);
     }
 
     /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
+        if (test == null || test.isEmpty()) {
+            return true; // null or empty email is allowed
+        }
         return test.matches(VALIDATION_REGEX);
     }
 
