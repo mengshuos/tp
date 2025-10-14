@@ -1,5 +1,12 @@
 package edutrack.testutil;
 
+import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
+import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Set;
 
 import edutrack.logic.commands.AddCommand;
@@ -7,9 +14,6 @@ import edutrack.logic.commands.EditCommand.EditPersonDescriptor;
 import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 import edutrack.model.tag.Tag;
-
-import static edutrack.logic.parser.CliSyntax.*;
-import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 
 /**
  * A utility class for Person.
@@ -51,7 +55,7 @@ public class PersonUtil {
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG).append(" ");  // Append "t/ " to indicate empty set
+                sb.append(PREFIX_TAG).append(" ");
             } else {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
@@ -60,7 +64,7 @@ public class PersonUtil {
         if (descriptor.getGroups().isPresent()) {
             Set<Group> groups = descriptor.getGroups().get();
             if (groups.isEmpty()) {
-                sb.append(PREFIX_GROUP).append(" ");  // Append "g/ " to indicate empty set
+                sb.append(PREFIX_GROUP).append(" ");
             } else {
                 groups.forEach(s -> sb.append(PREFIX_GROUP).append(s.groupName).append(" "));
             }
