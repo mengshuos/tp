@@ -9,20 +9,16 @@ import org.junit.jupiter.api.Test;
 public class AddressTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Address(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+    public void constructor_null_doesNotThrowException() {
+        // null is now valid for optional address
+        Address address = new Address(null);
+        assertTrue(address.value.isEmpty());
     }
 
     @Test
     public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
+        // null address - now valid
+        assertTrue(Address.isValidAddress(null));
 
         // invalid addresses
         assertFalse(Address.isValidAddress("")); // empty string
