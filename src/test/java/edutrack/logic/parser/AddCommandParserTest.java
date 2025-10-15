@@ -144,6 +144,10 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + "" + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithNoEmail));
 
+        Person expectedPersonWithNoAddress = new PersonBuilder(AMY).withAddress("").withTags().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + "",
+                new AddCommand(expectedPersonWithNoAddress));
+
     }
 
     @Test
@@ -152,10 +156,6 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
                 expectedMessage);
 
         // all prefixes missing

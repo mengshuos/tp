@@ -75,6 +75,11 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
+        // Check validity AFTER trimming - empty is OK, but whitespace-only original input should fail
+        if (!address.isEmpty() && trimmedAddress.isEmpty()) {
+            // Original had content but was only whitespace
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }

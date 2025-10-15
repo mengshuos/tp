@@ -1,7 +1,6 @@
 package edutrack.model.person;
 
 import static edutrack.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's address in the address book.
@@ -15,7 +14,7 @@ public class Address {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[^\\s\\p{Cntrl}][\\p{Print}\\p{Space}]*";
 
     public final String value;
 
@@ -25,15 +24,17 @@ public class Address {
      * @param address A valid address.
      */
     public Address(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = (address == null || address.isEmpty()) ? "" : address;
+        checkArgument(isValidAddress(value), MESSAGE_CONSTRAINTS);
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
+        if (test == null || test.isEmpty()) {
+            return true; // null or empty address is allowed
+        }
         return test.matches(VALIDATION_REGEX);
     }
 
