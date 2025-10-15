@@ -25,14 +25,17 @@ public class Address {
      * @param address A valid address.
      */
     public Address(String address) {
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = (address == null || address.isEmpty()) ? "" : address;
+        checkArgument(isValidAddress(value), MESSAGE_CONSTRAINTS);
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
+        if (test == null || test.isEmpty()) {
+            return true; // null or empty address is allowed
+        }
         return test.matches(VALIDATION_REGEX);
     }
 
