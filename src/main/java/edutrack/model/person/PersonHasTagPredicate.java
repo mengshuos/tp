@@ -14,6 +14,11 @@ public class PersonHasTagPredicate implements Predicate<Person> {
 
     private final Tag targetTag;
 
+    /**
+     * Constructs a {@code PersonHasTagPredicate} with the specified tag.
+     *
+     * @param targetTag The tag to test for.
+     */
     public PersonHasTagPredicate(Tag targetTag) {
         requireNonNull(targetTag);
         this.targetTag = targetTag;
