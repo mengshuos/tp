@@ -359,7 +359,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. The parameter is invalid.
     * 2b1. System rejects the deletion and displays an appropriate error message.
 
-**Use case: Search for a Person by Name** 
+**Use case: Search for a Person by Name**
 
 **Preconditions:**
 - The persons list is not empty.
@@ -411,11 +411,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5. System confirms that the persons were successfully added to the group.
 
 **Extensions:**
-- 2a. The specified group does not exist 
+- 2a. The specified group does not exist
   - 2a1. System informs the user that the group is invalid.
-- 3a. One or more person references are invalid 
+- 3a. One or more person references are invalid
   - 3a1. System informs the user which entries are invalid.
-- 4a. Some persons are already assigned to the group 
+- 4a. Some persons are already assigned to the group
   - 4a1. System informs the user about the duplicates and rejects the assignment.
 
 **Use case: Unassign a Person from a Group**
