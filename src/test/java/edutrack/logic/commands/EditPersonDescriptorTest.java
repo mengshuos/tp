@@ -55,6 +55,10 @@ public class EditPersonDescriptorTest {
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different groups -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withGroups("CS2101").build();
+        assertFalse(DESC_AMY.equals(editedAmy));
     }
 
     @Test
