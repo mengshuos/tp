@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.parser.exceptions.ParseException;
+import edutrack.model.person.GroupNameContainsKeywordsPredicate;
 import edutrack.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -26,18 +27,17 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         // Determine if searching by group or by name
-        if (trimmedArgs.startsWith("/g ")) {
-            String groupName = trimmedArgs.substring(3).trim();
+        if (trimmedArgs.startsWith("g/")) {
+            String groupName = trimmedArgs.substring(2).trim();
             if (groupName.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_GROUP_USAGE));
             }
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(groupName.split("\\s+")),
-                    NameContainsKeywordsPredicate.Mode.GROUP));
+            return new FindCommand(new GroupNameContainsKeywordsPredicate(
+                    Arrays.asList(groupName.split("\\s+"))));
         } else {
             String[] nameKeywords = trimmedArgs.split("\\s+");
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords),
-                    NameContainsKeywordsPredicate.Mode.NAME));
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 
         }
     }

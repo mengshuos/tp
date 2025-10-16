@@ -2,10 +2,12 @@ package edutrack.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import edutrack.commons.util.ToStringBuilder;
 import edutrack.logic.Messages;
 import edutrack.model.Model;
-import edutrack.model.person.NameContainsKeywordsPredicate;
+import edutrack.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -25,9 +27,9 @@ public class FindCommand extends Command {
             + "Parameters: /g GROUP_NAME\n"
             + "Example: " + COMMAND_WORD + " /g CS2103T";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Person> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
