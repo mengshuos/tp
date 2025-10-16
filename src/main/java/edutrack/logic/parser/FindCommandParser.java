@@ -27,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         // Determine if searching by group or by name
-        if (trimmedArgs.startsWith("/g ")) {
+        if (trimmedArgs.startsWith("g/")) {
             String groupName = trimmedArgs.substring(3).trim();
             if (groupName.isEmpty()) {
                 throw new ParseException(
