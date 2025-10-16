@@ -39,7 +39,8 @@ public class GroupNameContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
 
-        GroupNameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (GroupNameContainsKeywordsPredicate) other;
+        GroupNameContainsKeywordsPredicate otherNameContainsKeywordsPredicate =
+                (GroupNameContainsKeywordsPredicate) other;
         return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
     }
 
