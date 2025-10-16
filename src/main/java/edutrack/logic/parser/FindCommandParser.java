@@ -23,7 +23,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_NAME_USAGE));
         }
 
         // Determine if searching by group or by name
@@ -35,11 +35,12 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
             return new FindCommand(new GroupNameContainsKeywordsPredicate(
                     Arrays.asList(groupName.split("\\s+"))));
-        } else {
+        } else if (trimmedArgs.startsWith("n/")) {
             String[] nameKeywords = trimmedArgs.split("\\s+");
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     }
-
 }
