@@ -85,7 +85,7 @@ public class AddressBookParser {
 
         case GroupListCommand.COMMAND_WORD:
             return new GroupListCommand();
-            
+
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);
 
