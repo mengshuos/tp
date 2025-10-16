@@ -35,8 +35,12 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredGroups = new FilteredList<>(this.addressBook.getGroupList());
+
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
     }
 
     public ModelManager() {
@@ -170,7 +174,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredGroups.equals(otherModelManager.filteredGroups);
     }
 
 }

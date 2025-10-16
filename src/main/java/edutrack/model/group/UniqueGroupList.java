@@ -48,6 +48,25 @@ public class UniqueGroupList {
     public ObservableList<Group> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof UniqueGroupList)) {
+            return false;
+        }
+        UniqueGroupList o = (UniqueGroupList) other;
+        // compare by contents
+        return internalList.equals(o.internalList);
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+
 }
 
 
