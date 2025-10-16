@@ -9,7 +9,7 @@ import edutrack.commons.util.ToStringBuilder;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class GroupNameContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
     /**
@@ -17,14 +17,15 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
      *
      * @param keywords List of keywords to match.
      */
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public GroupNameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        return person.getGroups().stream()
+                .anyMatch(group -> keywords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(group.groupName, keyword)));
     }
 
     @Override
@@ -34,11 +35,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof GroupNameContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
+        GroupNameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (GroupNameContainsKeywordsPredicate) other;
         return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
     }
 
