@@ -15,6 +15,8 @@ import edutrack.logic.commands.DeleteCommand;
 import edutrack.logic.commands.EditCommand;
 import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
+import edutrack.logic.commands.GroupCreateCommand;
+import edutrack.logic.commands.GroupListCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.parser.exceptions.ParseException;
@@ -76,6 +78,12 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case GroupCreateCommand.COMMAND_WORD:
+            return new GroupCreateCommandParser().parse(arguments);
+
+        case GroupListCommand.COMMAND_WORD:
+            return new GroupListCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import edutrack.commons.core.GuiSettings;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Group> PREDICATE_SHOW_ALL_GROUPS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,4 +86,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    // Groups API
+    boolean hasGroup(Group group);
+    void addGroup(Group group);
+    ObservableList<Group> getFilteredGroupList();
+    void updateFilteredGroupList(Predicate<Group> predicate);
 }

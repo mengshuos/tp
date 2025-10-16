@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import edutrack.commons.util.ToStringBuilder;
+import edutrack.model.group.Group;
+import edutrack.model.group.UniqueGroupList;
 import edutrack.model.person.Person;
 import edutrack.model.person.UniquePersonList;
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import javafx.collections.ObservableList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueGroupList groups;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        groups = new UniqueGroupList();
     }
 
     public AddressBook() {}
@@ -55,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setGroups(newData.getGroupList());
     }
 
     //// person-level operations
@@ -94,18 +99,46 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns true if a group with the same identity as {@code group} exists in the address book.
+     */
+
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return groups.contains(group);
+    }
+
+    /**
+     * Adds a group to the address book.
+     * The group must not already exist in the address book.
+     */
+
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
+     * Replaces the given group {@code group} in the list with {@code editedGroup}.
+     */
+
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
+                .add("persons", persons).add("groups", groups)
                 .toString();
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+    @Override public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
     }
 
     @Override
@@ -118,13 +151,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (!(other instanceof AddressBook)) {
             return false;
         }
-
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && groups.equals(otherAddressBook.groups);
     }
 
-    @Override
-    public int hashCode() {
-        return persons.hashCode();
+    @Override public int hashCode() {
+        return persons.hashCode() * 31 + groups.hashCode();
     }
+
 }
