@@ -87,4 +87,3 @@ public class FindTagCommandParserTest {
         assertParseSuccess(parser, " t/Friends", expectedCommand);
     }
 }
-
