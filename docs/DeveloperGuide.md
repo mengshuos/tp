@@ -391,11 +391,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions:**
-* 2a. Invalid group name 
+* 2a. Invalid group name
   * 2a1. System rejects the request and shows an appropriate error message.
-* 2b. Group name already exists 
+* 2b. Group name already exists
   * 2b1. System rejects the request to prevent duplicates.
-* 2c. No group name provided 
+* 2c. No group name provided
   * 2c1. System asks the user to input a valid name.
 
 **Use case: Assign Persons to a Group**
@@ -432,7 +432,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 - 1a. The specified group does not exist
     - 1a1. System informs the user that the group is invalid.
-- 2a. The person is not assigned to that group 
+- 2a. The person is not assigned to that group
   - 2a1. System rejects the unassignment request.
 
 **Use case: Select a Group**
@@ -446,9 +446,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. System retrieves and displays all persons in that group.
 
 **Extensions:**
-- 2a. Group name invalid or nonexistent 
+- 2a. Group name invalid or nonexistent
   - 2a1. System informs the user.
-- 3a. Group exists but contains no persons 
+- 3a. Group exists but contains no persons
   - 3a1. System informs the user that the group is empty.
 
 ### Non-Functional Requirements
