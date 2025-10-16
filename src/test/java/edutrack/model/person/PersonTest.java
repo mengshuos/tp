@@ -90,7 +90,7 @@ public class PersonTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different groups -> returns false
-        editedAlice = new PersonBuilder(ALICE).withGroup("CS2103T").build();
+        editedAlice = new PersonBuilder(ALICE).withGroup("CS2101").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
