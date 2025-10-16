@@ -2,6 +2,7 @@ package edutrack.logic.commands;
 
 import static edutrack.logic.commands.CommandTestUtil.DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.DESC_BOB;
+import static edutrack.logic.commands.CommandTestUtil.VALID_GROUP_CS2101;
 import static edutrack.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -95,6 +96,25 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_groupFieldSpecified_success() {
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+
+        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        Person editedPerson = personInList.withGroup(VALID_GROUP_CS2101).build();
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withGroups(VALID_GROUP_CS2101).build();
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
