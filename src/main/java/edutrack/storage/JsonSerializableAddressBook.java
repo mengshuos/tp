@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import edutrack.commons.exceptions.IllegalValueException;
 import edutrack.model.AddressBook;
 import edutrack.model.ReadOnlyAddressBook;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 
 /**
@@ -22,13 +23,20 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedGroup> groups = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+            @JsonProperty("groups") List<JsonAdaptedGroup> groups) {
+        if (persons != null) {
+            this.persons.addAll(persons);
+        }
+        if (groups != null) {
+            this.groups.addAll(groups);
+        }
     }
 
     /**
@@ -38,6 +46,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        groups.addAll(source.getGroupList().stream().map(JsonAdaptedGroup::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +63,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        List<Group> modelGroups = new ArrayList<>();
+        for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
+            Group group = jsonAdaptedGroup.toModelType();
+            if (modelGroups.stream().anyMatch(group::equals)) {
+                throw new IllegalValueException("This group already exists.");
+            }
+            modelGroups.add(group);
+        }
+        addressBook.setGroups(modelGroups);
         return addressBook;
     }
 

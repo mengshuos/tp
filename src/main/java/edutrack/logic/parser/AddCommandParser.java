@@ -32,15 +32,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        System.out.println("DEBUG: Full input = '" + args + "'");
-        System.out.println("DEBUG: First 30 chars = '" + (args.length() > 30 ? args.substring(0, 30) : args) + "'");
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_TAG, PREFIX_GROUP);
-
-        System.out.println("DEBUG: Preamble = '" + argMultimap.getPreamble() + "'");
-        System.out.println("DEBUG: Is empty? " + argMultimap.getPreamble().isEmpty());
-
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
