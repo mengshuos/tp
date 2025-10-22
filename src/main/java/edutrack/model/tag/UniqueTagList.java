@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import edutrack.model.tag.exceptions.TagNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,6 +37,17 @@ import javafx.collections.ObservableList;
         }
         internalList.add(toAdd);
     }
+    /**
+     * Removes the equivalent tag from the list.
+     * The tag must exist in the list.
+     */
+    public void remove(Tag toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new TagNotFoundException();
+        }
+    }
+
 
     /**
      * Removes the equivalent tag from the list.
