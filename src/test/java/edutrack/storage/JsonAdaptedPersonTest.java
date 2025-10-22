@@ -23,6 +23,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_GROUP = "CS 2103T"; // spaces not allowed
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -30,6 +31,9 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList());
+    private static final List<JsonAdaptedGroup> VALID_GROUPS = BENSON.getGroups().stream()
+            .map(JsonAdaptedGroup::new)
             .collect(Collectors.toList());
 
     @Test
@@ -108,6 +112,15 @@ public class JsonAdaptedPersonTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags, null);
+        assertThrows(IllegalValueException.class, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidGroups_throwsIllegalValueException() {
+        List<JsonAdaptedGroup> invalidGroups = new ArrayList<>(VALID_GROUPS);
+        invalidGroups.add(new JsonAdaptedGroup(INVALID_GROUP));
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, invalidGroups);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 

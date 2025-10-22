@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import edutrack.logic.commands.EditCommand.EditPersonDescriptor;
+import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
@@ -72,14 +73,6 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    ///**
-    // * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
-    // */
-    //public EditPersonDescriptorBuilder withGroup(String group) {
-    //    descriptor.setGroups(group);
-    //    return this;
-    //}
-
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
@@ -87,6 +80,16 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code groups} into a {@code Set<Group>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withGroups(String... groups) {
+        Set<Group> groupSet = Stream.of(groups).map(Group::new).collect(Collectors.toSet());
+        descriptor.setGroups(groupSet);
         return this;
     }
 
