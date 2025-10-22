@@ -14,12 +14,14 @@ public class ClearCommandTest {
     @Test
     public void execute_emptyAddressBook_failure() {
         Model model = new ModelManager();
-        assertCommandFailure(new ClearCommand(true), model, ClearCommand.MESSAGE_CONFIRMATION_REQUEST);
+        model.setPendingClearConfirmation(false); // Ensure no pending confirmation
+        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_CONFIRMATION_REQUEST);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.setPendingClearConfirmation(false); // Ensure no pending confirmation
         assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_CONFIRMATION_REQUEST);
     }
 
