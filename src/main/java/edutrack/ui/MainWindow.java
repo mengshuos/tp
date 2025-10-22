@@ -6,6 +6,7 @@ import edutrack.commons.core.GuiSettings;
 import edutrack.commons.core.LogsCenter;
 import edutrack.logic.Logic;
 import edutrack.logic.commands.CommandResult;
+import edutrack.logic.commands.GroupListCommand;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.logic.parser.exceptions.ParseException;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private GroupsPanel groupsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -113,6 +115,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        // prepare groups panel (not shown by default)
+        groupsPanel = new GroupsPanel(logic.getFilteredGroupList());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -177,6 +182,19 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // If the user listed groups, show groups panel instead of person list
+            if (commandText != null && commandText.trim().equals(GroupListCommand.COMMAND_WORD)) {
+                personListPanelPlaceholder.getChildren().clear();
+                personListPanelPlaceholder.getChildren().add(groupsPanel.getRoot());
+            } else {
+                // ensure person list is shown for other commands
+                if (personListPanelPlaceholder.getChildren().isEmpty()
+                        || personListPanelPlaceholder.getChildren().get(0) != personListPanel.getRoot()) {
+                    personListPanelPlaceholder.getChildren().clear();
+                    personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+                }
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

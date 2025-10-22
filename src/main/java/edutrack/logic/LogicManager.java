@@ -14,6 +14,7 @@ import edutrack.logic.parser.AddressBookParser;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.Model;
 import edutrack.model.ReadOnlyAddressBook;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 import edutrack.storage.Storage;
 import javafx.collections.ObservableList;
@@ -69,6 +70,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
     }
 
     @Override

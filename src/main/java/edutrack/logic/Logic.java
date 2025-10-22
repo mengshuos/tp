@@ -7,6 +7,7 @@ import edutrack.logic.commands.CommandResult;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.ReadOnlyAddressBook;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of groups */
+    ObservableList<Group> getFilteredGroupList();
 
     /**
      * Returns the user prefs' address book file path.
