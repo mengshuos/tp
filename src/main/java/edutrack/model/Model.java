@@ -92,4 +92,12 @@ public interface Model {
     void addGroup(Group group);
     ObservableList<Group> getFilteredGroupList();
     void updateFilteredGroupList(Predicate<Group> predicate);
+
+    // Tags API
+    boolean hasTag(Tag tag);
+    void addTag(Tag tag);
+    void deleteTag(Tag tag);
+    ObservableList<Tag> getFilteredTagList();
+    void updateFilteredTagList(Predicate<Tag> predicate);
 }
+

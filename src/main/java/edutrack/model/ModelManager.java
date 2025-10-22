@@ -11,6 +11,7 @@ import edutrack.commons.core.GuiSettings;
 import edutrack.commons.core.LogsCenter;
 import edutrack.model.group.Group;
 import edutrack.model.person.Person;
+import edutrack.model.tag.Tag;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Group> filteredGroups;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,9 +40,11 @@ public class ModelManager implements Model {
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredGroups = new FilteredList<>(this.addressBook.getGroupList());
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
 
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
 
     public ModelManager() {
@@ -160,6 +164,36 @@ public class ModelManager implements Model {
         filteredGroups.setPredicate(predicate);
     }
 
+    //=========== Tags =============================================================================
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return addressBook.hasTag(tag);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        addressBook.addTag(tag);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    @Override
+    public void deleteTag(Tag tag) {
+        addressBook.removeTag(tag);
+    }
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -175,7 +209,8 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
-                && filteredGroups.equals(otherModelManager.filteredGroups);
+                && filteredGroups.equals(otherModelManager.filteredGroups)
+                && filteredTags.equals(otherModelManager.filteredTags);
     }
 
 }
