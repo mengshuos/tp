@@ -1,12 +1,10 @@
 package edutrack.logic.commands;
 
 import static edutrack.logic.commands.CommandTestUtil.assertCommandFailure;
-import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static edutrack.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import edutrack.model.AddressBook;
 import edutrack.model.Model;
 import edutrack.model.ModelManager;
 import edutrack.model.UserPrefs;
