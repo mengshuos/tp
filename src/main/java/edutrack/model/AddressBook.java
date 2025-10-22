@@ -78,6 +78,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        // Add any groups that the person belongs to into the global group list
+        p.getGroups().forEach(group -> {
+            if (!groups.contains(group)) {
+                groups.add(group);
+            }
+        });
     }
 
     /**
