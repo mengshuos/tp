@@ -23,6 +23,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    private boolean pendingClearConfirmation = false;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -145,4 +147,20 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    //  pendingClearConfirmation methods
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public void setPendingClearConfirmation(boolean isPending) {
+        this.pendingClearConfirmation = isPending;
+    }
+
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public boolean isPendingClearConfirmation() {
+        return pendingClearConfirmation;
+    }
 }

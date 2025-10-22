@@ -84,4 +84,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    // Clear command related functionality
+
+    /**
+     * Sets the pending clear confirmation status.
+     */
+    void setPendingClearConfirmation(boolean isPending);
+
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    boolean isPendingClearConfirmation();
 }
