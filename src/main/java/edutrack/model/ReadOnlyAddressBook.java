@@ -1,7 +1,8 @@
 package edutrack.model;
 
 import edutrack.model.group.Group;
-import edutrack.model.person.Person;import edutrack.model.tag.Tag;
+import edutrack.model.person.Person;
+import edutrack.model.tag.Tag;
 import javafx.collections.ObservableList;
 
 /**
