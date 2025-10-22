@@ -40,7 +40,7 @@ public class ClearCommand extends Command {
             }
             // first time typing clear
             model.setPendingClearConfirmation(true);
-            return new CommandResult(MESSAGE_CONFIRMATION_REQUEST);
+            throw new CommandException(MESSAGE_CONFIRMATION_REQUEST);
         }
 
         // if they type clear confirm before typing clear
