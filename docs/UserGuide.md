@@ -53,10 +53,9 @@ If you type fast, you can handle and manage all your students across your differ
 3. Save the file to the folder you want to use to store all files related to EduTrack.
 
 4. Open a command terminal
-   * **Mac** / **Linux** users: search for 'Terminal'
-   * **Windows** users: search for 'Command Prompt'
-     <br>
-
+   >* **Mac** / **Linux** users: search for 'Terminal'
+   >* **Windows** users: search for 'Command Prompt'
+    
 5. Enter the command `cd <FOLDER>` where you replace <FOLDER> with the folder name that you saved the jar file to
 
 
@@ -88,18 +87,17 @@ If you type fast, you can handle and manage all your students across your differ
 **:information_source: Notes about how to understand the command formats in the guide:**<br>
 
 * You have to replace parameters in upper case with the actual values you want<br>
-  e.g. in `add n/NAME`, `NAME` is to be replaced with the actual name to be used, such as `add n/John Doe`.
+  > e.g. in `add n/NAME`, `NAME` is to be replaced with the actual name to be used, such as `add n/John Doe`.
 
 * You can choose not to include parameters in square brackets.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  > e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* If you see parameters with `…`​ after them,
-  you can use them multiple times, or not at all.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* If you see parameters with `…`​ after them, you can use them multiple times, or not at all.<br>
+  > e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * You can type the parameters in any order, as long as you put the correct prefix<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
-  you can also type `p/PHONE_NUMBER n/NAME`.
+  > e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
+  > you can also type `p/PHONE_NUMBER n/NAME`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands directly.
     * This is because you may accidentally copy over hidden invalid characters.
@@ -149,9 +147,10 @@ Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [g/GROUP]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+#### Notes:
+>* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+>* At least one of the optional fields must be provided.
+>* Existing values will be updated to the input values.
 
 <div markdown="block" class="alert alert-warning">
 
@@ -319,7 +318,7 @@ Advanced users are welcome to update data directly by editing that data file.
 
 
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** For ADVANCED users:
+<div markdown="span" class="alert alert-warning"> :exclamation:  **Caution**  For ADVANCED users:
 
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the EduTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -342,8 +341,10 @@ _Details coming soon ..._
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen.
+   * The remedy is to delete the `preferences.json` file created by the application before running the application again.
+3. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear.
+   * The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 

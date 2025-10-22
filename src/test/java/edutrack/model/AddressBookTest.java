@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 import edutrack.model.person.exceptions.DuplicatePersonException;
 import edutrack.testutil.PersonBuilder;
@@ -94,6 +95,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -101,7 +103,12 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<Person> getPersonList() {
-            return persons;
+            return FXCollections.unmodifiableObservableList(persons);
+        }
+
+        @Override
+        public ObservableList<Group> getGroupList() {
+            return FXCollections.unmodifiableObservableList(groups);
         }
     }
 
