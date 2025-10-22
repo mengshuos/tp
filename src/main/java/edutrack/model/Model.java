@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import edutrack.commons.core.GuiSettings;
 import edutrack.model.group.Group;
 import edutrack.model.person.Person;
+import edutrack.model.tag.Tag;
 import javafx.collections.ObservableList;
 
 /**
