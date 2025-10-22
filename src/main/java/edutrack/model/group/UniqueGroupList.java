@@ -45,6 +45,18 @@ public class UniqueGroupList {
         internalList.setAll(groups);
     }
 
+    /**
+     * Removes the equivalent group from the list.
+     * The group must exist in the list.
+     */
+    public void remove(Group toRemove) {
+        requireNonNull(toRemove);
+        if (!contains(toRemove)) {
+            throw new IllegalArgumentException("This group does not exist.");
+        }
+        internalList.removeIf(toRemove::equals);
+    }
+
     public ObservableList<Group> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }

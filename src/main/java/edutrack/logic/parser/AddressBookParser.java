@@ -17,6 +17,7 @@ import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.commands.FindTagCommand;
 import edutrack.logic.commands.GroupCreateCommand;
+import edutrack.logic.commands.GroupDeleteCommand;
 import edutrack.logic.commands.GroupListCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
@@ -85,6 +86,9 @@ public class AddressBookParser {
 
         case GroupListCommand.COMMAND_WORD:
             return new GroupListCommand();
+
+        case GroupDeleteCommand.COMMAND_WORD:
+            return new GroupDeleteCommandParser().parse(arguments);
 
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);

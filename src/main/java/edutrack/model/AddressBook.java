@@ -106,6 +106,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes the given group from the address book.
+     * The group must exist in the address book.
+     */
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+        groups.remove(group);
+    }
+
+    /**
      * Returns true if a group with the same identity as {@code group} exists in the address book.
      */
 

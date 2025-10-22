@@ -92,4 +92,10 @@ public interface Model {
     void addGroup(Group group);
     ObservableList<Group> getFilteredGroupList();
     void updateFilteredGroupList(Predicate<Group> predicate);
+
+    /**
+     * Deletes the given group.
+     * The group must exist in the address book.
+     */
+    void deleteGroup(Group group);
 }
