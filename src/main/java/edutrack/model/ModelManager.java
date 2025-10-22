@@ -24,8 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Group> filteredGroups;
     private final FilteredList<Tag> filteredTags;
+    private final FilteredList<Group> filteredGroups;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,15 +38,14 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredGroups = new FilteredList<>(this.addressBook.getGroupList());
-        filteredTags = new FilteredList<>(this.addressBook.getTagList());
 
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
-        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
-
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
@@ -183,7 +182,6 @@ public class ModelManager implements Model {
         addressBook.removeTag(tag);
     }
 
-    @Override
     public ObservableList<Tag> getFilteredTagList() {
         return filteredTags;
     }
@@ -208,7 +206,6 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons)
                 && filteredGroups.equals(otherModelManager.filteredGroups)
                 && filteredTags.equals(otherModelManager.filteredTags);
     }

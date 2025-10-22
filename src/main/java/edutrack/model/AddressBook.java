@@ -63,12 +63,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setGroups(newData.getGroupList());
-        setTags(newData.getTagList());
+        setGroups(List.copyOf(newData.getGroupList()));
+        setTags(List.copyOf(newData.getTagList()));
     }
 
     //// person-level operations
-
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
