@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueTagList tags;
     private final UniquePersonList persons;
     private final UniqueGroupList groups;
-    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,9 +31,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        tags = new UniqueTagList();
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
-        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -57,6 +57,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the group list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
+
+    /**
+     * Replaces the contents of the tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -68,6 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// person-level operations
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -138,12 +155,28 @@ public class AddressBook implements ReadOnlyAddressBook {
         groups.remove(group);
     }
 
-    /**
-     * Replaces the given group {@code group} in the list with {@code editedGroup}.
-     */
 
-    public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
+    //// tag-level operations
+
+    /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a tag to the address book.
+     * The tag must not already exist in the address book.
+     */
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     //// tag-level operations

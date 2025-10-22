@@ -2,7 +2,6 @@ package edutrack.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -13,7 +12,6 @@ import javafx.collections.ObservableList;
  * A tag is considered unique by comparing using {@code Tag#equals}.
  * Supports a minimal set of list operations.
  */
-public class UniqueTagList implements Iterable<Tag> {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
     private final ObservableList<Tag> internalUnmodifiableList =
