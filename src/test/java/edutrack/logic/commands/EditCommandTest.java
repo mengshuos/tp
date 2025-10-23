@@ -105,10 +105,41 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
+        // Note: VALID_GROUP_CS2101 should already exist in the typical address book
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withGroup(VALID_GROUP_CS2101).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withGroups(VALID_GROUP_CS2101).build();
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(lastPerson, editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editWithNonExistentGroup_failure() {
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withGroups("NonExistentGroup").build();
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+
+        assertCommandFailure(editCommand, model,
+                "Groups do not exist: NonExistentGroup. Please create them first using group/create.");
+    }
+
+    @Test
+    public void execute_editWithExistingGroup_success() {
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+
+        // CS2103T should exist in typical address book
+        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        Person editedPerson = personInList.withGroup("CS2103T").build();
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withGroups("CS2103T").build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));

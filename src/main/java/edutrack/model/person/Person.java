@@ -26,19 +26,24 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Group> groups = new HashSet<>();
+    private final Note note;
 
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups) {
+        this(name, phone, email, address, tags, groups, new Note(""));
+    }
 
     /**
      * Every field must be present and not null, except group which can be null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups) {
-        requireAllNonNull(name, phone, email, address, tags, groups);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups, Note note) {
+        requireAllNonNull(name, phone, email, address, tags, groups, note);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.groups.addAll(groups);
+        this.note = note;
     }
 
     public Name getName() {
@@ -71,6 +76,10 @@ public class Person {
      */
     public Set<Group> getGroups() {
         return Collections.unmodifiableSet(groups);
+    }
+
+    public Note getNote() {
+        return note;
     }
 
     /**
@@ -107,13 +116,14 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && groups.equals(otherPerson.groups);
+                && groups.equals(otherPerson.groups)
+                && note.equals(otherPerson.note);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, groups);
+        return Objects.hash(name, phone, email, address, tags, groups, note);
     }
 
     @Override
@@ -125,7 +135,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("groups", groups)
+                .add("note", note)
                 .toString();
     }
-
 }

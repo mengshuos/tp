@@ -33,6 +33,11 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Groups: `group/list`](#list-groups-grouplist)
       * [Assign Group: `group/assign`](#assign-group-groupassign)
       * [Unassign Group: `group/unassign`](#unassign-group-groupunassign)
+      * [Create Tag: `tag/create`](#create-tag-tagcreate)
+      * [Delete Tag: `tag/delete`](#delete-tag-tagdelete)
+      * [List Tags: `tag/list`](#list-tags-taglist)
+      * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
+      * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -113,22 +118,22 @@ Format: `help`
 
 
     
---------------------------------------------------------------------------------------------------------------------
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [g/GROUP]…`
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 #### Notes:
 
-> + GROUP and TAG parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
-> + GROUP / TAG matching and equality are case-insensitive (e.g. `weak` and `WeAk` are treated as the same tag / group).
+> + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
+> + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
+> + Tags can be assigned to students after creation using the `tag/assign` command.
 
 #### Example usage:
 * `add n/John Doe`
 * `add n/Chee Hin g/CS2103T-F14a`
-* `add n/Kevin p/91234567 e/kevin@outlook.com a/123 Baker St t/Genius t/Millionaire g/CS2103T-F14a`
+* `add n/Kevin p/91234567 e/kevin@outlook.com a/123 Baker St g/CS2103T-F14a`
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -145,29 +150,29 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [g/GROUP]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​`
 
 #### Notes:
 >* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 >* At least one of the optional fields must be provided.
 >* Existing values will be updated to the input values.
+>* To manage tags, use the `tag/assign` and `tag/unassign` commands instead.
 
 <div markdown="block" class="alert alert-warning">
 
-**Important: Editing Tags and Groups**
+**Important: Editing Groups**
 
-* When editing tags, the existing tags of the person will be removed
+* When editing groups, the existing groups of the person will be removed
 
-  i.e if you wish to edit a student that already has tag `needs_help`, you have to include `needs_help` again if you wish to keep it.
-* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
-* You can remove all the person’s groups by typing `g/` without specifying any groups after it.
+  i.e if you wish to edit a student that already has group `CS2103T`, you have to include `CS2103T` again if you wish to keep it.
+* You can remove all the person's groups by typing `g/` without specifying any groups after it.
 
 </div>
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-   <br>
+*  `edit 2 n/Betsy Crower g/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing groups.
 
     
 --------------------------------------------------------------------------------------------------------------------
@@ -292,13 +297,79 @@ Format:
 
 Removes one or more contacts from a specified group.
 
+--------------------------------------------------------------------------------------------------------------------
+
+
+### Create Tag: `tag/create`
+
+Creates a new tag with a specified name.
+
 Format:
 
-`group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+`tag/create t/TAG_NAME`
+
+* `TAG_NAME` refers to the name you wish to assign to the tag.
+* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+    
+--------------------------------------------------------------------------------------------------------------------
+### Delete Tag: `tag/delete`
+
+Deletes an existing tag and removes all tag assignments from associated contacts.
+
+Format:
+
+`tag/delete t/TAG_NAME`
+    
+--------------------------------------------------------------------------------------------------------------------
+### List Tags: `tag/list`
+
+Displays all existing tags.
+
+Format:
+
+`tag/list`
+    
+--------------------------------------------------------------------------------------------------------------------
+### Assign Tag: `tag/assign`
+
+Assigns an existing tag to a specified contact.
+
+If the specified tag does not exist, EduTrack will prompt you to create it first using `tag/create`.
+
+Format:
+
+`tag/assign INDEX t/TAG_NAME`
+
+* Assigns the tag `TAG_NAME` to the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The tag must already exist in the system.
+
+#### Examples:
+* `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
+* `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
+    
+--------------------------------------------------------------------------------------------------------------------
+### Unassign Tag: `tag/unassign`
+| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T`                             |
+
+
+| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`        |
+Format:
+`tag/unassign INDEX t/TAG_NAME`
+
+* Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The tag must currently be assigned to the person.
+
+| **Create Tag**      | Make a new tag.                                          | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                           |
+* `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
+* `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
 
 
     
---------------------------------------------------------------------------------------------------------------------
+Format:
 ## Other functionality
 
 ### Saving the data
@@ -352,10 +423,10 @@ _Details coming soon ..._
 
 | Action              | Description                                              | Format / Example                                                                                     |
 |---------------------|----------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd t/friend t/colleague g/CS2103T`                             |
+| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T`                             |
 | **Clear**           | Removes all stored data.                                 | `clear`                                                                                              |
 | **Delete**          | Deletes contact from EduTrack.                            | `delete INDEX`<br><br>Example: `delete 3`                                                              |
-| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`        |
+| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`        |
 | **Find**            | Locate persons by keywords in their names.               | `find KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                       |
 | **Find by Group**   | Find all contacts in a specific group.                   | `find g/GROUP`<br><br>Example: `find g/CS2103T`                                                        |
 | **Find by Tag**     | Find contacts with a specific tag.                         | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                     |
@@ -364,5 +435,11 @@ _Details coming soon ..._
 | **Assign to Group** | Assign contacts to a group.                                | `group/assign g/GROUP_NAME INDEX`<br><br>Example: `group/assign g/CS2103T 1`                          |
 | **Unassign from Group** | Remove contacts from a group.                           | `group/unassign g/GROUP_NAME INDEX`<br><br>Example: `group/unassign g/CS2103T 1`                     |
 | **List Group**      | Show all existing groups.                                | `group/list`                                                                                        |
+| **Create Tag**      | Make a new tag.                                          | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                           |
+| **Delete Tag**      | Remove an existing tag.                                  | `tag/delete t/TAG`<br><br>Example: `tag/delete t/needs_help`                                           |
+| **Assign Tag**      | Assign a tag to a contact.                               | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                             |
+| **Unassign Tag**    | Remove a tag from a contact.                             | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                         |
+| **List Tag**        | Show all existing tags.                                  | `tag/list`                                                                                           |
 | **List**            | Show all contacts.                                       | `list`                                                                                                |
 | **Help**            | Display help information.                                | `help`                                                                                                |
+

@@ -14,6 +14,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
@@ -31,6 +32,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedGroup> groups = new ArrayList<>();
+    private final String note;
 
 
     /**
@@ -39,7 +41,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("groups") List<JsonAdaptedGroup> groups) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("groups") List<JsonAdaptedGroup> groups,
+            @JsonProperty("note") String note) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -50,6 +53,7 @@ class JsonAdaptedPerson {
         if (groups != null) {
             this.groups.addAll(groups);
         }
+        this.note = (note == null) ? "" : note;
     }
 
     /**
@@ -66,6 +70,7 @@ class JsonAdaptedPerson {
         groups.addAll(source.getGroups().stream()
                 .map(JsonAdaptedGroup::new)
                 .collect(Collectors.toList()));
+        this.note = (source.getNote() == null) ? "" : source.getNote().value;
     }
 
     /**
@@ -118,7 +123,14 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<Group> modelGroups = new HashSet<>(personGroups);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelGroups);
+
+        assert note != null : "Note field should not be null";
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
+        }
+        final Note modelNote = new Note(note);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelGroups, modelNote);
     }
 
 }

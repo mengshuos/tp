@@ -92,13 +92,17 @@ public class PersonTest {
         // different groups -> returns false
         editedAlice = new PersonBuilder(ALICE).withGroup("CS2101").build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different note -> returns false
+        editedAlice = new PersonBuilder(ALICE).withNote("New note").build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
-                + ", groups=" + ALICE.getGroups() + "}";
+                + ", groups=" + ALICE.getGroups() + ", note=" + ALICE.getNote() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
