@@ -87,6 +87,9 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /** Sorts the filtered person list by name in alphabetical order */
+    void sortPersonList();
+
     // Groups API
     boolean hasGroup(Group group);
     void addGroup(Group group);

@@ -139,6 +139,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
     }
+
+    /**
+     * Sorts the internal list of persons by name alphabetically.
+     */
+    public void sortPersonList() {
+        persons.sortByName();
+    }
+
     //// util methods
 
     @Override

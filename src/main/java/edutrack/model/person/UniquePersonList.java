@@ -3,6 +3,7 @@ package edutrack.model.person;
 import static edutrack.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,6 +96,13 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+    /**
+     * Sorts the list of persons by name alphabetically.
+     */
+    public void sortByName() {
+        FXCollections.sort(internalList, Comparator.comparing(person -> person.getName().fullName));
     }
 
     /**
