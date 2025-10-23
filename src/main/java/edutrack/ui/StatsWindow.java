@@ -179,7 +179,7 @@ public class StatsWindow extends UiPart<Stage> {
                     }
                 }
             }
-        }        
+        }
         statsMessage.setText(statsText.toString());
     }
 
