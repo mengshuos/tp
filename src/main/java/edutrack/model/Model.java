@@ -89,6 +89,9 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /** Sorts the filtered person list by name in alphabetical order */
+    void sortPersonList();
+
 
     // Clear command related functionality
 

@@ -190,6 +190,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.remove(key);
     }
 
+    /**
+     * Sorts the internal list of persons by name alphabetically.
+     */
+    public void sortPersonList() {
+        persons.sortByName();
+    }
 
     //// util methods
 

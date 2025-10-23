@@ -24,6 +24,7 @@ import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.commands.NoteCreateCommand;
 import edutrack.logic.commands.StatsCommand;
+import edutrack.logic.commands.SortCommand;
 import edutrack.logic.commands.TagAssignCommand;
 import edutrack.logic.commands.TagCreateCommand;
 import edutrack.logic.commands.TagDeleteCommand;
@@ -130,6 +131,8 @@ public class AddressBookParser {
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
         case NoteCreateCommand.COMMAND_WORD:
             return new NoteCreateCommandParser().parse(arguments);
 
