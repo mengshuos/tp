@@ -60,6 +60,7 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing stats page about the students.");
+        updateStatsDisplay(); // Refresh statistics before showing
         getRoot().show();
         getRoot().centerOnScreen();
     }

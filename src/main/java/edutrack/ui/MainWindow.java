@@ -169,15 +169,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the stats window or focuses on it if it's already opened.
+     * Opens the stats window, closing any existing one first to ensure fresh data.
      */
     @FXML
     public void handleStats() {
-        if (!statsWindow.isShowing()) {
-            statsWindow.show();
-        } else {
-            statsWindow.focus();
+        if (statsWindow.isShowing()) {
+            statsWindow.hide();
         }
+        statsWindow.show();
     }
 
     /**
