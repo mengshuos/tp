@@ -9,6 +9,7 @@ import edutrack.commons.core.index.Index;
 import edutrack.logic.Messages;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.model.Model;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 
 public class NoteCreateCommand extends Command {
@@ -25,14 +26,14 @@ public class NoteCreateCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
 
     private final Index index;
-    private final String noteContent;
+    private final Note noteContent;
 
-    public NoteCreateCommand(Index index, String noteContent) {
+    public NoteCreateCommand(Index index, Note note) {
         requireNonNull(index);
-        requireNonNull(noteContent);
+        requireNonNull(note);
 
         this.index = index;
-        this.noteContent = noteContent;
+        this.noteContent = note;
     }
 
     @Override
@@ -47,14 +48,9 @@ public class NoteCreateCommand extends Command {
 
         Person target = lastShownList.get(zeroBasedIndex);
 
-        final Note note;
-        note = new Note(noteContent);
-
         // MODEL UPDATES SHOULD GO HERE
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(target)));
-
-        // Implement updating of the model with the new note here
     }
 
     @Override

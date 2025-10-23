@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import edutrack.commons.core.index.Index;
 import edutrack.logic.commands.NoteCreateCommand;
 import edutrack.logic.parser.exceptions.ParseException;
+import edutrack.model.person.Note;
 
 /**
  * Parses input arguments and creates a newNoteCreateCommand object
@@ -34,7 +35,7 @@ public class NoteCreateCommandParser implements Parser<NoteCreateCommand> {
 
         Note note = ParserUtil.parseNote(map.getValue(PREFIX_NOTE).orElse(""));
 
-        if (note.getContent().isEmpty()) {
+        if (note.value.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NoteCreateCommand.MESSAGE_USAGE));
         }

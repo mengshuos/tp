@@ -1,5 +1,6 @@
 package edutrack.model.person;
 
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a tutor's note attached to a student.
@@ -15,7 +16,7 @@ public class Note {
      */
     public static final String VALIDATION_REGEX = "[^\\s\\p{Cntrl}][\\p{Print}\\p{Space}]*";
 
-    public final String noteContent;
+    public final String value;
 
     /**
      * Constructs a {@code Note}.
@@ -25,8 +26,8 @@ public class Note {
      */
     public Note(String note) {
         requireNonNull(note);
-        noteContent = (note == null || note.isEmpty()) ? "" : note;
-        if (!isValidNote(noteContent)) {
+        value = (note == null || note.isEmpty()) ? "" : note;
+        if (!isValidNote(value)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
     }
@@ -42,13 +43,9 @@ public class Note {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public String getNoteContent() {
-        return noteContent;
-    }
-
     @Override
     public String toString() {
-        return noteContent;
+        return value;
     }
 
     @Override
@@ -62,11 +59,11 @@ public class Note {
         }
 
         Note otherNote = (Note) other;
-        return noteContent.equals(otherNote.noteContent);
+        return value.equals(otherNote.value);
     }
 
     @Override
     public int hashCode() {
-        return noteContent.hashCode();
+        return value.hashCode();
     }
 }
