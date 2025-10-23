@@ -179,6 +179,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setPendingClearConfirmation(boolean isPending) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isPendingClearConfirmation() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
