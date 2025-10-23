@@ -89,9 +89,23 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+
+    // Clear command related functionality
+
+    /**
+     * Sets the pending clear confirmation status.
+     */
+    void setPendingClearConfirmation(boolean isPending);
+
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    boolean isPendingClearConfirmation();
     // Groups API
     boolean hasGroup(Group group);
     void addGroup(Group group);
+    void deleteGroup(Group group);
+    Group getGroup(Group group);
     ObservableList<Group> getFilteredGroupList();
     void updateFilteredGroupList(Predicate<Group> predicate);
 

@@ -27,6 +27,8 @@ public class ModelManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final FilteredList<Group> filteredGroups;
 
+    private boolean pendingClearConfirmation = false;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -153,6 +155,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteGroup(Group group) {
+        addressBook.removeGroup(group);
+    }
+
+    @Override
+    public Group getGroup(Group group) {
+        requireNonNull(group);
+        return addressBook.getGroup(group);
+    }
+
+    @Override
     public ObservableList<Group> getFilteredGroupList() {
         return filteredGroups;
     }
@@ -206,8 +219,25 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredPersons.equals(otherModelManager.filteredPersons)
                 && filteredGroups.equals(otherModelManager.filteredGroups)
                 && filteredTags.equals(otherModelManager.filteredTags);
     }
 
+    //  pendingClearConfirmation methods
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public void setPendingClearConfirmation(boolean isPending) {
+        this.pendingClearConfirmation = isPending;
+    }
+
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public boolean isPendingClearConfirmation() {
+        return pendingClearConfirmation;
+    }
 }
