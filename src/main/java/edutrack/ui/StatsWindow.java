@@ -138,6 +138,53 @@ public class StatsWindow extends UiPart<Stage> {
             }
         }
         
+        // Add group statistics
+        statsText.append("\n=== GROUP STATS ===\n");
+        var groupList = logic.getAddressBook().getGroupList();
+        
+        if (groupList.isEmpty()) {
+            statsText.append("(No groups found)\n");
+        } else {
+            for (var group : groupList) {
+                // Get students in this group
+                List<edutrack.model.person.Person> studentsInGroup = new ArrayList<>();
+                for (var person : personList) {
+                    if (person.getGroups().contains(group)) {
+                        studentsInGroup.add(person);
+                    }
+                }
+                
+                // Count tags for this group
+                Map<String, Integer> groupTagCounts = new HashMap<>();
+                for (var student : studentsInGroup) {
+                    for (var tag : student.getTags()) {
+                        String tagName = tag.tagName.toLowerCase();
+                        groupTagCounts.put(tagName, groupTagCounts.getOrDefault(tagName, 0) + 1);
+                    }
+                }
+                
+                // Sort group tags alphabetically
+                List<String> sortedGroupTags = new ArrayList<>(groupTagCounts.keySet());
+                Collections.sort(sortedGroupTags);
+                
+                // Add group statistics
+                statsText.append("\nGroup: ").append(group.groupName).append("\n");
+                statsText.append("  Students: ").append(studentsInGroup.size()).append("\n");
+                statsText.append("  Unique Tags: ").append(groupTagCounts.size()).append("\n");
+                statsText.append("  Tags:\n");
+                
+                if (sortedGroupTags.isEmpty()) {
+                    statsText.append("    (No tags found)\n");
+                } else {
+                    for (int i = 0; i < sortedGroupTags.size(); i++) {
+                        String tagName = sortedGroupTags.get(i);
+                        int count = groupTagCounts.get(tagName);
+                        statsText.append("    ").append(i + 1).append(". ").append(tagName).append(": ").append(count).append("\n");
+                    }
+                }
+            }
+        }
+        
         statsMessage.setText(statsText.toString());
     }
 
