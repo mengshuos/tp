@@ -172,7 +172,6 @@ public class ModelManager implements Model {
         requireNonNull(group);
         addressBook.removeGroup(group);
         updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
-        addressBook.removeGroup(group);
     }
 
     @Override

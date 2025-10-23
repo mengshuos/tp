@@ -18,20 +18,24 @@ import edutrack.model.person.Person;
  */
 public class GroupDeleteCommand extends Command {
     public static final String COMMAND_WORD = "group/delete";
-  
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a group "
             + "and removes it from all persons that belong to it. "
             + "Parameters: "
             + PREFIX_GROUP + "GROUP_NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_GROUP + "CS2103T";
-  
     public static final String MESSAGE_SUCCESS = "Group deleted: %s (removed from %d person(s))";
-  
+
     public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exist.";
 
     private final Group toDelete;
+
+    /**
+     * Creates a {@code GroupDeleteCommand} to delete the specified {@code Group}.
+     *
+     * @param toDelete the group to be deleted from the address book. Must not be {@code null}.
+     */
 
     public GroupDeleteCommand(Group toDelete) {
         requireNonNull(toDelete);

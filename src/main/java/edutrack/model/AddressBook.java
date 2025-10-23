@@ -162,13 +162,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return groups.get(group);
     }
 
-    /**
-     * Removes {@code group} from this {@code AddressBook}.
-     * {@code group} must exist in the address book.
-     */
-    public void removeGroup(Group group) {
-        groups.remove(group);
-    }
 
 
     //// tag-level operations

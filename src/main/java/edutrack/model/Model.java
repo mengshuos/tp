@@ -104,7 +104,6 @@ public interface Model {
     // Groups API
     boolean hasGroup(Group group);
     void addGroup(Group group);
-  
     /**
      * Deletes the given group.
      * The group must exist in the address book.
