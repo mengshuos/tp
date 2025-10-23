@@ -48,7 +48,16 @@ public class NoteCreateCommand extends Command {
 
         Person target = lastShownList.get(zeroBasedIndex);
 
-        // MODEL UPDATES SHOULD GO HERE
+        Person editedPerson = new Person(
+                target.getName(),
+                target.getPhone(),
+                target.getEmail(),
+                target.getAddress(),
+                target.getTags(),
+                target.getGroups(),
+                noteContent
+        );
+        model.setPerson(target, editedPerson);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(target)));
     }
