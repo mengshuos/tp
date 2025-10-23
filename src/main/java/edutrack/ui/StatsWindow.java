@@ -17,7 +17,6 @@ public class StatsWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
 
-    
     @FXML
     private Label statsMessage;
 
@@ -83,5 +82,4 @@ public class StatsWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-   
 }

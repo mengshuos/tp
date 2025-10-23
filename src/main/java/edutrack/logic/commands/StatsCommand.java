@@ -13,11 +13,6 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "Showing student statistics...";
 
-    public StatsCommand() {
-        
-    }
-
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

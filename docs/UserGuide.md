@@ -55,7 +55,7 @@ If you type fast, you can handle and manage all your students across your differ
 4. Open a command terminal
    >* **Mac** / **Linux** users: search for 'Terminal'
    >* **Windows** users: search for 'Command Prompt'
-    
+
 5. Enter the command `cd <FOLDER>` where you replace <FOLDER> with the folder name that you saved the jar file to
 
 
@@ -112,7 +112,6 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a person: `add`
 
@@ -169,7 +168,6 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
    <br>
 
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Locating by name: `find`
 
@@ -235,7 +233,6 @@ Clears all entries from the address book.
 
 Format: `clear`
 
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
 
@@ -266,7 +263,6 @@ Deletes an existing group and removes all group assignments from associated cont
 Format:
 
 `group/delete g/GROUP_NAME`
-    
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
@@ -275,7 +271,6 @@ Displays all existing groups.
 Format:
 
 `group/list`
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
 
@@ -286,7 +281,6 @@ If the specified group does not exist, EduTrack will prompt you to create it fir
 Format:
 
 `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Group: `group/unassign`
 
@@ -296,8 +290,6 @@ Format:
 
 `group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
-
-    
 --------------------------------------------------------------------------------------------------------------------
 ## Other functionality
 
@@ -323,7 +315,6 @@ Advanced users are welcome to update data directly by editing that data file.
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the EduTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-    
 --------------------------------------------------------------------------------------------------------------------
 
 ### Archiving data files `[coming in v2.0]`

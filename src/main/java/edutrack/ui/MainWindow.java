@@ -35,7 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
-    
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -168,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-    
+
     /**
      * Opens the stats window or focuses on it if it's already opened.
      */
