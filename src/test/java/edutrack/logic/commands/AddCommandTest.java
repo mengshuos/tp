@@ -23,6 +23,7 @@ import edutrack.model.ReadOnlyAddressBook;
 import edutrack.model.ReadOnlyUserPrefs;
 import edutrack.model.group.Group;
 import edutrack.model.person.Person;
+import edutrack.model.tag.Tag;
 import edutrack.testutil.PersonBuilder;
 import javafx.collections.ObservableList;
 
@@ -206,12 +207,37 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Group> getFilteredGroupList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredGroupList(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTagList(Predicate<Tag> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
