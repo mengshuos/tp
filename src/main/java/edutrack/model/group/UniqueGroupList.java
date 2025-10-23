@@ -40,9 +40,16 @@ public class UniqueGroupList {
         internalList.add(toAdd);
     }
 
-    public void setGroups(List<Group> groups) {
-        requireNonNull(groups);
-        internalList.setAll(groups);
+    /**
+     * Returns the group in the list that matches the given group.
+     * The group must exist in the list.
+     */
+    public Group get(Group toGet) {
+        requireNonNull(toGet);
+        return internalList.stream()
+                .filter(toGet::equals)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Group does not exist."));
     }
 
     /**
@@ -52,9 +59,14 @@ public class UniqueGroupList {
     public void remove(Group toRemove) {
         requireNonNull(toRemove);
         if (!contains(toRemove)) {
-            throw new IllegalArgumentException("This group does not exist.");
+            throw new IllegalArgumentException("Group does not exist.");
         }
         internalList.removeIf(toRemove::equals);
+    }
+
+    public void setGroups(List<Group> groups) {
+        requireNonNull(groups);
+        internalList.setAll(groups);
     }
 
     public ObservableList<Group> asUnmodifiableObservableList() {
@@ -70,13 +82,17 @@ public class UniqueGroupList {
             return false;
         }
         UniqueGroupList o = (UniqueGroupList) other;
-        // compare by contents
-        return internalList.equals(o.internalList);
+        // Compare by contents regardless of order (groups are conceptually a set)
+        return internalList.size() == o.internalList.size()
+                && internalList.containsAll(o.internalList);
     }
 
     @Override
     public int hashCode() {
-        return internalList.hashCode();
+        // Use set-based hash code for order-independent equality
+        return internalList.stream()
+                .mapToInt(Object::hashCode)
+                .sum();
     }
 
 }

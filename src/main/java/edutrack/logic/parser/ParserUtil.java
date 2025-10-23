@@ -13,6 +13,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
 
@@ -153,6 +154,21 @@ public class ParserUtil {
             groupSet.add(parseGroup(groupName));
         }
         return groupSet;
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        if (!Note.isValidNote(trimmedNote)) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS);
+        }
+        return new Note(trimmedNote);
     }
 
 }

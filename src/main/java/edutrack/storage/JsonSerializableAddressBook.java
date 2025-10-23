@@ -1,13 +1,17 @@
 package edutrack.storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import edutrack.commons.core.LogsCenter;
 import edutrack.commons.exceptions.IllegalValueException;
 import edutrack.model.AddressBook;
 import edutrack.model.ReadOnlyAddressBook;
@@ -22,6 +26,8 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
+    private static final Logger logger = LogsCenter.getLogger(JsonSerializableAddressBook.class);
+
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedGroup> groups = new ArrayList<>();
 
@@ -30,7 +36,7 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-            @JsonProperty("groups") List<JsonAdaptedGroup> groups) {
+                                       @JsonProperty("groups") List<JsonAdaptedGroup> groups) {
         if (persons != null) {
             this.persons.addAll(persons);
         }
@@ -51,27 +57,67 @@ class JsonSerializableAddressBook {
 
     /**
      * Converts this address book into the model's {@code AddressBook} object.
+     * Ensures backward compatibility by auto-creating groups referenced by persons
+     * that don't exist in the central groups list.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
 
-        // Add all groups first
-        for (JsonAdaptedGroup jsonGroup : groups) {
-            Group group = jsonGroup.toModelType();
-            if (!addressBook.hasGroup(group)) {
-                addressBook.addGroup(group);
+        // Step 1: Load all groups into central list first
+        Set<Group> centralGroups = new HashSet<>();
+        for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
+            Group group = jsonAdaptedGroup.toModelType();
+            if (centralGroups.stream().anyMatch(group::equals)) {
+                throw new IllegalValueException("This group already exists.");
             }
+            centralGroups.add(group);
+            addressBook.addGroup(group);
         }
 
-        // Add persons, checking duplicates as we go
-        for (JsonAdaptedPerson jsonPerson : persons) {
-            Person person = jsonPerson.toModelType();
+        // Step 2: Load persons and migrate their groups to central references
+        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+            Person person = jsonAdaptedPerson.toModelType();
+
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+
+            // Step 3: Ensure all person's groups exist in central list (backward compatibility)
+            Set<Group> personGroupsWithCentralRefs = new HashSet<>();
+            for (Group personGroup : person.getGroups()) {
+                Group centralGroup;
+
+                if (centralGroups.stream().anyMatch(personGroup::equals)) {
+                    // Group exists - get the central reference
+                    centralGroup = centralGroups.stream()
+                            .filter(personGroup::equals)
+                            .findFirst()
+                            .get();
+                } else {
+                    // Group doesn't exist - auto-create for backward compatibility
+                    logger.warning("Group '" + personGroup.groupName
+                            + "' not found in central list. Auto-creating for backward compatibility.");
+                    centralGroup = personGroup;
+                    centralGroups.add(centralGroup);
+                    addressBook.addGroup(centralGroup);
+                }
+
+                personGroupsWithCentralRefs.add(centralGroup);
+            }
+
+            // Create person with central group references
+            Person personWithCentralGroups = new Person(
+                    person.getName(),
+                    person.getPhone(),
+                    person.getEmail(),
+                    person.getAddress(),
+                    person.getTags(),
+                    personGroupsWithCentralRefs
+            );
+
+            addressBook.addPerson(personWithCentralGroups);
         }
 
         return addressBook;

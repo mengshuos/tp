@@ -1,43 +1,28 @@
 package edutrack.logic.parser;
 
-import static edutrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
-
-import java.util.Objects;
-import java.util.Optional;
 
 import edutrack.logic.commands.GroupDeleteCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.group.Group;
 
-/** Parses input arguments and creates a new GroupDeleteCommand object */
+/**
+ * Parses input arguments and creates a new GroupDeleteCommand object
+ */
 public class GroupDeleteCommandParser implements Parser<GroupDeleteCommand> {
-
     @Override
     public GroupDeleteCommand parse(String args) throws ParseException {
-        Objects.requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GROUP);
-
-        Optional<String> tokenValue = argMultimap.getValue(PREFIX_GROUP);
-        boolean usedFallback = false;
-        String groupArg = tokenValue.orElse("").trim();
-
-        if (groupArg.isEmpty()) {
-            String trimmed = args.trim();
-            String prefix = PREFIX_GROUP.getPrefix();
-            if (trimmed.startsWith(prefix)) {
-                groupArg = trimmed.substring(prefix.length()).trim();
-                usedFallback = true;
-            }
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_GROUP);
+        String raw = map.getValue(PREFIX_GROUP).orElse("").trim();
+        if (raw.isEmpty()) {
+            throw new ParseException("You have to input a group name!");
         }
-
-        // if no group found or (we relied on tokenizer and there's a non-empty preamble) -> invalid
-        if (groupArg.isEmpty() || (!usedFallback && !argMultimap.getPreamble().trim().isEmpty())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GroupDeleteCommand.MESSAGE_USAGE));
+        try {
+            Group g = new Group(raw);
+            return new GroupDeleteCommand(g);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
-
-        Group group = ParserUtil.parseGroup(groupArg);
-        return new GroupDeleteCommand(group);
     }
 }
+
