@@ -155,6 +155,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteGroup(Group group) {
+        addressBook.removeGroup(group);
+    }
+
+    @Override
+    public Group getGroup(Group group) {
+        requireNonNull(group);
+        return addressBook.getGroup(group);
+    }
+
+    @Override
     public ObservableList<Group> getFilteredGroupList() {
         return filteredGroups;
     }
@@ -181,7 +192,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTag(Tag tag) {
-        addressBook.removeTag(tag);
+        addressBook.deleteTag(tag);
     }
 
     public ObservableList<Tag> getFilteredTagList() {
@@ -208,6 +219,7 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredPersons.equals(otherModelManager.filteredPersons)
                 && filteredGroups.equals(otherModelManager.filteredGroups)
                 && filteredTags.equals(otherModelManager.filteredTags);
     }

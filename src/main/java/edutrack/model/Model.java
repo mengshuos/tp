@@ -104,6 +104,8 @@ public interface Model {
     // Groups API
     boolean hasGroup(Group group);
     void addGroup(Group group);
+    void deleteGroup(Group group);
+    Group getGroup(Group group);
     ObservableList<Group> getFilteredGroupList();
     void updateFilteredGroupList(Predicate<Group> predicate);
 

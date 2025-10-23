@@ -48,6 +48,10 @@ public class Messages {
 
         builder.append("; Groups: ");
         person.getGroups().forEach(builder::append);
+
+        builder.append("; Note: ")
+                .append(person.getNote());
+
         return builder.toString();
     }
 

@@ -1,13 +1,12 @@
 package edutrack.logic.parser;
 
-import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edutrack.commons.core.LogsCenter;
+import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import edutrack.logic.commands.AddCommand;
 import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
@@ -16,11 +15,20 @@ import edutrack.logic.commands.EditCommand;
 import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.commands.FindTagCommand;
+import edutrack.logic.commands.GroupAssignCommand;
 import edutrack.logic.commands.GroupCreateCommand;
+import edutrack.logic.commands.GroupDeleteCommand;
 import edutrack.logic.commands.GroupListCommand;
+import edutrack.logic.commands.GroupUnassignCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
+import edutrack.logic.commands.NoteCreateCommand;
 import edutrack.logic.commands.StatsCommand;
+import edutrack.logic.commands.TagAssignCommand;
+import edutrack.logic.commands.TagCreateCommand;
+import edutrack.logic.commands.TagDeleteCommand;
+import edutrack.logic.commands.TagListCommand;
+import edutrack.logic.commands.TagUnassignCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 
 /**
@@ -89,14 +97,41 @@ public class AddressBookParser {
         case GroupCreateCommand.COMMAND_WORD:
             return new GroupCreateCommandParser().parse(arguments);
 
+        case GroupDeleteCommand.COMMAND_WORD:
+            return new GroupDeleteCommandParser().parse(arguments);
+
+        case GroupAssignCommand.COMMAND_WORD:
+            return new GroupAssignCommandParser().parse(arguments);
+
+        case GroupUnassignCommand.COMMAND_WORD:
+            return new GroupUnassignCommandParser().parse(arguments);
+
         case GroupListCommand.COMMAND_WORD:
             return new GroupListCommand();
+
+        case TagCreateCommand.COMMAND_WORD:
+            return new TagCreateCommandParser().parse(arguments);
+
+        case TagDeleteCommand.COMMAND_WORD:
+            return new TagDeleteCommandParser().parse(arguments);
+
+        case TagAssignCommand.COMMAND_WORD:
+            return new TagAssignCommandParser().parse(arguments);
+
+        case TagUnassignCommand.COMMAND_WORD:
+            return new TagUnassignCommandParser().parse(arguments);
+
+        case TagListCommand.COMMAND_WORD:
+            return new TagListCommand();
+
 
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();
+        case NoteCreateCommand.COMMAND_WORD:
+            return new NoteCreateCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

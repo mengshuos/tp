@@ -39,6 +39,7 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+
     /**
      * Removes the equivalent tag from the list.
      * The tag must exist in the list.
