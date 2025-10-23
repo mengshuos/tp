@@ -1,11 +1,12 @@
 package edutrack.logic.commands;
 
-import org.junit.jupiter.api.Test;
-
 import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static edutrack.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+
 import edutrack.model.Model;
 import edutrack.model.ModelManager;
+
+import org.junit.jupiter.api.Test;
 
 public class ExitCommandTest {
     private Model model = new ModelManager();

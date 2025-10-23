@@ -1,11 +1,12 @@
 package edutrack.logic.commands;
 
-import org.junit.jupiter.api.Test;
-
 import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static edutrack.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+
 import edutrack.model.Model;
 import edutrack.model.ModelManager;
+
+import org.junit.jupiter.api.Test;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();
