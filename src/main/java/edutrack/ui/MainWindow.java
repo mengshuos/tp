@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
     private GroupsPanel groupsPanel;
 
     @FXML
@@ -68,6 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -173,6 +175,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the stats window, closing any existing one first to ensure fresh data.
+     */
+    @FXML
+    public void handleStats() {
+        if (statsWindow.isShowing()) {
+            statsWindow.hide();
+        }
+        statsWindow.show();
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see Logic#execute(String)
@@ -202,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats();
             }
 
             return commandResult;
