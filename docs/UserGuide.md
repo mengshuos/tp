@@ -117,7 +117,6 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a person: `add`
 
@@ -175,7 +174,6 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 2 n/Betsy Crower g/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing groups.
 
-    
 --------------------------------------------------------------------------------------------------------------------
 ### Locating by name: `find`
 
@@ -307,7 +305,7 @@ Format:
 
 * `TAG_NAME` refers to the name you wish to assign to the tag.
 * `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
-    
+
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`
 
@@ -316,7 +314,7 @@ Deletes an existing tag and removes all tag assignments from associated contacts
 Format:
 
 `tag/delete t/TAG_NAME`
-    
+
 --------------------------------------------------------------------------------------------------------------------
 ### List Tags: `tag/list`
 
@@ -325,7 +323,7 @@ Displays all existing tags.
 Format:
 
 `tag/list`
-    
+
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Tag: `tag/assign`
 
@@ -345,7 +343,7 @@ Format:
 #### Examples:
 * `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
 * `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
-    
+
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Tag: `tag/unassign`
 | **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T`                             |
@@ -364,8 +362,6 @@ Format:
 * `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
 * `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
 
-
-    
 Format:
 ## Other functionality
 

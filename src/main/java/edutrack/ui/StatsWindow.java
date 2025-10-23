@@ -66,11 +66,11 @@ public class StatsWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing stats page about the students.");
         updateStatsDisplay(); // Refresh statistics before showing
-        
+
         // Set minimum size (smaller than main window but same ratio)
         getRoot().setMinWidth(400);
         getRoot().setMinHeight(300);
-        
+
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -101,11 +101,11 @@ public class StatsWindow extends UiPart<Stage> {
      */
     private void updateStatsDisplay() {
         StringBuilder statsText = new StringBuilder();
-        
+
         // Get all persons and groups
         var personList = logic.getAddressBook().getPersonList();
         int totalStudents = personList.size();
-        
+
         // Collect all tags and count them
         Map<String, Integer> tagCounts = new HashMap<>();
         for (var person : personList) {
@@ -114,20 +114,20 @@ public class StatsWindow extends UiPart<Stage> {
                 tagCounts.put(tagName, tagCounts.getOrDefault(tagName, 0) + 1);
             }
         }
-        
+
         // Debug: Log tag information
         logger.info("Found " + tagCounts.size() + " unique tags: " + tagCounts.keySet());
-        
+
         // Sort tags alphabetically
         List<String> sortedTags = new ArrayList<>(tagCounts.keySet());
         Collections.sort(sortedTags);
-        
+
         // Build the statistics text
         statsText.append("=== TOTAL STATS ===\n");
         statsText.append("Total Students: ").append(totalStudents).append("\n");
         statsText.append("Total Unique Tags in use: ").append(tagCounts.size()).append("\n");
         statsText.append("Tags in use:\n");
-        
+
         if (sortedTags.isEmpty()) {
             statsText.append("  (No tags found)\n");
         } else {
@@ -137,11 +137,11 @@ public class StatsWindow extends UiPart<Stage> {
                 statsText.append("  ").append(i + 1).append(". ").append(tagName).append(": ").append(count).append("\n");
             }
         }
-        
+
         // Add group statistics
         statsText.append("\n=== GROUP STATS ===\n");
         var groupList = logic.getAddressBook().getGroupList();
-        
+
         if (groupList.isEmpty()) {
             statsText.append("(No groups found)\n");
         } else {
@@ -153,7 +153,6 @@ public class StatsWindow extends UiPart<Stage> {
                         studentsInGroup.add(person);
                     }
                 }
-                
                 // Count tags for this group
                 Map<String, Integer> groupTagCounts = new HashMap<>();
                 for (var student : studentsInGroup) {
@@ -162,17 +161,14 @@ public class StatsWindow extends UiPart<Stage> {
                         groupTagCounts.put(tagName, groupTagCounts.getOrDefault(tagName, 0) + 1);
                     }
                 }
-                
                 // Sort group tags alphabetically
                 List<String> sortedGroupTags = new ArrayList<>(groupTagCounts.keySet());
                 Collections.sort(sortedGroupTags);
-                
                 // Add group statistics
                 statsText.append("\nGroup: ").append(group.groupName).append("\n");
                 statsText.append("  Students: ").append(studentsInGroup.size()).append("\n");
                 statsText.append("  Unique Tags: ").append(groupTagCounts.size()).append("\n");
                 statsText.append("  Tags:\n");
-                
                 if (sortedGroupTags.isEmpty()) {
                     statsText.append("    (No tags found)\n");
                 } else {
@@ -183,8 +179,7 @@ public class StatsWindow extends UiPart<Stage> {
                     }
                 }
             }
-        }
-        
+        }        
         statsMessage.setText(statsText.toString());
     }
 
