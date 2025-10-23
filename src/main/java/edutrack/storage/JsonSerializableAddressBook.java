@@ -56,22 +56,24 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
+
+        // Add all groups first
+        for (JsonAdaptedGroup jsonGroup : groups) {
+            Group group = jsonGroup.toModelType();
+            if (!addressBook.hasGroup(group)) {
+                addressBook.addGroup(group);
+            }
+        }
+
+        // Add persons, checking duplicates as we go
+        for (JsonAdaptedPerson jsonPerson : persons) {
+            Person person = jsonPerson.toModelType();
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
         }
-        List<Group> modelGroups = new ArrayList<>();
-        for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
-            Group group = jsonAdaptedGroup.toModelType();
-            if (modelGroups.stream().anyMatch(group::equals)) {
-                throw new IllegalValueException("This group already exists.");
-            }
-            modelGroups.add(group);
-        }
-        addressBook.setGroups(modelGroups);
+
         return addressBook;
     }
 
