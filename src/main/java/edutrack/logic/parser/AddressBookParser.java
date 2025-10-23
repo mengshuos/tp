@@ -1,5 +1,8 @@
 package edutrack.logic.parser;
 
+import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,9 +32,6 @@ import edutrack.logic.commands.TagDeleteCommand;
 import edutrack.logic.commands.TagListCommand;
 import edutrack.logic.commands.TagUnassignCommand;
 import edutrack.logic.parser.exceptions.ParseException;
-
-import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
