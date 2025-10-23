@@ -14,8 +14,8 @@ public class StatsCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_help_success() {
+    public void execute_stats_success() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, false, true);
-        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new StatsCommand(), model, expectedCommandResult, expectedModel);
     }
 }
