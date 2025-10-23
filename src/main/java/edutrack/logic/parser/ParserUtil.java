@@ -156,6 +156,12 @@ public class ParserUtil {
         return groupSet;
     }
 
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
     public static Note parseNote(String note) throws ParseException {
         requireNonNull(note);
         String trimmedNote = note.trim();

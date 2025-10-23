@@ -12,6 +12,9 @@ import edutrack.model.Model;
 import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 
+/**
+ * Creates a note for a person identified using it's displayed index from the address book.
+ */
 public class NoteCreateCommand extends Command {
 
     public static final String COMMAND_WORD = "note/create";
@@ -19,7 +22,7 @@ public class NoteCreateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a note to the student at the specified index.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            +  PREFIX_NOTE + "NOTE_CONTENT\n"
+            + PREFIX_NOTE + "NOTE_CONTENT\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NOTE + "Needs improvement in math.";
 
@@ -28,6 +31,12 @@ public class NoteCreateCommand extends Command {
     private final Index index;
     private final Note noteContent;
 
+    /**
+     * Creates a NoteCreateCommand to add the specified note to the person at the given index.
+     *
+     * @param index of the person in the filtered person list to edit the note
+     * @param note  of the person to be updated to
+     */
     public NoteCreateCommand(Index index, Note note) {
         requireNonNull(index);
         requireNonNull(note);
