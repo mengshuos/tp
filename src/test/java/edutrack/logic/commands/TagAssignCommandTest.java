@@ -25,24 +25,40 @@ public class TagAssignCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validTagAndIndex_success() {
+    public void execute_validTagAndIndex_success() throws Exception {
+        Model freshModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Tag tag = new Tag("UniquePhysicsTag123");
-        if (!model.hasTag(tag)) {
-            model.addTag(tag);
+        if (!freshModel.hasTag(tag)) {
+            freshModel.addTag(tag);
         }
 
-        TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
-
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToEdit = freshModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String expectedMessage = String.format(TagAssignCommand.MESSAGE_SUCCESS,
                 personToEdit.getName(), tag);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        if (!expectedModel.hasTag(tag)) {
-            expectedModel.addTag(tag);
-        }
+        // Create expected model and manually assign the tag
+        Model expectedModel = new ModelManager(freshModel.getAddressBook(), new UserPrefs());
+        Person editedPerson = new Person(
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getAddress(),
+                personToEdit.getTags(),
+                personToEdit.getGroups());
 
-        assertCommandSuccess(assignCommand, model, expectedMessage, expectedModel);
+        java.util.Set<Tag> updatedTags = new java.util.HashSet<>(editedPerson.getTags());
+        updatedTags.add(tag);
+        Person expectedPerson = new Person(
+                editedPerson.getName(),
+                editedPerson.getPhone(),
+                editedPerson.getEmail(),
+                editedPerson.getAddress(),
+                updatedTags,
+                editedPerson.getGroups());
+        expectedModel.setPerson(personToEdit, expectedPerson);
+
+        TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
+        assertCommandSuccess(assignCommand, freshModel, expectedMessage, expectedModel);
     }
 
     @Test

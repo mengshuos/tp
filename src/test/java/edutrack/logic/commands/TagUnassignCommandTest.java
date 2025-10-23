@@ -36,14 +36,26 @@ public class TagUnassignCommandTest {
         TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
         assignCommand.execute(freshModel);
 
-        // Then unassign it
-        TagUnassignCommand unassignCommand = new TagUnassignCommand(INDEX_FIRST_PERSON, tag);
+        // Get the person with the assigned tag
         Person personToEdit = freshModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String expectedMessage = String.format(TagUnassignCommand.MESSAGE_SUCCESS,
                 personToEdit.getName(), tag);
 
+        // Create expected model and manually unassign the tag
         Model expectedModel = new ModelManager(freshModel.getAddressBook(), new UserPrefs());
+        java.util.Set<Tag> updatedTags = new java.util.HashSet<>(personToEdit.getTags());
+        updatedTags.remove(tag);
+        Person expectedPerson = new Person(
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getAddress(),
+                updatedTags,
+                personToEdit.getGroups());
+        expectedModel.setPerson(personToEdit, expectedPerson);
 
+        // Then unassign it
+        TagUnassignCommand unassignCommand = new TagUnassignCommand(INDEX_FIRST_PERSON, tag);
         assertCommandSuccess(unassignCommand, freshModel, expectedMessage, expectedModel);
     }
 
