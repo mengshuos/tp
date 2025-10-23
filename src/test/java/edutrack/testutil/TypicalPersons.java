@@ -15,9 +15,12 @@ import static edutrack.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edutrack.model.AddressBook;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 
 /**
@@ -61,15 +64,42 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons and their associated groups.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+
+        // First, add all unique groups to the central list
+        Set<Group> allGroups = new HashSet<>();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            allGroups.addAll(person.getGroups());
+        }
+        for (Group group : allGroups) {
+            ab.addGroup(group);
+        }
+
+        // Then add persons with central group references
+        for (Person person : getTypicalPersons()) {
+            // Replace person's groups with central references
+            Set<Group> centralGroupRefs = new HashSet<>();
+            for (Group personGroup : person.getGroups()) {
+                centralGroupRefs.add(ab.getGroup(personGroup));
+            }
+
+            Person personWithCentralGroups = new Person(
+                    person.getName(),
+                    person.getPhone(),
+                    person.getEmail(),
+                    person.getAddress(),
+                    person.getTags(),
+                    centralGroupRefs
+            );
+
+            ab.addPerson(personWithCentralGroups);
         }
         return ab;
     }

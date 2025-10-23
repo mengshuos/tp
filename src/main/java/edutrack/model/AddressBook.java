@@ -122,6 +122,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the group from the address book that matches the given group.
+     * The group must exist in the address book.
+     */
+    public Group getGroup(Group group) {
+        requireNonNull(group);
+        return groups.get(group);
+    }
+
+    /**
+     * Removes {@code group} from this {@code AddressBook}.
+     * {@code group} must exist in the address book.
+     */
+    public void removeGroup(Group group) {
+        groups.remove(group);
+    }
+
+    /**
      * Replaces the given group {@code group} in the list with {@code editedGroup}.
      */
 
