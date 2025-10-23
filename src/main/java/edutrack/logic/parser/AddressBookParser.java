@@ -5,8 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edutrack.commons.core.LogsCenter;
-import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import edutrack.logic.commands.AddCommand;
 import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
@@ -23,14 +21,17 @@ import edutrack.logic.commands.GroupUnassignCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.commands.NoteCreateCommand;
-import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.commands.SortCommand;
+import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.commands.TagAssignCommand;
 import edutrack.logic.commands.TagCreateCommand;
 import edutrack.logic.commands.TagDeleteCommand;
 import edutrack.logic.commands.TagListCommand;
 import edutrack.logic.commands.TagUnassignCommand;
 import edutrack.logic.parser.exceptions.ParseException;
+
+import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
