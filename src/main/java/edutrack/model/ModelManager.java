@@ -221,6 +221,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortPersonList() {
+        addressBook.sortPersonList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
