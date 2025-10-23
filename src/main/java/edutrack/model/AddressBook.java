@@ -99,6 +99,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        // Add any groups that the person belongs to into the global group list
+        p.getGroups().forEach(group -> {
+            if (!groups.contains(group)) {
+                groups.add(group);
+            }
+        });
     }
 
     /**
@@ -118,6 +124,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes the given group from the address book.
+     * The group must exist in the address book.
+     */
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+        groups.remove(group);
     }
 
     /**
@@ -147,13 +162,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return groups.get(group);
     }
 
-    /**
-     * Removes {@code group} from this {@code AddressBook}.
-     * {@code group} must exist in the address book.
-     */
-    public void removeGroup(Group group) {
-        groups.remove(group);
-    }
 
 
     //// tag-level operations

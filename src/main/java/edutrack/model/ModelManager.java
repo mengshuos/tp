@@ -114,6 +114,8 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // Ensure any new groups added via the person are shown in the groups list
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
     }
 
     @Override
@@ -121,6 +123,17 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+
+        // Sync any new groups from the edited person into the master group list
+        for (Group group : editedPerson.getGroups()) {
+            if (!addressBook.hasGroup(group)) {
+                addressBook.addGroup(group);
+            }
+        }
+
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // Refresh group list so UI/clients see newly added groups
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -156,7 +169,9 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteGroup(Group group) {
+        requireNonNull(group);
         addressBook.removeGroup(group);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
     }
 
     @Override
