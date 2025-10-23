@@ -134,7 +134,13 @@ public class StatsWindow extends UiPart<Stage> {
             for (int i = 0; i < sortedTags.size(); i++) {
                 String tagName = sortedTags.get(i);
                 int count = tagCounts.get(tagName);
-                statsText.append("  ").append(i + 1).append(". ").append(tagName).append(": ").append(count).append("\n");
+                statsText.append("  ")
+                         .append(i + 1)
+                         .append(". ")
+                         .append(tagName)
+                         .append(": ")
+                         .append(count)
+                         .append("\n");
             }
         }
 
@@ -175,7 +181,13 @@ public class StatsWindow extends UiPart<Stage> {
                     for (int i = 0; i < sortedGroupTags.size(); i++) {
                         String tagName = sortedGroupTags.get(i);
                         int count = groupTagCounts.get(tagName);
-                        statsText.append("    ").append(i + 1).append(". ").append(tagName).append(": ").append(count).append("\n");
+                        statsText.append("    ")
+                                 .append(i + 1)
+                                 .append(". ")
+                                 .append(tagName)
+                                 .append(": ")
+                                 .append(count)
+                                 .append("\n");
                     }
                 }
             }
