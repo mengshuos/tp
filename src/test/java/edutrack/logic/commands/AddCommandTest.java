@@ -55,6 +55,32 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_personWithNonExistentGroup_throwsCommandException() {
+        Person personWithGroup = new PersonBuilder().withGroup("CS2103T").build();
+        AddCommand addCommand = new AddCommand(personWithGroup);
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+
+        assertThrows(CommandException.class, 
+                "Groups do not exist: CS2103T. Please create them first using group/create.", 
+                () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_personWithExistingGroup_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Group group = new Group("CS2103T");
+        modelStub.groupsAdded.add(group);
+
+        Person personWithGroup = new PersonBuilder().withGroup("CS2103T").build();
+        CommandResult commandResult = new AddCommand(personWithGroup).execute(modelStub);
+
+        assertEquals(1, modelStub.personsAdded.size());
+        // Verify person was added with central group reference
+        Person addedPerson = modelStub.personsAdded.get(0);
+        assertTrue(addedPerson.getGroups().contains(group));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
@@ -170,6 +196,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Group getGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Group> getFilteredGroupList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -213,6 +249,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Group> groupsAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -224,6 +261,21 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public boolean hasGroup(Group group) {
+            requireNonNull(group);
+            return groupsAdded.stream().anyMatch(group::equals);
+        }
+
+        @Override
+        public Group getGroup(Group group) {
+            requireNonNull(group);
+            return groupsAdded.stream()
+                    .filter(group::equals)
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Group should exist"));
         }
 
         @Override
