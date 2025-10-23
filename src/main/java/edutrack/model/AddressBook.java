@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueTagList tags;
     private final UniquePersonList persons;
     private final UniqueGroupList groups;
-    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,9 +31,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        tags = new UniqueTagList();
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
-        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -57,6 +57,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the group list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
+
+    /**
+     * Replaces the contents of the tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -68,6 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// person-level operations
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -138,13 +155,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         groups.remove(group);
     }
 
-    /**
-     * Replaces the given group {@code group} in the list with {@code editedGroup}.
-     */
-
-    public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
-    }
 
     //// tag-level operations
 
@@ -168,16 +178,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code tag} from this {@code AddressBook}.
      * {@code tag} must exist in the address book.
      */
-    public void removeTag(Tag key) {
+    public void deleteTag(Tag key) {
         tags.remove(key);
     }
 
-    /**
-     * Replaces the contents of the tag list with {@code tags}.
-     */
-    public void setTags(List<Tag> tags) {
-        this.tags.setTags(tags);
-    }
 
     //// util methods
 
