@@ -175,50 +175,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code tag} from this {@code AddressBook}.
+     * {@code tag} must exist in the address book.
      */
     public void deleteTag(Tag key) {
         tags.remove(key);
     }
 
-    @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asUnmodifiableObservableList();
-    }
-
-    //// tag-level operations
-
-    /**
-     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
-     */
-    public boolean hasTag(Tag tag) {
-        requireNonNull(tag);
-        return tags.contains(tag);
-    }
-
-    /**
-     * Adds a tag to the address book.
-     * The tag must not already exist in the address book.
-     */
-    public void addTag(Tag tag) {
-        tags.add(tag);
-    }
-
-    /**
-     * Removes {@code tag} from this {@code AddressBook}.
-     * {@code tag} must exist in the address book.
-     */
-    public void removeTag(Tag key) {
-        tags.remove(key);
-    }
-
-    /**
-     * Replaces the contents of the tag list with {@code tags}.
-     */
-    public void setTags(List<Tag> tags) {
-        this.tags.setTags(tags);
-    }
 
     //// util methods
 

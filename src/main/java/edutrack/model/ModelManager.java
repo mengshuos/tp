@@ -192,7 +192,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTag(Tag tag) {
-        addressBook.removeTag(tag);
+        addressBook.deleteTag(tag);
     }
 
     public ObservableList<Tag> getFilteredTagList() {

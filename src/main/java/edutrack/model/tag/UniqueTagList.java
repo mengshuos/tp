@@ -2,6 +2,7 @@ package edutrack.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import edutrack.model.tag.exceptions.TagNotFoundException;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
  * A tag is considered unique by comparing using {@code Tag#equals}.
  * Supports a minimal set of list operations.
  */
+public class UniqueTagList implements Iterable<Tag> {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
     private final ObservableList<Tag> internalUnmodifiableList =
@@ -36,16 +38,6 @@ import javafx.collections.ObservableList;
             throw new IllegalArgumentException("This tag already exists.");
         }
         internalList.add(toAdd);
-    }
-    /**
-     * Removes the equivalent tag from the list.
-     * The tag must exist in the list.
-     */
-    public void remove(Tag toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new TagNotFoundException();
-        }
     }
 
 
