@@ -28,6 +28,10 @@ public class Person {
     private final Set<Group> groups = new HashSet<>();
     private final Note note;
 
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Group> groups) {
+        this(name, phone, email, address, tags, groups, new Note(""));
+    }
+
     /**
      * Every field must be present and not null, except group which can be null.
      */
