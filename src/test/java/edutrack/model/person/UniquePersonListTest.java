@@ -1,6 +1,7 @@
 package edutrack.model.person;
 
 import static edutrack.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static edutrack.logic.commands.CommandTestUtil.VALID_GROUP_CS2101;
 import static edutrack.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static edutrack.testutil.Assert.assertThrows;
 import static edutrack.testutil.TypicalPersons.ALICE;
@@ -44,6 +45,13 @@ public class UniquePersonListTest {
         uniquePersonList.add(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
+        assertTrue(uniquePersonList.contains(editedAlice));
+    }
+
+    @Test
+    public void contains_personWithSameIdentityFieldsButDifferentGroups_returnsTrue() {
+        uniquePersonList.add(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withGroup(VALID_GROUP_CS2101).build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
 

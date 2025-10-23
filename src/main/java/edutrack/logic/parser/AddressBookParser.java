@@ -14,6 +14,9 @@ import edutrack.logic.commands.DeleteCommand;
 import edutrack.logic.commands.EditCommand;
 import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
+import edutrack.logic.commands.FindTagCommand;
+import edutrack.logic.commands.GroupCreateCommand;
+import edutrack.logic.commands.GroupListCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.commands.StatsCommand;
@@ -38,6 +41,7 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -63,6 +67,10 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            String args = arguments.trim();
+            if ("confirm".equals(args)) {
+                return new ClearCommand(true);
+            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
@@ -76,6 +84,15 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case GroupCreateCommand.COMMAND_WORD:
+            return new GroupCreateCommandParser().parse(arguments);
+
+        case GroupListCommand.COMMAND_WORD:
+            return new GroupListCommand();
+
+        case FindTagCommand.COMMAND_WORD:
+            return new FindTagCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();

@@ -5,8 +5,11 @@ import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static edutrack.logic.commands.CommandTestUtil.GROUP_DESC_CS2101;
+import static edutrack.logic.commands.CommandTestUtil.GROUP_DESC_CS2103T;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static edutrack.logic.commands.CommandTestUtil.INVALID_GROUP_DESC;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -20,6 +23,8 @@ import static edutrack.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static edutrack.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static edutrack.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static edutrack.logic.commands.CommandTestUtil.VALID_GROUP_CS2101;
+import static edutrack.logic.commands.CommandTestUtil.VALID_GROUP_CS2103T;
 import static edutrack.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -37,6 +42,7 @@ import org.junit.jupiter.api.Test;
 
 import edutrack.logic.Messages;
 import edutrack.logic.commands.AddCommand;
+import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
@@ -50,7 +56,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withGroup().build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -59,10 +65,29 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
+                .withGroup().build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleTags));
+    }
+
+    @Test
+    public void parse_groupFieldsPresent_success() {
+        // with one group
+        Person expectedPersonOneGroup = new PersonBuilder(BOB).withGroup(VALID_GROUP_CS2103T)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + GROUP_DESC_CS2103T,
+                new AddCommand(expectedPersonOneGroup));
+
+        // with multiple groups
+        Person expectedPersonMultipleGroups = new PersonBuilder(BOB)
+                .withGroup(VALID_GROUP_CS2103T, VALID_GROUP_CS2101)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
+                + GROUP_DESC_CS2103T + GROUP_DESC_CS2101,
+                new AddCommand(expectedPersonMultipleGroups));
     }
 
     @Test
@@ -132,19 +157,19 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new PersonBuilder(AMY).withTags().withGroup().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
 
-        Person expectedPersonWithNoPhone = new PersonBuilder(AMY).withPhone("").withTags().build();
+        Person expectedPersonWithNoPhone = new PersonBuilder(AMY).withPhone("").withTags().withGroup().build();
         assertParseSuccess(parser, NAME_DESC_AMY + "" + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithNoPhone));
 
-        Person expectedPersonWithNoEmail = new PersonBuilder(AMY).withEmail("").withTags().build();
+        Person expectedPersonWithNoEmail = new PersonBuilder(AMY).withEmail("").withTags().withGroup().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + "" + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithNoEmail));
 
-        Person expectedPersonWithNoAddress = new PersonBuilder(AMY).withAddress("").withTags().build();
+        Person expectedPersonWithNoAddress = new PersonBuilder(AMY).withAddress("").withTags().withGroup().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + "",
                 new AddCommand(expectedPersonWithNoAddress));
 
@@ -184,6 +209,10 @@ public class AddCommandParserTest {
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+
+        // invalid group
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_GROUP_DESC, Group.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,

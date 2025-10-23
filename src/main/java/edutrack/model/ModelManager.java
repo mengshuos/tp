@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 
 import edutrack.commons.core.GuiSettings;
 import edutrack.commons.core.LogsCenter;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
+import edutrack.model.tag.Tag;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -22,6 +24,10 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Tag> filteredTags;
+    private final FilteredList<Group> filteredGroups;
+
+    private boolean pendingClearConfirmation = false;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,9 +39,15 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
 
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredGroups = new FilteredList<>(this.addressBook.getGroupList());
+
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+    }
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
@@ -128,6 +140,60 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Groups =============================================================================
+
+    @Override
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return addressBook.hasGroup(group);
+    }
+
+    @Override
+    public void addGroup(Group group) {
+        addressBook.addGroup(group);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return filteredGroups;
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+        filteredGroups.setPredicate(predicate);
+    }
+
+    //=========== Tags =============================================================================
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return addressBook.hasTag(tag);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        addressBook.addTag(tag);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    @Override
+    public void deleteTag(Tag tag) {
+        addressBook.removeTag(tag);
+    }
+
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -142,7 +208,24 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredGroups.equals(otherModelManager.filteredGroups)
+                && filteredTags.equals(otherModelManager.filteredTags);
     }
 
+    //  pendingClearConfirmation methods
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public void setPendingClearConfirmation(boolean isPending) {
+        this.pendingClearConfirmation = isPending;
+    }
+
+    /**
+     * Returns true if a clear command is pending confirmation.
+     */
+    @Override
+    public boolean isPendingClearConfirmation() {
+        return pendingClearConfirmation;
+    }
 }

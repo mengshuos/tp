@@ -5,8 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import edutrack.commons.util.ToStringBuilder;
+import edutrack.model.group.Group;
+import edutrack.model.group.UniqueGroupList;
 import edutrack.model.person.Person;
 import edutrack.model.person.UniquePersonList;
+import edutrack.model.tag.Tag;
+import edutrack.model.tag.UniqueTagList;
 import javafx.collections.ObservableList;
 
 /**
@@ -16,6 +20,8 @@ import javafx.collections.ObservableList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueGroupList groups;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        groups = new UniqueGroupList();
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -55,10 +63,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setGroups(List.copyOf(newData.getGroupList()));
+        setTags(List.copyOf(newData.getTagList()));
     }
 
     //// person-level operations
-
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -94,6 +103,65 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns true if a group with the same identity as {@code group} exists in the address book.
+     */
+
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return groups.contains(group);
+    }
+
+    /**
+     * Adds a group to the address book.
+     * The group must not already exist in the address book.
+     */
+
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
+     * Replaces the given group {@code group} in the list with {@code editedGroup}.
+     */
+
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
+
+    //// tag-level operations
+
+    /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a tag to the address book.
+     * The tag must not already exist in the address book.
+     */
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Removes {@code tag} from this {@code AddressBook}.
+     * {@code tag} must exist in the address book.
+     */
+    public void removeTag(Tag key) {
+        tags.remove(key);
+    }
+
+    /**
+     * Replaces the contents of the tag list with {@code tags}.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
     //// util methods
 
     @Override
@@ -109,6 +177,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -118,13 +196,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (!(other instanceof AddressBook)) {
             return false;
         }
-
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+                && groups.equals(otherAddressBook.groups)
+                && tags.equals(otherAddressBook.tags);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() * 31 + groups.hashCode() * 17 + tags.hashCode();
     }
+
 }
