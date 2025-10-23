@@ -53,7 +53,7 @@ class JsonAdaptedPerson {
         if (groups != null) {
             this.groups.addAll(groups);
         }
-        this.note = note;
+        this.note = (note == null) ? "" : note;
     }
 
     /**
@@ -70,7 +70,7 @@ class JsonAdaptedPerson {
         groups.addAll(source.getGroups().stream()
                 .map(JsonAdaptedGroup::new)
                 .collect(Collectors.toList()));
-        note = source.getNote().value;
+        this.note = (source.getNote() == null) ? "" : source.getNote().value;
     }
 
     /**
@@ -123,7 +123,13 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<Group> modelGroups = new HashSet<>(personGroups);
+
+        assert note != null : "Note field should not be null";
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
+        }
         final Note modelNote = new Note(note);
+
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelGroups, modelNote);
     }
 
