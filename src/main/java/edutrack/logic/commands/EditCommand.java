@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import edutrack.commons.core.index.Index;
 import edutrack.commons.util.CollectionUtil;
@@ -54,6 +55,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_GROUP_NOT_FOUND =
+            "Groups do not exist: %s. Please create them first using group/create.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -86,9 +89,39 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        // Validate all groups exist in the model and get central references
+        Set<Group> nonExistentGroups = new HashSet<>();
+        Set<Group> centralGroups = new HashSet<>();
+
+        for (Group group : editedPerson.getGroups()) {
+            if (!model.hasGroup(group)) {
+                nonExistentGroups.add(group);
+            } else {
+                // Get the centrally tracked Group object
+                centralGroups.add(model.getGroup(group));
+            }
+        }
+
+        if (!nonExistentGroups.isEmpty()) {
+            String groupNames = nonExistentGroups.stream()
+                    .map(g -> g.groupName)
+                    .collect(Collectors.joining(", "));
+            throw new CommandException(String.format(MESSAGE_GROUP_NOT_FOUND, groupNames));
+        }
+
+        // Create person with centrally tracked groups
+        Person personWithCentralGroups = new Person(
+                editedPerson.getName(),
+                editedPerson.getPhone(),
+                editedPerson.getEmail(),
+                editedPerson.getAddress(),
+                editedPerson.getTags(),
+                centralGroups
+        );
+
+        model.setPerson(personToEdit, personWithCentralGroups);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(personWithCentralGroups)));
     }
 
     /**
