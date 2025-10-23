@@ -60,9 +60,9 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(personWithGroup);
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
 
-        assertThrows(CommandException.class, 
-                "Groups do not exist: CS2103T. Please create them first using group/create.", 
-                () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                "Groups do not exist: CS2103T. Please create them first using group/create.", (
+                ) -> addCommand.execute(modelStub));
     }
 
     @Test

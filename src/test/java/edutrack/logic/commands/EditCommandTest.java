@@ -126,7 +126,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withGroups("NonExistentGroup").build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        assertCommandFailure(editCommand, model, 
+        assertCommandFailure(editCommand, model,
                 "Groups do not exist: NonExistentGroup. Please create them first using group/create.");
     }
 
