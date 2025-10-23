@@ -20,13 +20,17 @@ public class TagDeleteCommandTest {
 
     @Test
     public void execute_existingTag_success() {
-        Tag tagToDelete = new Tag("Physics");
-        model.addTag(tagToDelete);
+        Tag tagToDelete = new Tag("UniqueDeleteTag123");
+        if (!model.hasTag(tagToDelete)) {
+            model.addTag(tagToDelete);
+        }
         TagDeleteCommand tagDeleteCommand = new TagDeleteCommand(tagToDelete);
 
         String expectedMessage = String.format(TagDeleteCommand.MESSAGE_SUCCESS, tagToDelete);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addTag(tagToDelete);
+        if (!expectedModel.hasTag(tagToDelete)) {
+            expectedModel.addTag(tagToDelete);
+        }
         expectedModel.deleteTag(tagToDelete);
 
         assertCommandSuccess(tagDeleteCommand, model, expectedMessage, expectedModel);

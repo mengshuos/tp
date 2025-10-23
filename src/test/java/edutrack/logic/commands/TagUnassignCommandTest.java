@@ -25,27 +25,26 @@ public class TagUnassignCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validTagAndIndex_success() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+    public void execute_validTagAndIndex_success() throws Exception {
+        Model freshModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Tag tag = new Tag("UniqueUnassignTag123");
+        if (!freshModel.hasTag(tag)) {
+            freshModel.addTag(tag);
+        }
 
         // First assign the tag
         TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
-        try {
-            assignCommand.execute(model);
-        } catch (Exception e) {
-            // Setup failed
-        }
+        assignCommand.execute(freshModel);
 
         // Then unassign it
         TagUnassignCommand unassignCommand = new TagUnassignCommand(INDEX_FIRST_PERSON, tag);
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToEdit = freshModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String expectedMessage = String.format(TagUnassignCommand.MESSAGE_SUCCESS,
                 personToEdit.getName(), tag);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(freshModel.getAddressBook(), new UserPrefs());
 
-        assertCommandSuccess(unassignCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unassignCommand, freshModel, expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,8 +57,10 @@ public class TagUnassignCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+        Tag tag = new Tag("UniqueUnassignTag456");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
 
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         TagUnassignCommand unassignCommand = new TagUnassignCommand(outOfBoundIndex, tag);
@@ -69,8 +70,10 @@ public class TagUnassignCommandTest {
 
     @Test
     public void execute_tagNotAssigned_throwsCommandException() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+        Tag tag = new Tag("UniqueUnassignTag789");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
 
         TagUnassignCommand unassignCommand = new TagUnassignCommand(INDEX_FIRST_PERSON, tag);
         assertCommandFailure(unassignCommand, model, TagUnassignCommand.MESSAGE_TAG_NOT_ASSIGNED);

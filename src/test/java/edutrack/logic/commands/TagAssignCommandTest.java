@@ -22,12 +22,14 @@ import edutrack.model.tag.Tag;
  */
 public class TagAssignCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validTagAndIndex_success() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+        Tag tag = new Tag("UniquePhysicsTag123");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
 
         TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
 
@@ -36,8 +38,9 @@ public class TagAssignCommandTest {
                 personToEdit.getName(), tag);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addTag(tag);
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        if (!expectedModel.hasTag(tag)) {
+            expectedModel.addTag(tag);
+        }
 
         assertCommandSuccess(assignCommand, model, expectedMessage, expectedModel);
     }
@@ -52,8 +55,10 @@ public class TagAssignCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+        Tag tag = new Tag("UniquePhysicsTag456");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
 
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         TagAssignCommand assignCommand = new TagAssignCommand(outOfBoundIndex, tag);
@@ -63,11 +68,12 @@ public class TagAssignCommandTest {
 
     @Test
     public void execute_duplicateTag_throwsCommandException() {
-        Tag tag = new Tag("Physics");
-        model.addTag(tag);
+        Tag tag = new Tag("UniquePhysicsTag789");
+        if (!model.hasTag(tag)) {
+            model.addTag(tag);
+        }
 
         // Assign tag first time
-        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         TagAssignCommand firstAssign = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
 
         try {
