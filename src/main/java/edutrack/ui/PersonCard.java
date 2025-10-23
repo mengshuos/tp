@@ -42,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private FlowPane groups;
+    @FXML
+    private Label note;
 
 
     /**
@@ -61,5 +63,6 @@ public class PersonCard extends UiPart<Region> {
         person.getGroups().stream()
                 .sorted(Comparator.comparing(group -> group.groupName))
                 .forEach(group -> groups.getChildren().add(new Label(group.groupName)));
+        note.setText(person.getNote().value);
     }
 }

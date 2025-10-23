@@ -7,6 +7,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
@@ -21,6 +22,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "";
     public static final String DEFAULT_EMAIL = "";
     public static final String DEFAULT_ADDRESS = "";
+    public static final String DEFAULT_NOTE = "";
 
     private Name name;
     private Phone phone;
@@ -28,6 +30,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Group> groups;
     private Set<Tag> tags;
+    private Note note;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -39,6 +42,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         groups = new HashSet<>();
         tags = new HashSet<>();
+        note = new Note(DEFAULT_NOTE);
     }
 
     /**
@@ -51,6 +55,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
         groups = new HashSet<>(personToCopy.getGroups());
+        note = personToCopy.getNote();
     }
 
     /**
@@ -101,8 +106,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Note} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNote(String note) {
+        this.note = new Note(note);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags, groups);
+        return new Person(name, phone, email, address, tags, groups, note);
     }
 
 }
