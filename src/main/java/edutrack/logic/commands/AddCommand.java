@@ -8,10 +8,15 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import edutrack.commons.util.ToStringBuilder;
 import edutrack.logic.Messages;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.model.Model;
+import edutrack.model.group.Group;
 import edutrack.model.person.Person;
 
 /**
@@ -42,6 +47,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_GROUP_NOT_FOUND =
+            "Groups do not exist: %s. Please create them first using group/create.";
 
     private final Person toAdd;
 
@@ -61,8 +68,38 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        // Validate all groups exist in the model and get central references
+        Set<Group> nonExistentGroups = new HashSet<>();
+        Set<Group> centralGroups = new HashSet<>();
+
+        for (Group group : toAdd.getGroups()) {
+            if (!model.hasGroup(group)) {
+                nonExistentGroups.add(group);
+            } else {
+                // Get the centrally tracked Group object
+                centralGroups.add(model.getGroup(group));
+            }
+        }
+
+        if (!nonExistentGroups.isEmpty()) {
+            String groupNames = nonExistentGroups.stream()
+                    .map(g -> g.groupName)
+                    .collect(Collectors.joining(", "));
+            throw new CommandException(String.format(MESSAGE_GROUP_NOT_FOUND, groupNames));
+        }
+
+        // Create person with centrally tracked groups
+        Person personWithCentralGroups = new Person(
+                toAdd.getName(),
+                toAdd.getPhone(),
+                toAdd.getEmail(),
+                toAdd.getAddress(),
+                toAdd.getTags(),
+                centralGroups
+        );
+
+        model.addPerson(personWithCentralGroups);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personWithCentralGroups)));
     }
 
     @Override
