@@ -54,6 +54,7 @@ public class CommandResult {
     public boolean isShowStats() {
         return showStats;
     }
+    
 
     @Override
     public boolean equals(Object other) {

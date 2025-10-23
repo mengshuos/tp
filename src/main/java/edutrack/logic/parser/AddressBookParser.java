@@ -1,13 +1,12 @@
 package edutrack.logic.parser;
 
-import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edutrack.commons.core.LogsCenter;
+import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import edutrack.logic.commands.AddCommand;
 import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
@@ -17,6 +16,7 @@ import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
+import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,6 +76,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

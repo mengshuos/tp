@@ -3,17 +3,17 @@ package edutrack.logic.commands;
 import org.junit.jupiter.api.Test;
 
 import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static edutrack.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static edutrack.logic.commands.StatsCommand.MESSAGE_SUCCESS;
 import edutrack.model.Model;
 import edutrack.model.ModelManager;
 
-public class HelpCommandTest {
+public class StatsCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, false, true);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }
