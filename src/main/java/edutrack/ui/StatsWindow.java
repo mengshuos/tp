@@ -3,6 +3,7 @@ package edutrack.ui;
 import java.util.logging.Logger;
 
 import edutrack.commons.core.LogsCenter;
+import edutrack.logic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -12,29 +13,31 @@ import javafx.stage.Stage;
  */
 public class StatsWindow extends UiPart<Stage> {
 
-    public static final String STATS_MESSAGE = "Showing student statistics...";
-
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
 
     @FXML
     private Label statsMessage;
 
+    private final Logic logic;
+
     /**
-     * Creates a new HelpWindow.
+     * Creates a new StatsWindow.
      *
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param root Stage to use as the root of the StatsWindow.
+     * @param logic Logic to access data for statistics.
      */
-    public StatsWindow(Stage root) {
+    public StatsWindow(Stage root, Logic logic) {
         super(FXML, root);
-        statsMessage.setText(STATS_MESSAGE);
+        this.logic = logic;
+        updateStatsDisplay();
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new StatsWindow.
      */
-    public StatsWindow() {
-        this(new Stage());
+    public StatsWindow(Logic logic) {
+        this(new Stage(), logic);
     }
 
     /**
@@ -80,6 +83,21 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Updates the statistics display with current data.
+     */
+    private void updateStatsDisplay() {
+        StringBuilder statsText = new StringBuilder();
+        
+        // Get total number of groups
+        int totalGroups = logic.getAddressBook().getGroupList().size();
+        
+        statsText.append("=== TOTAL STATS ===\n");
+        statsText.append("Total Groups: ").append(totalGroups).append("\n");
+        
+        statsMessage.setText(statsText.toString());
     }
 
 }

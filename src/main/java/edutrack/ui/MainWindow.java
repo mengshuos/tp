@@ -66,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statsWindow = new StatsWindow();
+        statsWindow = new StatsWindow(logic);
     }
 
     public Stage getPrimaryStage() {
