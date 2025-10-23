@@ -1,5 +1,10 @@
 package edutrack.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import edutrack.commons.core.LogsCenter;
@@ -97,11 +102,41 @@ public class StatsWindow extends UiPart<Stage> {
     private void updateStatsDisplay() {
         StringBuilder statsText = new StringBuilder();
         
-        // Get total number of groups
-        int totalGroups = logic.getAddressBook().getGroupList().size();
+        // Get all persons and groups
+        var personList = logic.getAddressBook().getPersonList();
+        int totalStudents = personList.size();
         
+        // Collect all tags and count them
+        Map<String, Integer> tagCounts = new HashMap<>();
+        for (var person : personList) {
+            for (var tag : person.getTags()) {
+                String tagName = tag.tagName.toLowerCase(); // Case-insensitive counting
+                tagCounts.put(tagName, tagCounts.getOrDefault(tagName, 0) + 1);
+            }
+        }
+        
+        // Debug: Log tag information
+        logger.info("Found " + tagCounts.size() + " unique tags: " + tagCounts.keySet());
+        
+        // Sort tags alphabetically
+        List<String> sortedTags = new ArrayList<>(tagCounts.keySet());
+        Collections.sort(sortedTags);
+        
+        // Build the statistics text
         statsText.append("=== TOTAL STATS ===\n");
-        statsText.append("Total Groups: ").append(totalGroups).append("\n");
+        statsText.append("Total Students: ").append(totalStudents).append("\n");
+        statsText.append("Total Unique Tags in use: ").append(tagCounts.size()).append("\n");
+        statsText.append("Tags in use:\n");
+        
+        if (sortedTags.isEmpty()) {
+            statsText.append("  (No tags found)\n");
+        } else {
+            for (int i = 0; i < sortedTags.size(); i++) {
+                String tagName = sortedTags.get(i);
+                int count = tagCounts.get(tagName);
+                statsText.append("  ").append(i + 1).append(". ").append(tagName).append(": ").append(count).append("\n");
+            }
+        }
         
         statsMessage.setText(statsText.toString());
     }
