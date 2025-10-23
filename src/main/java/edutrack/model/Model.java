@@ -104,6 +104,10 @@ public interface Model {
     // Groups API
     boolean hasGroup(Group group);
     void addGroup(Group group);
+    /**
+     * Deletes the given group.
+     * The group must exist in the address book.
+     */
     void deleteGroup(Group group);
     Group getGroup(Group group);
     ObservableList<Group> getFilteredGroupList();

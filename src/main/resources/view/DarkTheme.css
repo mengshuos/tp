@@ -1,6 +1,16 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #247ba7; /* Used in the default.html file */
+}
+
+/* Main window background */
+.root {
+    -fx-background-color: #247ba7;
+}
+
+/* Alternative: Scene background */
+.scene {
+    -fx-background-color: #247ba7;
 }
 
 .label {
