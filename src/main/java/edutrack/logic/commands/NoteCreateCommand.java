@@ -13,7 +13,7 @@ import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 
 /**
- * Creates a note for a person identified using it's displayed index from the address book.
+ * Creates a note for a person identified using its displayed index from the address book.
  */
 public class NoteCreateCommand extends Command {
 

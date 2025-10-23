@@ -26,7 +26,7 @@ public class Note {
      */
     public Note(String note) {
         requireNonNull(note);
-        value = (note == null || note.isEmpty()) ? "" : note;
+        value = note.isEmpty() ? "" : note;
         if (!isValidNote(value)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }

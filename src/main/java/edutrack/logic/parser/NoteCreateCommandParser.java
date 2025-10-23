@@ -10,7 +10,7 @@ import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.person.Note;
 
 /**
- * Parses input arguments and creates a newNoteCreateCommand object
+ * Parses input arguments and creates a new NoteCreateCommand object
  */
 
 public class NoteCreateCommandParser implements Parser<NoteCreateCommand> {
