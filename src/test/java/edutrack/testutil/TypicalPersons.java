@@ -102,13 +102,7 @@ public class TypicalPersons {
             // Replace person's tags with central references
             Set<edutrack.model.tag.Tag> centralTagRefs = new HashSet<>();
             for (edutrack.model.tag.Tag personTag : person.getTags()) {
-                // Find the central tag reference
-                for (edutrack.model.tag.Tag centralTag : allTags) {
-                    if (centralTag.equals(personTag)) {
-                        centralTagRefs.add(centralTag);
-                        break;
-                    }
-                }
+                centralTagRefs.add(ab.getTag(personTag));
             }
 
             Person personWithCentralRefs = new Person(
