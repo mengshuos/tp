@@ -26,7 +26,7 @@ public class TagDeleteCommandTest {
         }
         TagDeleteCommand tagDeleteCommand = new TagDeleteCommand(tagToDelete);
 
-        String expectedMessage = String.format(TagDeleteCommand.MESSAGE_SUCCESS, tagToDelete);
+        String expectedMessage = String.format(TagDeleteCommand.MESSAGE_SUCCESS, tagToDelete, 0);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         if (!expectedModel.hasTag(tagToDelete)) {
             expectedModel.addTag(tagToDelete);

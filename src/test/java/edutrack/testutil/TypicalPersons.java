@@ -68,7 +68,7 @@ public class TypicalPersons {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons and their associated groups.
+     * Returns an {@code AddressBook} with all the typical persons and their associated groups and tags.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
@@ -80,6 +80,15 @@ public class TypicalPersons {
         }
         for (Group group : allGroups) {
             ab.addGroup(group);
+        }
+
+        // Add all unique tags to the central list
+        Set<edutrack.model.tag.Tag> allTags = new HashSet<>();
+        for (Person person : getTypicalPersons()) {
+            allTags.addAll(person.getTags());
+        }
+        for (edutrack.model.tag.Tag tag : allTags) {
+            ab.addTag(tag);
         }
 
         // Then add persons with central group references

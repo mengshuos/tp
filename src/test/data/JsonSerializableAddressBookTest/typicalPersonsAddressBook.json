@@ -1,6 +1,7 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "groups" : [ "CS2030S", "CS2040S", "CS2101", "CS2103T" ],
+  "tags" : [ "friends", "owesMoney" ],
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
