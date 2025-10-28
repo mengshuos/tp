@@ -256,8 +256,6 @@ Exits the program.
 
 Format: `exit`
 
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ### Create Group: `group/create`
@@ -266,16 +264,9 @@ Creates a new group with a specified name.
 
 Format: `group/create g/GROUP_NAME`
 
-<<<<<<< HEAD
 #### Notes
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
->* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
-=======
-`group/create g/GROUP_NAME`
-
-* `GROUP_NAME` refers to the name you wish to assign to the group.
-* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.
->>>>>>> a90bb7c2862e51e5b02928c186d8f0a130234fd3
+>* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.​
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
@@ -300,14 +291,12 @@ Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 #### Notes:
 > If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
 
-### Unassign Group: `group/unassign`
 --------------------------------------------------------------------------------------------------------------------
+### Unassign Group: `group/unassign`
 
 Removes one or more contacts from a specified group.
 
-Format:
-
-`group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+Format: `group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -447,6 +436,8 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen.
    * The remedy is to delete the `preferences.json` file created by the application before running the application again.
+3. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear.
+   * The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
