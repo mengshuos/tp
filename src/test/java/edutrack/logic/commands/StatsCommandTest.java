@@ -149,7 +149,7 @@ public class StatsCommandTest {
         Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         CommandResult result1 = new StatsCommand().execute(testModel);
         CommandResult result2 = new StatsCommand().execute(testModel);
-        
+
         // Verify both results have same properties
         assert result1.getFeedbackToUser().equals(result2.getFeedbackToUser());
         assert result1.isShowStats() == result2.isShowStats();
