@@ -149,6 +149,9 @@ public class MainWindow extends UiPart<Stage> {
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
+        } else if (helpWindow.isIconified()) {
+            helpWindow.setIconified(false);
+            helpWindow.focus();
         } else {
             helpWindow.focus();
         }
@@ -175,14 +178,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the stats window, closing any existing one first to ensure fresh data.
+     * Opens the stats window or focuses on it if it's already opened.
      */
     @FXML
     public void handleStats() {
-        if (statsWindow.isShowing()) {
-            statsWindow.hide();
+        if (!statsWindow.isShowing()) {
+            statsWindow.show();
+        } else if (statsWindow.isIconified()) {
+            statsWindow.setIconified(false);
+            statsWindow.focus();
+        } else {
+            // Window is already showing and visible, refresh the data and refocus
+            statsWindow.show(); // This will call updateStatsDisplay internally
+            statsWindow.focus();
         }
-        statsWindow.show();
     }
 
     /**
