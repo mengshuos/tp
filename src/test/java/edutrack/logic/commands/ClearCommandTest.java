@@ -103,7 +103,7 @@ public class ClearCommandTest {
 
         // First clear cycle
         assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_CONFIRMATION_REQUEST);
-        assertCommandSuccess(new ClearCommand(true), model, ClearCommand.MESSAGE_SUCCESS, 
+        assertCommandSuccess(new ClearCommand(true), model, ClearCommand.MESSAGE_SUCCESS,
                 new ModelManager(new AddressBook(), new UserPrefs()));
 
         // Add some persons back
