@@ -90,6 +90,20 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns true if the help window is currently iconified (minimized).
+     */
+    public boolean isIconified() {
+        return getRoot().isIconified();
+    }
+
+    /**
+     * Sets the iconified (minimized) state of the help window.
+     */
+    public void setIconified(boolean iconified) {
+        getRoot().setIconified(iconified);
+    }
+
+    /**
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML

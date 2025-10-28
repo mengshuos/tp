@@ -268,6 +268,7 @@ Deletes an existing group and removes all group assignments from associated cont
 Format:
 
 `group/delete g/GROUP_NAME`
+
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
@@ -276,6 +277,7 @@ Displays all existing groups.
 Format:
 
 `group/list`
+
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
 
@@ -286,6 +288,7 @@ If the specified group does not exist, EduTrack will prompt you to create it fir
 Format:
 
 `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Group: `group/unassign`
 
