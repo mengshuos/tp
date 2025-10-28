@@ -38,6 +38,9 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
+      * [Stats: `stats`](#unassign-tag-tagunassign)
+      * [Sorting: `sort`](#unassign-tag-tagunassign)
+      * [Notes: `notes`](#unassign-tag-tagunassign)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -237,7 +240,14 @@ Format: `delete INDEX`
 
 Clears all entries from the address book.
 
-Format: `clear`
+Format: 
+- `clear` (on first use)
+- `clear confirm` (after already typing `clear` once and hitting 'Enter')
+
+#### Notes:
+> - As a safeguard for users who may accidentally and unintentionally clear all the data, you need to type `clear confirm` to confirm your intent to delete the data, after you type and use the command `clear`
+> - If you try to type `clear confirm` before having typed `clear` at least once, you will be prompted to first initiate the clear
+> - If you type `clear` once, and you type and use any other command, and then type `clear confirm`, it will not ask you
 
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
@@ -255,43 +265,37 @@ Format: `exit`
 
 Creates a new group with a specified name.
 
-Format:
+Format: `group/create g/GROUP_NAME`
 
-`group/create g/GROUP_NAME`
-
-* `GROUP_NAME` refers to the name you wish to assign to the group.
-* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+#### Notes
+>* `GROUP_NAME` refers to the name you wish to assign to the group.
+>* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
 Deletes an existing group and removes all group assignments from associated contacts.
 
-Format:
-
-`group/delete g/GROUP_NAME`
+Format: `group/delete g/GROUP_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
 Displays all existing groups.
 
-Format:
-
-`group/list`
+Format: `group/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
 
 Assigns one or more existing contacts to a specified group.
 
-If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
+Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
-Format:
+#### Notes:
+> If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
 
-`group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
-
---------------------------------------------------------------------------------------------------------------------
 ### Unassign Group: `group/unassign`
+--------------------------------------------------------------------------------------------------------------------
 
 Removes one or more contacts from a specified group.
 
@@ -302,30 +306,25 @@ Removes one or more contacts from a specified group.
 
 Creates a new tag with a specified name.
 
-Format:
+Format: `tag/create t/TAG_NAME`
 
-`tag/create t/TAG_NAME`
-
-* `TAG_NAME` refers to the name you wish to assign to the tag.
-* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+#### Notes:
+>* `TAG_NAME` refers to the name you wish to assign to the tag.
+>* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
 
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`
 
 Deletes an existing tag and removes all tag assignments from associated contacts.
 
-Format:
-
-`tag/delete t/TAG_NAME`
+Format: `tag/delete t/TAG_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Tags: `tag/list`
 
 Displays all existing tags.
 
-Format:
-
-`tag/list`
+Format: `tag/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Tag: `tag/assign`
@@ -334,38 +333,68 @@ Assigns an existing tag to a specified contact.
 
 If the specified tag does not exist, EduTrack will prompt you to create it first using `tag/create`.
 
-Format:
+Format: `tag/assign INDEX t/TAG_NAME`
 
-`tag/assign INDEX t/TAG_NAME`
-
-* Assigns the tag `TAG_NAME` to the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The tag must already exist in the system.
+#### Notes:
+> * Assigns the tag `TAG_NAME` to the contact at the specified `INDEX`.
+> * The index refers to the index number shown in the displayed person list.
+> * The index **must be a positive integer** 1, 2, 3, …​
+> * The tag must already exist in the system.
 
 #### Examples:
-* `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
-* `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
+> * `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
+> * `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Tag: `tag/unassign`
-| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T`                             |
+
+Unassigns an existing tag from a specified contact.
+
+Format: `tag/unassign INDEX t/TAG_NAME`
+
+#### Notes:
+> * Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
+> * The index refers to the index number shown in the displayed person list.
+> * The index **must be a positive integer** 1, 2, 3, …​
+> * The tag must currently be assigned to the person.
+
+#### Examples
+> * `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
+> * `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
 
 
-| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`        |
-Format:
-`tag/unassign INDEX t/TAG_NAME`
+--------------------------------------------------------------------------------------------------------------------
+### Stats: `stats`
 
-* Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The tag must currently be assigned to the person.
+Displays student statistics.
 
-| **Create Tag**      | Make a new tag.                                          | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                           |
-* `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
-* `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
+Format: `stats`
 
-Format:
+--------------------------------------------------------------------------------------------------------------------
+
+### Sort: `sort`
+
+Sorts students in (ascending) alphabetical order.
+
+Format: `sort`
+
+#### Notes:
+> PLACEHOLDER
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Notes: `notes`
+
+Displays notes about particular students.
+
+Format: `<<PLACEHOLDER>>`
+
+#### Notes:
+> PLACEHOLDER
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Other functionality
 
 ### Saving the data
@@ -409,8 +438,6 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen.
    * The remedy is to delete the `preferences.json` file created by the application before running the application again.
-3. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear.
-   * The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -435,6 +462,11 @@ _Details coming soon ..._
 | **Assign Tag**      | Assign a tag to a contact.                               | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                             |
 | **Unassign Tag**    | Remove a tag from a contact.                             | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                         |
 | **List Tag**        | Show all existing tags.                                  | `tag/list`                                                                                           |
+| **Stats**        | Show all student statistics.                                  | `stats`                                                                                           |
 | **List**            | Show all contacts.                                       | `list`                                                                                                |
 | **Help**            | Display help information.                                | `help`                                                                                                |
+| **Sort**            | <<\PLACEHOLDER>>                                | `sort`                                                                                                |
+| **Notes**            | <<\PLACEHOLDER>>                                | `<<PLACEHOLDER>>`                                                                                                |
+
+
 
