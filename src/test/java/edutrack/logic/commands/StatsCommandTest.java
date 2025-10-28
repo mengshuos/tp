@@ -46,7 +46,9 @@ public class StatsCommandTest {
         new StatsCommand().execute(modelWithHumanData);
 
         // Verify the model state remains unchanged
-        assert modelWithHumanData.getFilteredPersonList().size() == expectedModelWithData.getFilteredPersonList().size();
+        assert modelWithHumanData.getFilteredPersonList()
+                                 .size() == expectedModelWithData.getFilteredPersonList()
+                                                                 .size();
         assert modelWithHumanData.getAddressBook().equals(expectedModelWithData.getAddressBook());
     }
 
