@@ -38,6 +38,9 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
+      * [Stats: `stats`](#unassign-tag-tagunassign)
+      * [Sorting: `sort`](#unassign-tag-tagunassign)
+      * [Notes: `notes`](#unassign-tag-tagunassign)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -284,11 +287,10 @@ Format:
 
 Assigns one or more existing contacts to a specified group.
 
-If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
+Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
-Format:
-
-`group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+#### Notes:
+> If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Group: `group/unassign`
@@ -302,30 +304,25 @@ Removes one or more contacts from a specified group.
 
 Creates a new tag with a specified name.
 
-Format:
+Format: `tag/create t/TAG_NAME`
 
-`tag/create t/TAG_NAME`
-
-* `TAG_NAME` refers to the name you wish to assign to the tag.
-* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+#### Notes:
+>* `TAG_NAME` refers to the name you wish to assign to the tag.
+>* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
 
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`
 
 Deletes an existing tag and removes all tag assignments from associated contacts.
 
-Format:
-
-`tag/delete t/TAG_NAME`
+Format: `tag/delete t/TAG_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Tags: `tag/list`
 
-Displays all existing tag in the chat box.
+Displays all existing tags.
 
-Format:
-
-`tag/list`
+Format: `tag/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Tag: `tag/assign`
@@ -334,36 +331,65 @@ Assigns an existing tag to a specified contact.
 
 If the specified tag does not exist, EduTrack will prompt you to create it first using `tag/create`.
 
-Format:
+Format: `tag/assign INDEX t/TAG_NAME`
 
-`tag/assign INDEX t/TAG_NAME`
-
-* Assigns the tag `TAG_NAME` to the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The tag must already exist in the system.
+#### Notes:
+> * Assigns the tag `TAG_NAME` to the contact at the specified `INDEX`.
+> * The index refers to the index number shown in the displayed person list.
+> * The index **must be a positive integer** 1, 2, 3, …​
+> * The tag must already exist in the system.
 
 #### Examples:
-* `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
-* `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
+> * `tag/assign 1 t/needs_help` assigns the tag `needs_help` to the 1st person in the list.
+> * `tag/assign 3 t/weak` assigns the tag `weak` to the 3rd person in the list.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Tag: `tag/unassign`
 
-Unassigns an existing tag to a specified contact.
+Unassigns an existing tag from a specified contact.
 
-Format:
+Format: `tag/unassign INDEX t/TAG_NAME`
 
-`tag/unassign INDEX t/TAG_NAME`
+#### Notes:
+> * Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
+> * The index refers to the index number shown in the displayed person list.
+> * The index **must be a positive integer** 1, 2, 3, …​
+> * The tag must currently be assigned to the person.
 
-* Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The tag must currently be assigned to the person.
+#### Examples
+> * `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
+> * `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
 
-#### Examples:
-* `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
-* `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
+
+--------------------------------------------------------------------------------------------------------------------
+### Stats: `stats`
+
+Displays student statistics.
+
+Format: `stats`
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Sort: `sort`
+
+Sorts students in (ascending) alphabetical order.
+
+Format: `sort`
+
+#### Notes:
+> PLACEHOLDER
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Notes: `notes`
+
+Displays notes about particular students.
+
+Format: `<<PLACEHOLDER>>`
+
+#### Notes:
+> PLACEHOLDER
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -436,6 +462,11 @@ _Details coming soon ..._
 | **Assign Tag**      | Assign a tag to a contact.                               | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                             |
 | **Unassign Tag**    | Remove a tag from a contact.                             | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                         |
 | **List Tag**        | Show all existing tags.                                  | `tag/list`                                                                                           |
+| **Stats**        | Show all student statistics.                                  | `stats`                                                                                           |
 | **List**            | Show all contacts.                                       | `list`                                                                                                |
 | **Help**            | Display help information.                                | `help`                                                                                                |
+| **Sort**            | <<\PLACEHOLDER>>                                | `sort`                                                                                                |
+| **Notes**            | <<\PLACEHOLDER>>                                | `<<PLACEHOLDER>>`                                                                                                |
+
+
 
