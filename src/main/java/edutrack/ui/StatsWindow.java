@@ -97,6 +97,20 @@ public class StatsWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns true if the stats window is currently iconified (minimized).
+     */
+    public boolean isIconified() {
+        return getRoot().isIconified();
+    }
+
+    /**
+     * Sets the iconified (minimized) state of the stats window.
+     */
+    public void setIconified(boolean iconified) {
+        getRoot().setIconified(iconified);
+    }
+
+    /**
      * Updates the statistics display with current data.
      */
     private void updateStatsDisplay() {
