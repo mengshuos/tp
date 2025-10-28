@@ -27,7 +27,10 @@ public class TagListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new TagListCommand(), model, TagListCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedMessage = model.getFilteredTagList().isEmpty()
+                ? "No tags found. Create tags using: tag/create t/TAG_NAME"
+                : TagListCommand.MESSAGE_SUCCESS + ":\n" + getTagsAsString(model);
+        assertCommandSuccess(new TagListCommand(), model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -38,7 +41,15 @@ public class TagListCommandTest {
         expectedModel.addTag(new Tag("Physics"));
         expectedModel.addTag(new Tag("Chemistry"));
 
-        assertCommandSuccess(new TagListCommand(), model, TagListCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedMessage = TagListCommand.MESSAGE_SUCCESS + ":\n" + getTagsAsString(expectedModel);
+        assertCommandSuccess(new TagListCommand(), model, expectedMessage, expectedModel);
+    }
+
+    private String getTagsAsString(Model model) {
+        return model.getFilteredTagList().stream()
+                .map(tag -> tag.tagName)
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
     }
 }
 

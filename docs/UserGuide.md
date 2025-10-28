@@ -321,7 +321,7 @@ Format:
 --------------------------------------------------------------------------------------------------------------------
 ### List Tags: `tag/list`
 
-Displays all existing tags.
+Displays all existing tag in the chat box.
 
 Format:
 
@@ -349,11 +349,11 @@ Format:
 
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Tag: `tag/unassign`
-| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T`                             |
 
+Unassigns an existing tag to a specified contact.
 
-| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`        |
 Format:
+
 `tag/unassign INDEX t/TAG_NAME`
 
 * Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
@@ -361,11 +361,12 @@ Format:
 * The index **must be a positive integer** 1, 2, 3, …​
 * The tag must currently be assigned to the person.
 
-| **Create Tag**      | Make a new tag.                                          | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                           |
+#### Examples:
 * `tag/unassign 1 t/needs_help` removes the tag `needs_help` from the 1st person in the list.
 * `tag/unassign 3 t/weak` removes the tag `weak` from the 3rd person in the list.
 
-Format:
+--------------------------------------------------------------------------------------------------------------------
+
 ## Other functionality
 
 ### Saving the data
