@@ -42,9 +42,9 @@ public class StatsCommandTest {
     public void execute_statsDoesNotModifyModel() throws CommandException {
         Model modelWithHumanData = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModelWithData = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        
+
         new StatsCommand().execute(modelWithHumanData);
-        
+
         // Verify the model state remains unchanged
         assert modelWithHumanData.getFilteredPersonList().size() == expectedModelWithData.getFilteredPersonList().size();
         assert modelWithHumanData.getAddressBook().equals(expectedModelWithData.getAddressBook());
@@ -53,7 +53,7 @@ public class StatsCommandTest {
     @Test
     public void execute_commandResultFlagsSetCorrectly() throws CommandException {
         CommandResult result = new StatsCommand().execute(model);
-        
+
         assert !result.isShowHelp();
         assert !result.isExit();
         assert result.isShowStats();
@@ -62,11 +62,11 @@ public class StatsCommandTest {
     @Test
     public void execute_statsTwice_success() throws CommandException {
         Model modelWithData = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        
+
         // Execute stats twice
         new StatsCommand().execute(modelWithData);
         CommandResult secondResult = new StatsCommand().execute(modelWithData);
-        
+
         assert secondResult.getFeedbackToUser().equals(MESSAGE_SUCCESS);
         assert secondResult.isShowStats();
     }
@@ -92,7 +92,7 @@ public class StatsCommandTest {
     public void execute_statsWithFilteredModel_success() throws CommandException {
         Model filteredModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         filteredModel.updateFilteredPersonList(person -> false); // Filter out all persons
-        
+
         CommandResult result = new StatsCommand().execute(filteredModel);
         assert result.isShowStats();
         assert result.getFeedbackToUser().equals(MESSAGE_SUCCESS);
@@ -101,7 +101,7 @@ public class StatsCommandTest {
     @Test
     public void execute_statsMultipleConsecutiveTimes_success() throws CommandException {
         Model modelWithData = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        
+
         // Execute stats multiple times in a row
         for (int i = 0; i < 5; i++) {
             CommandResult result = new StatsCommand().execute(modelWithData);
@@ -113,14 +113,14 @@ public class StatsCommandTest {
     @Test
     public void execute_statsAfterAddingPerson_success() throws CommandException {
         Model testModel = new ModelManager();
-        
+
         // First stats call with empty model
         CommandResult result1 = new StatsCommand().execute(testModel);
         assert result1.isShowStats();
-        
+
         // Add a person
         testModel.addPerson(new edutrack.testutil.PersonBuilder().withName("Added Person").build());
-        
+
         // Second stats call with one person
         CommandResult result2 = new StatsCommand().execute(testModel);
         assert result2.isShowStats();
@@ -130,14 +130,14 @@ public class StatsCommandTest {
     @Test
     public void execute_statsAfterDeletingPerson_success() throws CommandException {
         Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        
+
         // First stats call with all persons
         CommandResult result1 = new StatsCommand().execute(testModel);
         assert result1.isShowStats();
-        
+
         // Delete a person
         testModel.deletePerson(testModel.getFilteredPersonList().get(0));
-        
+
         // Second stats call after deletion
         CommandResult result2 = new StatsCommand().execute(testModel);
         assert result2.isShowStats();
