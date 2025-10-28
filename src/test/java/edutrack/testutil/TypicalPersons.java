@@ -91,7 +91,7 @@ public class TypicalPersons {
             ab.addTag(tag);
         }
 
-        // Then add persons with central group references
+        // Then add persons with central group and tag references
         for (Person person : getTypicalPersons()) {
             // Replace person's groups with central references
             Set<Group> centralGroupRefs = new HashSet<>();
@@ -99,16 +99,28 @@ public class TypicalPersons {
                 centralGroupRefs.add(ab.getGroup(personGroup));
             }
 
-            Person personWithCentralGroups = new Person(
+            // Replace person's tags with central references
+            Set<edutrack.model.tag.Tag> centralTagRefs = new HashSet<>();
+            for (edutrack.model.tag.Tag personTag : person.getTags()) {
+                // Find the central tag reference
+                for (edutrack.model.tag.Tag centralTag : allTags) {
+                    if (centralTag.equals(personTag)) {
+                        centralTagRefs.add(centralTag);
+                        break;
+                    }
+                }
+            }
+
+            Person personWithCentralRefs = new Person(
                     person.getName(),
                     person.getPhone(),
                     person.getEmail(),
                     person.getAddress(),
-                    person.getTags(),
+                    centralTagRefs,
                     centralGroupRefs
             );
 
-            ab.addPerson(personWithCentralGroups);
+            ab.addPerson(personWithCentralRefs);
         }
         return ab;
     }
