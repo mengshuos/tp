@@ -260,16 +260,22 @@ Format: `exit`
 
 --------------------------------------------------------------------------------------------------------------------
 
-
 ### Create Group: `group/create`
 
 Creates a new group with a specified name.
 
 Format: `group/create g/GROUP_NAME`
 
+<<<<<<< HEAD
 #### Notes
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
 >* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+=======
+`group/create g/GROUP_NAME`
+
+* `GROUP_NAME` refers to the name you wish to assign to the group.
+* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.
+>>>>>>> a90bb7c2862e51e5b02928c186d8f0a130234fd3
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
@@ -299,8 +305,11 @@ Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
 Removes one or more contacts from a specified group.
 
---------------------------------------------------------------------------------------------------------------------
+Format:
 
+`group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Create Tag: `tag/create`
 
