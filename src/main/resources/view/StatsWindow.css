@@ -1,3 +1,4 @@
 #statsMessage {
     -fx-text-fill: black;
+    -fx-wrap-text: true;
 }
