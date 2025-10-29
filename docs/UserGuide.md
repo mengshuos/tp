@@ -250,9 +250,7 @@ Exits the program.
 Format: `exit`
 
 
-
 --------------------------------------------------------------------------------------------------------------------
-
 
 ### Create Group: `group/create`
 
@@ -262,8 +260,11 @@ Format:
 
 `group/create g/GROUP_NAME`
 
-* `GROUP_NAME` refers to the name you wish to assign to the group.
-* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+>* `GROUP_NAME` refers to the name you wish to assign to the group.
+>* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+>* `GROUP_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
+
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
@@ -309,6 +310,8 @@ Format: `tag/create t/TAG_NAME`
 #### Notes:
 >* `TAG_NAME` refers to the name you wish to assign to the tag.
 >* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+>* `TAG_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`

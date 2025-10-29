@@ -20,6 +20,11 @@ public class FindTagCommandParser implements Parser<FindTagCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE));
         }
 
+        // Check if multiple tags were provided
+        if (argMultimap.getAllValues(PREFIX_TAG).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE));
+        }
+
         try {
             Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new FindTagCommand(tag);

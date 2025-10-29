@@ -45,6 +45,38 @@ public class GroupTest {
     }
 
     @Test
+    public void isValidGroupName_lengthConstraints() {
+        // exactly 100 characters - valid
+        String exactly100 = "a".repeat(100);
+        assertTrue(Group.isValidGroupName(exactly100));
+
+        // 99 characters - valid
+        String under100 = "a".repeat(99);
+        assertTrue(Group.isValidGroupName(under100));
+
+        // 101 characters - invalid
+        String over100 = "a".repeat(101);
+        assertFalse(Group.isValidGroupName(over100));
+
+        // 150 characters - invalid
+        String wayOver100 = "a".repeat(150);
+        assertFalse(Group.isValidGroupName(wayOver100));
+    }
+
+    @Test
+    public void constructor_groupNameExceeds100Characters_throwsIllegalArgumentException() {
+        String tooLongGroupName = "a".repeat(101);
+        assertThrows(IllegalArgumentException.class, () -> new Group(tooLongGroupName));
+    }
+
+    @Test
+    public void constructor_groupNameExactly100Characters_success() {
+        String exactly100 = "a".repeat(100);
+        Group group = new Group(exactly100);
+        assertEquals(exactly100, group.groupName);
+    }
+
+    @Test
     public void equals() {
         Group group = new Group("CS2103T");
 
