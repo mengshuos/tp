@@ -17,7 +17,8 @@ public class FindTagCommand extends Command {
     public static final String COMMAND_WORD = "findtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons who have the specified tag (case-insensitive) and displays them.\n"
+            + ": Finds all persons who have the specified tag (case-insensitive) and displays them. " +
+            "Only one tag is allowed.\n"
             + "Parameters: t/TAG\n"
             + "Example: " + COMMAND_WORD + " t/needs_help";
 
