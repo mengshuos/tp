@@ -6,17 +6,19 @@ skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniquePersonList
 AddressBook *-right-> "1" UniqueTagList
+AddressBook *-right-> "1" UniqueGroupList
 UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
 
 UniqueTagList -down-> "*" Tag
+UniqueGroupList -down-> "*" Group
 UniquePersonList -down-> Person
 
 Person -up-> "*" Tag
+Person -up-> "*" Group
 
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *--> "*" Group
 @enduml
