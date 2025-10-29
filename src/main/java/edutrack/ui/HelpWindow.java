@@ -47,7 +47,7 @@ public class HelpWindow extends UiPart<Stage> {
     /**
      * Shows the help window.
      * @throws IllegalStateException
-     * 
+     *
      *     <ul>
      *         <li>
      *             if this method is called on a thread other than the JavaFX Application Thread.
