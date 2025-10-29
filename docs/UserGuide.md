@@ -240,14 +240,7 @@ Format: `delete INDEX`
 
 Clears all entries from the address book.
 
-Format: 
-- `clear` (on first use)
-- `clear confirm` (after already typing `clear` once and hitting 'Enter')
-
-#### Notes:
-> - As a safeguard for users who may accidentally and unintentionally clear all the data, you need to type `clear confirm` to confirm your intent to delete the data, after you type and use the command `clear`
-> - If you try to type `clear confirm` before having typed `clear` at least once, you will be prompted to first initiate the clear
-> - If you type `clear` once, and you type and use any other command, and then type `clear confirm`, it will not ask you
+Format: `clear`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
@@ -256,30 +249,38 @@ Exits the program.
 
 Format: `exit`
 
+
+
 --------------------------------------------------------------------------------------------------------------------
+
 
 ### Create Group: `group/create`
 
 Creates a new group with a specified name.
 
-Format: `group/create g/GROUP_NAME`
+Format:
 
-#### Notes
->* `GROUP_NAME` refers to the name you wish to assign to the group.
->* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.​
+`group/create g/GROUP_NAME`
+
+* `GROUP_NAME` refers to the name you wish to assign to the group.
+* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
 Deletes an existing group and removes all group assignments from associated contacts.
 
-Format: `group/delete g/GROUP_NAME`
+Format:
+
+`group/delete g/GROUP_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
 Displays all existing groups.
 
-Format: `group/list`
+Format:
+
+`group/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
@@ -296,9 +297,8 @@ Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
 Removes one or more contacts from a specified group.
 
-Format: `group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
-
 --------------------------------------------------------------------------------------------------------------------
+
 
 ### Create Tag: `tag/create`
 
