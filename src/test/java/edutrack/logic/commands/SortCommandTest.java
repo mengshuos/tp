@@ -3,6 +3,7 @@ package edutrack.logic.commands;
 import static edutrack.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static edutrack.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,14 +32,19 @@ public class SortCommandTest {
     @Test
     public void execute_emptyAddressBook_success() {
         Model emptyModel = new ModelManager();
-        assertCommandSuccess(new SortCommand(), emptyModel, SortCommand.MESSAGE_SUCCESS, emptyModel);
+        assertCommandSuccess(new SortCommand(false), emptyModel, SortCommand.MESSAGE_SUCCESS, emptyModel);
     }
 
     @Test
     public void execute_typicalAddressBook_success() {
-        assertCommandSuccess(new SortCommand(), model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new SortCommand(false), model, SortCommand.MESSAGE_SUCCESS, expectedModel);
         expectedModel.sortPersonList();
         assertEquals(model.getFilteredPersonList(), expectedModel.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_withParameters_throwsCommandException() {
+        assertThrows(CommandException.class, () -> new SortCommand(true).execute(model));
     }
 
     @Test
@@ -59,7 +65,7 @@ public class SortCommandTest {
         expectedModel.addPerson(charlie);
         expectedModel.sortPersonList();
 
-        assertCommandSuccess(new SortCommand(), testModel, SortCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new SortCommand(false), testModel, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -74,7 +80,7 @@ public class SortCommandTest {
         testModel.addPerson(aaronLowerCase);
 
         // Execute the command and verify the sorted order directly on the filtered list
-        CommandResult result = new SortCommand().execute(testModel);
+        CommandResult result = new SortCommand(false).execute(testModel);
         assertEquals(SortCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
 
         // Verify the order is correct and stable (case-insensitive)
