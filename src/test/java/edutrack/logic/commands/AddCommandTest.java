@@ -88,8 +88,8 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
 
         assertThrows(CommandException.class,
-                "Tags do not exist: friends. Please create them first using tag/create.",
-                () -> addCommand.execute(modelStub));
+                "Tags do not exist: friends. Please create them first using tag/create.", (
+                ) -> addCommand.execute(modelStub));
     }
 
     @Test
