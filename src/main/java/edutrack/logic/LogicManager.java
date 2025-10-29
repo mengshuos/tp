@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import edutrack.commons.core.GuiSettings;
 import edutrack.commons.core.LogsCenter;
+import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
 import edutrack.logic.commands.CommandResult;
 import edutrack.logic.commands.exceptions.CommandException;
@@ -46,6 +47,15 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        String trimmedCommand = commandText.trim();
+        // Reset pending clear confirmation if command is not "clear" or doesn't start with "clear "
+        // This handles both valid non-clear commands and invalid commands
+        // "clear " (with space) ensures words like "clearness" don't match
+        if (!trimmedCommand.equals(ClearCommand.COMMAND_WORD)
+                && !trimmedCommand.startsWith(ClearCommand.COMMAND_WORD + " ")) {
+            model.setPendingClearConfirmation(false);
+        }
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
