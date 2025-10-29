@@ -10,8 +10,10 @@ import static java.util.Objects.requireNonNull;
 public class Group {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Group names should be alphanumeric and may include '-', '_' or '/'";
+            "Group names should be alphanumeric, may include '-', '_' or '/', "
+            + "and must not exceed 100 characters";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}_\\-/]+";
+    public static final int MAX_GROUP_LENGTH = 100;
 
     public final String groupName;
 
@@ -30,7 +32,7 @@ public class Group {
      * Returns true if a given string is a valid group name.
      */
     public static boolean isValidGroupName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_GROUP_LENGTH;
     }
 
     @Override
