@@ -4,9 +4,10 @@ import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import org.junit.jupiter.api.Test;
+
 import edutrack.commons.core.index.Index;
 import edutrack.logic.commands.NoteDeleteCommand;
-import org.junit.jupiter.api.Test;
 
 
 public class NoteDeleteCommandParserTest {
