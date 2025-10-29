@@ -49,6 +49,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_GROUP_NOT_FOUND =
             "Groups do not exist: %s. Please create them first using group/create.";
+    public static final String MESSAGE_TAG_NOT_FOUND =
+            "Tags do not exist: %s. Please create them first using tag/create.";
 
     private final Person toAdd;
 
@@ -66,6 +68,19 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        // Validate all tags exist in the model
+        Set<String> nonExistentTags = new HashSet<>();
+        for (edutrack.model.tag.Tag tag : toAdd.getTags()) {
+            if (!model.hasTag(tag)) {
+                nonExistentTags.add(tag.tagName);
+            }
+        }
+
+        if (!nonExistentTags.isEmpty()) {
+            String tagNames = String.join(", ", nonExistentTags);
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagNames));
         }
 
         // Validate all groups exist in the model and get central references

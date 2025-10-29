@@ -131,7 +131,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 > + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
 > + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
-> + Tags can be assigned to students after creation using the `tag/assign` command.
+> + All specified groups and tags must already exist in the system.
 
 #### Example usage:
 * `add n/John Doe`
