@@ -53,6 +53,7 @@ StatsWindow --|> UiPart
 PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
+StatsWindow -left-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
