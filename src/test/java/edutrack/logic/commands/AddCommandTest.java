@@ -82,6 +82,32 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_personWithNonExistentTag_throwsCommandException() {
+        Person personWithTag = new PersonBuilder().withTags("friends").build();
+        AddCommand addCommand = new AddCommand(personWithTag);
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+
+        assertThrows(CommandException.class,
+                "Tags do not exist: friends. Please create them first using tag/create.",
+                () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_personWithExistingTag_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Tag tag = new Tag("friends");
+        modelStub.tagsAdded.add(tag);
+
+        Person personWithTag = new PersonBuilder().withTags("friends").build();
+        CommandResult commandResult = new AddCommand(personWithTag).execute(modelStub);
+
+        assertEquals(1, modelStub.personsAdded.size());
+        // Verify person was added with the tag
+        Person addedPerson = modelStub.personsAdded.get(0);
+        assertTrue(addedPerson.getTags().stream().anyMatch(t -> t.tagName.equals("friends")));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
@@ -280,6 +306,7 @@ public class AddCommandTest {
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
         final ArrayList<Group> groupsAdded = new ArrayList<>();
+        final ArrayList<Tag> tagsAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -306,6 +333,12 @@ public class AddCommandTest {
                     .filter(group::equals)
                     .findFirst()
                     .orElseThrow(() -> new AssertionError("Group should exist"));
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            requireNonNull(tag);
+            return tagsAdded.stream().anyMatch(tag::equals);
         }
 
         @Override
