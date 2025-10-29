@@ -19,7 +19,7 @@
         <URL value="@StatsWindow.css" />
       </stylesheets>
 
-      <HBox alignment="CENTER">
+      <HBox alignment="CENTER" fx:id="statsMessageContainer">
         <children>
           <Label fx:id="statsMessage" text="Label">
             <HBox.margin>

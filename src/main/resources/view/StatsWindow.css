@@ -1,3 +1,9 @@
+#statsMessageContainer {
+    -fx-background-color: derive(#24393a, 20%);
+}
+
 #statsMessage {
+    -fx-background-color: derive(#ffffff, 20%);
+    -fx-padding: 30px;
     -fx-text-fill: black;
 }
