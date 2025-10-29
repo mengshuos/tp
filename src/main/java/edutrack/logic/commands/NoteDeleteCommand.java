@@ -23,6 +23,8 @@ public class NoteDeleteCommand extends Command {
             + ": Deletes note attached to the student at the specified index.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 ";
+    public static final String MESSAGE_NOTE_EMPTY = "This student does not have a note attached. " +
+            "Unable to delete non-existent note.";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
 
@@ -52,6 +54,10 @@ public class NoteDeleteCommand extends Command {
         Note emptyNote = new Note("");
 
         Person target = lastShownList.get(zeroBasedIndex);
+
+        if (target.getNote().value == "") {
+            throw new CommandException(MESSAGE_NOTE_EMPTY);
+        }
 
         Person editedPerson = new Person(
                 target.getName(),
