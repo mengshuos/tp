@@ -382,6 +382,8 @@ Format: `sort`
 #### Notes:
 > * Sorting is case-insensitive
 > * The order is ascending
+> * Sorting always applies to the full student list rather than the current filtered view.
+> * Sorting will reset the view to show all students instead of only the filtered results.
 
 
 --------------------------------------------------------------------------------------------------------------------
