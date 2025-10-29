@@ -250,9 +250,7 @@ Exits the program.
 Format: `exit`
 
 
-
 --------------------------------------------------------------------------------------------------------------------
-
 
 ### Create Group: `group/create`
 
@@ -264,6 +262,8 @@ Format:
 
 * `GROUP_NAME` refers to the name you wish to assign to the group.
 * `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+* Spaces are not allowed.
+
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
