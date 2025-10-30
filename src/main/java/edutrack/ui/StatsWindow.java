@@ -21,6 +21,8 @@ public class StatsWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
 
+    private boolean firstOpenSized = false;
+
     @FXML
     private Label statsMessage;
 
@@ -70,12 +72,21 @@ public class StatsWindow extends UiPart<Stage> {
         // Set minimum size (smaller than main window but same ratio)
         getRoot().setMinWidth(400);
         getRoot().setMinHeight(300);
-        // Set maximum height to prevent window from elongating too much
-        getRoot().setMaxHeight(600);
-        getRoot().setMaxWidth(600);
+
+        // On first open, cap height; then immediately remove cap to allow free resizing/fullscreen
+        if (!firstOpenSized) {
+            getRoot().setMaxHeight(600);
+        }
 
         getRoot().show();
         getRoot().centerOnScreen();
+
+        if (!firstOpenSized) {
+            firstOpenSized = true;
+            javafx.application.Platform.runLater(() -> {
+                getRoot().setMaxHeight(Double.MAX_VALUE);
+            });
+        }
     }
 
     /**
@@ -133,7 +144,7 @@ public class StatsWindow extends UiPart<Stage> {
         }
 
         // Debug: Log tag information
-        logger.info("Found " + tagCounts.size() + " unique tags: " + tagCounts.keySet());
+        logger.info(() -> "Found " + tagCounts.size() + " unique tags: " + tagCounts.keySet());
 
         // Sort tags alphabetically
         List<String> sortedTags = new ArrayList<>(tagCounts.keySet());
