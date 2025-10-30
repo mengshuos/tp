@@ -54,7 +54,7 @@ public class NoteDeleteCommand extends Command {
 
         Person target = lastShownList.get(zeroBasedIndex);
 
-        if (target.getNote().value == "") {
+        if (target.getNote().value.equals("")) {
             throw new CommandException(MESSAGE_NOTE_EMPTY);
         }
 
@@ -69,7 +69,7 @@ public class NoteDeleteCommand extends Command {
         );
         model.setPerson(target, editedPerson);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(target)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
     @Override
