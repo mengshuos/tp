@@ -5,6 +5,7 @@ import static edutrack.logic.commands.CommandTestUtil.DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static edutrack.logic.commands.CommandTestUtil.VALID_NOTE_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static edutrack.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,6 +60,10 @@ public class EditPersonDescriptorTest {
         // different groups -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withGroups("CS2101").build();
         assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different note -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withNote(VALID_NOTE_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
     }
 
     @Test
@@ -70,7 +75,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", groups="
-                + editPersonDescriptor.getGroups().orElse(null) + "}";
+                + editPersonDescriptor.getGroups().orElse(null) + ", note="
+                + editPersonDescriptor.getNote().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

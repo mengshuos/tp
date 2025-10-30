@@ -27,6 +27,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
@@ -109,14 +110,15 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_GROUP_NOT_FOUND, groupNames));
         }
 
-        // Create person with centrally tracked groups
+        // Create person with centrally tracked groups and preserve note
         Person personWithCentralGroups = new Person(
-                editedPerson.getName(),
-                editedPerson.getPhone(),
-                editedPerson.getEmail(),
-                editedPerson.getAddress(),
-                editedPerson.getTags(),
-                centralGroups
+            editedPerson.getName(),
+            editedPerson.getPhone(),
+            editedPerson.getEmail(),
+            editedPerson.getAddress(),
+            editedPerson.getTags(),
+            centralGroups,
+            editedPerson.getNote()
         );
 
         model.setPerson(personToEdit, personWithCentralGroups);
@@ -137,8 +139,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Group> updatedGroups = editPersonDescriptor.getGroups().orElse(personToEdit.getGroups());
+        Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedGroups);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedGroups,
+                updatedNote);
     }
 
     @Override
@@ -176,6 +180,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Set<Group> groups;
+        private Note note;
 
         public EditPersonDescriptor() {}
 
@@ -190,13 +195,22 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setGroups(toCopy.groups);
+            setNote(toCopy.note);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, groups);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, groups, note);
+        }
+
+        public void setNote(Note note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
         }
 
         public void setName(Name name) {
@@ -280,11 +294,12 @@ public class EditCommand extends Command {
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(groups, otherEditPersonDescriptor.groups);
+                && Objects.equals(phone, otherEditPersonDescriptor.phone)
+                && Objects.equals(email, otherEditPersonDescriptor.email)
+                && Objects.equals(address, otherEditPersonDescriptor.address)
+                && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                && Objects.equals(groups, otherEditPersonDescriptor.groups)
+                && Objects.equals(note, otherEditPersonDescriptor.note);
 
         }
 
@@ -297,6 +312,7 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("tags", tags)
                     .add("groups", groups)
+                    .add("note", note)
                     .toString();
         }
     }
