@@ -390,7 +390,7 @@ Format: `sort`
 
 Creates a note for a student. Each student can have only one note attached.
 
-Format: `note/create INDEX n/NOTE_CONTENT`
+Format: `note/create INDEX no/NOTE_CONTENT`
 
 #### Notes:
 > PLACEHOLDER
@@ -481,7 +481,7 @@ _Details coming soon ..._
 | **List**                | Show all contacts.                          | `list`                                                                                                                                                            |
 | **Help**                | Display help information.                   | `help`                                                                                                                                                            |
 | **Sort**                | <<\PLACEHOLDER>>                            | `sort`                                                                                                                                                            |
-| **Create Note**         | Creates a note for specified student.       | `note/create INDEX n/NOTE`<br><br>Example: `note/create 3 n/Missed the past 3 deadlines. Needs more help with CS2100.`                                            |
+| **Create Note**         | Creates a note for specified student.       | `note/create INDEX n/NOTE`<br><br>Example: `note/create 3 no/Missed the past 3 deadlines. Needs more help with CS2100.`                                           |
 | **Delete Note**         | Deletes note attached to specified student. | `note/delete INDEX`<br><br>Example: `note/delete 3`                                                                                                               |
 
 
