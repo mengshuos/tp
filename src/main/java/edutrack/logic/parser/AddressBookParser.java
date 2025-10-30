@@ -113,10 +113,10 @@ public class AddressBookParser {
 
         case NoteCreateCommand.COMMAND_WORD:
             return new NoteCreateCommandParser().parse(arguments);
-            
+
         case NoteDeleteCommand.COMMAND_WORD:
             return new NoteDeleteCommandParser().parse(arguments);
-            
+
         case ClearCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD:
