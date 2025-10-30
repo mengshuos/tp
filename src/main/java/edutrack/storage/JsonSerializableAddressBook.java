@@ -114,7 +114,8 @@ class JsonSerializableAddressBook {
                     person.getEmail(),
                     person.getAddress(),
                     person.getTags(),
-                    personGroupsWithCentralRefs
+                    personGroupsWithCentralRefs,
+                    person.getNote()
             );
 
             addressBook.addPerson(personWithCentralGroups);
