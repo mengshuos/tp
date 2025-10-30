@@ -10,10 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edutrack.commons.core.index.Index;
+import edutrack.logic.Messages;
 import edutrack.logic.commands.exceptions.CommandException;
 import edutrack.model.Model;
 import edutrack.model.ModelManager;
 import edutrack.model.UserPrefs;
+import edutrack.model.person.Note;
+import edutrack.model.person.Person;
 
 public class NoteDeleteCommandTest {
 
@@ -27,19 +30,33 @@ public class NoteDeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
+    public void execute_validIndexWithNotePresent_success() {
         Index validIndex = Index.fromOneBased(1);
         NoteDeleteCommand command = new NoteDeleteCommand(validIndex);
 
-        try {
-            CommandResult result = command.execute(model);
-            String expectedMessage = String.format(NoteDeleteCommand.MESSAGE_EDIT_PERSON_SUCCESS,
-                    expectedModel.getFilteredPersonList().get(validIndex.getZeroBased()));
-            assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        } catch (CommandException e) {
-            // This block should not be reached for a valid index
-            assert false : "CommandException was thrown for a valid index.";
-        }
+        Person personToEdit = expectedModel.getFilteredPersonList().get(validIndex.getZeroBased());
+        Person editedPerson = new Person(
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getAddress(),
+                personToEdit.getTags(),
+                personToEdit.getGroups(),
+                new Note("") // empty note after deletion
+        );
+
+        String expectedMessage = String.format(NoteDeleteCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson));
+        expectedModel.setPerson(personToEdit, editedPerson);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexWithNoNote_throwsCommandException() {
+        Index validIndex = Index.fromOneBased(3); // Assuming person at index 3 has no note
+        NoteDeleteCommand command = new NoteDeleteCommand(validIndex);
+        assertThrows(CommandException.class, () -> command.execute(model));
     }
 
     @Test
