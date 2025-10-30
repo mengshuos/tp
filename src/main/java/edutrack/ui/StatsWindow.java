@@ -71,7 +71,7 @@ public class StatsWindow extends UiPart<Stage> {
         getRoot().setMinWidth(400);
         getRoot().setMinHeight(300);
         // Set maximum height to prevent window from elongating too much
-        getRoot().setMaxHeight(1000);
+        getRoot().setMaxHeight(600);
         getRoot().setMaxWidth(600);
 
         getRoot().show();
