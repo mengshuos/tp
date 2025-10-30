@@ -16,6 +16,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -136,9 +137,21 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
+
         if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+            double x = guiSettings.getWindowCoordinates().getX();
+            double y = guiSettings.getWindowCoordinates().getY();
+
+            // Validate: ensure saved rectangle intersects at least one current screen
+            boolean onAnyScreen = !Screen.getScreensForRectangle(x, y,
+                    guiSettings.getWindowWidth(), guiSettings.getWindowHeight()).isEmpty();
+
+            if (onAnyScreen) {
+                primaryStage.setX(x);
+                primaryStage.setY(y);
+            } else {
+                primaryStage.centerOnScreen();
+            }
         }
     }
 
