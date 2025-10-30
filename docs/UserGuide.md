@@ -307,17 +307,36 @@ Format:
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
 
-Assigns one or more existing contacts to a specified group.
+Assigns a group to one or more existing contacts.
 
-Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
+Format: `group/assign INDEX [MORE_INDEXES...] g/GROUP_NAME`
 
 #### Notes:
-> If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
+> * The indices refer to the index numbers shown in the displayed person list.
+> * The indices **must be positive integers** 1, 2, 3, …​
+> * Only one group can be assigned in each command.
+> * If the specified group does not exist, EduTrack will prompt you to create it first using `group/create.`
+
+#### Examples:
+> * `group/assign 1 g/CS2103T` assigns the group `CS2103T` to the 1st person in the list.
+> * `group/assign 2 3 5 g/CS2040S` assigns the group `CS2040S` to the 2nd, 3rd, and 5th persons in the list.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Unassign Group: `group/unassign`
 
-Removes one or more contacts from a specified group.
+Removes a group from one or more contacts.
+
+Format: `group/unassign INDEX [MORE_INDEXES...] g/GROUP_NAME`
+
+#### Notes:
+> * The indices refer to the index numbers shown in the displayed person list.
+> * The indices **must be positive integers** 1, 2, 3, …​
+> * Only one group can be unassigned in each command.
+> * The specified group must exist in the system.
+
+#### Examples:
+> * `group/unassign 1 g/CS2103T` removes the group `CS2103T` from the 1st person in the list.
+> * `group/unassign 2 3 g/CS2040S` removes the group `CS2040S` from the 2nd and 3rd persons in the list.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -492,30 +511,31 @@ _Details coming soon ..._
 
 ## Command Summary
 
-| Action              | Description                                              | Format / Example                                                                                                                                                  |
-|---------------------|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**             | Add a person to the list.                                | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T` |
-| **Clear**           | Removes all stored data.                                 | `clear`                                                                                                                                                           |
-| **Delete**          | Deletes contact from EduTrack.                            | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                         |
-| **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                   |
-| **Find**            | Locate persons by keywords in their names.               | `find n/KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                                                                               |
-| **Find by Group**   | Find all contacts in a specific group.                   | `find g/GROUP [MORE_GROUPS]`<br><br>Example: `find g/CS2103T`                                                                                                                  |
-| **Find by Tag**     | Find contacts with a specific tag.                         | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                               |
-| **Create Group**    | Make a new group.                                         | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                   |
-| **Delete Group**    | Remove an existing group.                                 | `group/delete g/GROUP`<br><br>Example: `group/delete g/CS2103T`                                                                                                   |
-| **Assign to Group** | Assign contacts to a group.                                | `group/assign g/GROUP_NAME INDEX`<br><br>Example: `group/assign g/CS2103T 1`                                                                                      |
-| **Unassign from Group** | Remove contacts from a group.                           | `group/unassign g/GROUP_NAME INDEX`<br><br>Example: `group/unassign g/CS2103T 1`                                                                                  |
-| **List Group**      | Show all existing groups.                                | `group/list`                                                                                                                                                      |
-| **Create Tag**      | Make a new tag.                                          | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                                                                                      |
-| **Delete Tag**      | Remove an existing tag.                                  | `tag/delete t/TAG`<br><br>Example: `tag/delete t/needs_help`                                                                                                      |
-| **Assign Tag**      | Assign a tag to a contact.                               | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                                                                                         |
-| **Unassign Tag**    | Remove a tag from a contact.                             | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                                                                                     |
-| **List Tag**        | Show all existing tags.                                  | `tag/list`                                                                                                                                                        |
-| **Stats**        | Show all student statistics.                                  | `stats`                                                                                                                                                           |
-| **List**            | Show all contacts.                                       | `list`                                                                                                                                                            |
-| **Help**            | Display help information.                                | `help`                                                                                                                                                            |
-| **Sort**            | Sort all students alphabetically.                                | `sort`                                                                                                                                                            |
-| **Notes**            | <<\PLACEHOLDER>>                                | `<<PLACEHOLDER>>`                                                                                                                                                 |
+| Action                  | Description                                 | Format / Example                                                                                                                                                  |
+|-------------------------|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**                 | Add a person to the list.                   | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T` |
+| **Clear**               | Removes all stored data.                    | `clear`                                                                                                                                                           |
+| **Delete**              | Deletes contact from EduTrack.              | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                         |
+| **Edit**                | Edit an existing contact.                   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                   |
+| **Find**                | Locate persons by keywords in their names.  | `find KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                                                                                  |
+| **Find by Group**       | Find all contacts in a specific group.      | `find g/GROUP`<br><br>Example: `find g/CS2103T`                                                                                                                   |
+| **Find by Tag**         | Find contacts with a specific tag.          | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                               |
+| **Create Group**        | Make a new group.                           | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                   |
+| **Delete Group**        | Remove an existing group.                   | `group/delete g/GROUP`<br><br>Example: `group/delete g/CS2103T`                                                                                                   |
+| **Assign to Group**     | Assign contacts to a group.                 | `group/assign INDEX [MORE_INDEXES...] g/GROUP_NAME`<br><br>Example: `group/assign 1 2 g/CS2103T`                                                                   |
+| **Unassign from Group** | Remove contacts from a group.               | `group/unassign INDEX [MORE_INDEXES...] g/GROUP_NAME`<br><br>Example: `group/unassign 1 2 g/CS2103T`                                                             |
+| **List Group**          | Show all existing groups.                   | `group/list`                                                                                                                                                      |
+| **Create Tag**          | Make a new tag.                             | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                                                                                      |
+| **Delete Tag**          | Remove an existing tag.                     | `tag/delete t/TAG`<br><br>Example: `tag/delete t/needs_help`                                                                                                      |
+| **Assign Tag**          | Assign a tag to a contact.                  | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                                                                                         |
+| **Unassign Tag**        | Remove a tag from a contact.                | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                                                                                     |
+| **List Tag**            | Show all existing tags.                     | `tag/list`                                                                                                                                                        |
+| **Stats**               | Show all student statistics.                | `stats`                                                                                                                                                           |
+| **List**                | Show all contacts.                          | `list`                                                                                                                                                            |
+| **Help**                | Display help information.                   | `help`                                                                                                                                                            |
+| **Sort**                | Sort all students alphabetically.           | `sort`                                                                                                                                                            |
+| **Create Note**         | Creates a note for specified student.       | `note/create INDEX no/NOTE`<br><br>Example: `note/create 3 no/Missed the past 3 deadlines. Needs more help with CS2100.`                                           |
+| **Delete Note**         | Deletes note attached to specified student. | `note/delete INDEX`<br><br>Example: `note/delete 3`                                                                                                               |
 
 
 
