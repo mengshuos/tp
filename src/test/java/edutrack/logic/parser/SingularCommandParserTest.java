@@ -1,5 +1,8 @@
 package edutrack.logic.parser;
 
+import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -86,5 +89,17 @@ public class SingularCommandParserTest {
     @Test
     public void parse_statsExtraArgs_throwsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(StatsCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parse_emptyInput_throwsParseExceptionWithUsageMessage() {
+        ParseException e = assertThrows(ParseException.class, () -> parser.parse(""));
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), e.getMessage());
+    }
+
+    @Test
+    public void parse_unknownCommand_throwsUnknownCommandMessage() {
+        ParseException e = assertThrows(ParseException.class, () -> parser.parse("unknownCommand"));
+        assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
     }
 }
