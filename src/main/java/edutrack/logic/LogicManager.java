@@ -58,23 +58,11 @@ public class LogicManager implements Logic {
         }
 
         CommandResult commandResult;
-        // diagnostic log
-        logger.info("Parse start");
         Command command = addressBookParser.parseCommand(commandText);
-        logger.info("Parsed command: " + command.getClass().getSimpleName());
-
-        // show model identity before execute
-        logger.info("Model identity before execute: " + System.identityHashCode(model));
-        logger.info("AddressBook before execute: " + model.getAddressBook());
         commandResult = command.execute(model);
 
-        logger.info("Model identity after execute: " + System.identityHashCode(model));
-        logger.info("AddressBook after execute: " + model.getAddressBook());
-
         try {
-            logger.info("Saving address book (model id: " + System.identityHashCode(model) + ")");
             storage.saveAddressBook(model.getAddressBook());
-            logger.info("Save successful");
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {

@@ -207,14 +207,6 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, groups, note);
         }
 
-        public void setNote(Note note) {
-            this.note = note;
-        }
-
-        public Optional<Note> getNote() {
-            return Optional.ofNullable(note);
-        }
-
         public void setName(Name name) {
             this.name = name;
         }

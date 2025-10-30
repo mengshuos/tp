@@ -15,7 +15,6 @@ import static edutrack.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static edutrack.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static edutrack.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static edutrack.logic.commands.CommandTestUtil.NOTE_DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -57,17 +56,16 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withGroup()
-                .withNote(VALID_NAME_BOB).build();
+        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withGroup().withNote("").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + NOTE_DESC_BOB, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .withGroup().withNote(VALID_NAME_BOB).build();
+                .withGroup().withNote("").build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
                         + TAG_DESC_FRIEND,
@@ -78,7 +76,7 @@ public class AddCommandParserTest {
     public void parse_groupFieldsPresent_success() {
         // with one group
         Person expectedPersonOneGroup = new PersonBuilder(BOB).withGroup(VALID_GROUP_CS2103T)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).withNote("").build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + GROUP_DESC_CS2103T,
                 new AddCommand(expectedPersonOneGroup));
@@ -86,7 +84,7 @@ public class AddCommandParserTest {
         // with multiple groups
         Person expectedPersonMultipleGroups = new PersonBuilder(BOB)
                 .withGroup(VALID_GROUP_CS2103T, VALID_GROUP_CS2101)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).withNote("").build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
                 + GROUP_DESC_CS2103T + GROUP_DESC_CS2101,
@@ -160,19 +158,22 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().withGroup().build();
+        Person expectedPerson = new PersonBuilder(AMY).withTags().withGroup().withNote("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
 
-        Person expectedPersonWithNoPhone = new PersonBuilder(AMY).withPhone("").withTags().withGroup().build();
+        Person expectedPersonWithNoPhone = new PersonBuilder(AMY).withPhone("").withTags()
+                .withGroup().withNote("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + "" + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithNoPhone));
 
-        Person expectedPersonWithNoEmail = new PersonBuilder(AMY).withEmail("").withTags().withGroup().build();
+        Person expectedPersonWithNoEmail = new PersonBuilder(AMY).withEmail("").withTags()
+                .withGroup().withNote("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + "" + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithNoEmail));
 
-        Person expectedPersonWithNoAddress = new PersonBuilder(AMY).withAddress("").withTags().withGroup().build();
+        Person expectedPersonWithNoAddress = new PersonBuilder(AMY).withAddress("").withTags()
+                .withGroup().withNote("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + "",
                 new AddCommand(expectedPersonWithNoAddress));
 
