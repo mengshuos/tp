@@ -636,3 +636,104 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: Open the data file and add invalid JSON syntax (e.g., remove a closing brace), then launch the app.<br>
       Expected: App starts with an empty address book, discarding the corrupted data.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+### Difficulty Level
+
+Our project, EduTrack, extends the AB3 baseline with significantly increased complexity. While AB3 manages a single entity type `Person`, EduTrack introduces **three entity types**: `Person`, `Group`, and `Tag`. This required substantial effort in designing relationships, maintaining data consistency, and ensuring proper cascading operations.
+
+The difficulty was further amplified by the need to:
+- Implement a centralized management system for Groups and Tags (similar to how AB3 manages Persons)
+- Design and implement 10+ new commands for group and tag operations
+- Ensure bidirectional relationships between entities remain consistent
+- Handle complex cascading deletions (e.g., deleting a group must remove it from all assigned persons)
+
+### Challenges Faced
+
+**1. Entity Relationship Management**
+
+The most significant challenge was managing the relationships between `Person`, `Group`, and `Tag` entities. Unlike AB3's simple list of persons, our system required:
+- `UniqueGroupList` and `UniqueTagList` to centrally manage groups and tags
+- Ensuring that persons can only be assigned to existing groups/tags
+- Implementing cascading updates when groups/tags are deleted
+
+**2. Storage Complexity**
+
+Extending the JSON storage to handle three entity types while maintaining referential integrity was challenging. We had to:
+- Design JSON schemas for groups and tags
+- Implement proper serialization/deserialization for the new entities
+- Add validation to ensure stored data maintains consistency (e.g., persons don't reference non-existent groups)
+- Handle backward compatibility and corrupted data scenarios
+
+**3. UI Enhancements**
+
+We enhanced the UI to display both groups and tags for each person, which required:
+- Modifying the `PersonCard` UI component to display multiple entity types
+- Implementing proper wrapping behavior for tags and groups to prevent overflow
+- Adding visual distinction between tags and groups (different colors)
+- Ensuring the UI updates correctly when groups/tags are added or removed
+
+**4. Command Parser Architecture**
+
+Adding 10+ new commands required careful design of the parser architecture:
+- Implemented parsers for all group operations (`group/create`, `group/delete`, `group/assign`, `group/unassign`, `group/list`)
+- Implemented parsers for all tag operations (`tag/create`, `tag/delete`, `tag/assign`, `tag/unassign`, `tag/list`)
+- Added `findtag` command with specialized predicate for tag-based filtering
+- Ensured consistent error handling and validation across all new commands
+
+### Effort Required
+
+The project required approximately **3-4 times** the effort of AB3:
+
+**Code Contribution:**
+- Added 20+ new classes for commands, parsers, and predicates
+- Modified 15+ existing classes to support the new entity types
+- Implemented comprehensive test coverage with 350+ test cases
+- Total: ~4000+ lines of functional code and ~3000+ lines of test code
+
+**Time Investment:**
+- Design and planning: ~10 hours (entity relationships, storage design, command structure)
+- Implementation: ~70 hours (commands, storage, model changes, UI updates)
+- Testing: ~20 hours (unit tests, integration tests, manual testing)
+- Documentation: ~20 hours (User Guide, Developer Guide, diagrams)
+- Total: ~120 hours of development effort
+
+### Achievements
+
+Despite the challenges, we successfully delivered a robust tutor management system with the following achievements:
+
+1. **Centralized Entity Management**: Implemented a scalable architecture where groups and tags are managed centrally, preventing duplication and inconsistencies.
+
+2. **Data Integrity**: Implemented cascading operations ensuring that deleting a group/tag automatically removes it from all assigned persons, maintaining referential integrity.
+
+3. **Enhanced Search Capabilities**: Users can find persons by groups and tags, providing powerful filtering options.
+
+4. **Robust Testing**: Achieved high test coverage with comprehensive unit and integration tests, ensuring reliability.
+
+5. **User-Friendly UI**: Enhanced the UI to clearly display multiple entity types with visual distinction and proper overflow handling.
+
+### Reuse and Adaptation
+
+While we built most features from scratch, we reused and adapted several components from AB3:
+
+1. **Storage Framework (~10% effort saved)**: We reused AB3's `JsonSerializableAddressBook` architecture and adapted it to handle `Group` and `Tag` entities. Our work is primarily contained in:
+   - `JsonAdaptedGroup.java` and `JsonAdaptedTag.java` for serialization
+   - `JsonSerializableAddressBook.java` modifications to handle the new entity lists
+
+2. **Command Architecture (~5% effort saved)**: We followed AB3's `Command` and `CommandParser` patterns, which provided a solid foundation. However, we still had to implement all the logic for our 10+ new commands.
+
+3. **UI Components (~5% effort saved)**: We extended AB3's `PersonCard` component rather than building from scratch, but significant modifications were needed to display groups and tags with proper styling.
+
+**Total effort saved through reuse: ~20%**
+
+The remaining 80% of effort went into designing the multi-entity architecture, implementing new commands, ensuring data consistency, and building comprehensive test coverage, all of which required substantial original work beyond AB3's scope.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+This section will be updated post PE-D (this is allowed as per CS2103T website).
+
