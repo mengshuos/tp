@@ -38,9 +38,9 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
-      * [Stats: `stats`](#unassign-tag-tagunassign)
-      * [Sorting: `sort`](#unassign-tag-tagunassign)
-      * [Notes: `notes`](#unassign-tag-tagunassign)
+      * [Stats: `stats`](#stats)
+      * [Sorting: `sort`](#sort)
+      * [Notes: `notes`](#notes)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -119,6 +119,8 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+#### Notes:
+> - You may use the keyboard shortcut `F1` to access the help window too.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a person: `add`
@@ -238,9 +240,18 @@ Format: `delete INDEX`
 --------------------------------------------------------------------------------------------------------------------
 ### Clearing all persons : `clear`
 
-Clears all entries from the address book.
+Clears all the data in EduTrack.
 
-Format: `clear`
+Format: 
+- `clear` (on first use)
+- `clear confirm` (after already typing `clear` once and hitting 'Enter')
+
+#### Notes:
+> - The clear command clears all data, including people, groups, tags.
+> - After you type `clear`, you have to type `clear confirm` to complete the clear
+> - If you try to type `clear confirm` before having typed `clear` at least once, you will be prompted to first initiate the clear
+> - After you type `clear`, if you type anything else other than `clear confirm`, it resets the clearing workflow and you have to start over.
+
 
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
@@ -261,7 +272,7 @@ Format:
 `group/create g/GROUP_NAME`
 
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
->* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+>* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.​
 >* `GROUP_NAME` has a maximum length of 100 characters.​
 >* Spaces are not allowed.
 
@@ -365,22 +376,40 @@ Format: `tag/unassign INDEX t/TAG_NAME`
 
 
 --------------------------------------------------------------------------------------------------------------------
-### Stats: `stats`
+### Viewing Statistics: `stats`
 
-Displays student statistics.
+Displays comprehensive statistics about your students and groups.
 
 Format: `stats`
+
+#### Notes:
+> - The statistics window displays information in two main sections:
+>   - **Total Stats** - Overview of all students
+>     - Total number of students
+>     - Total unique tags in use
+>     - Breakdown of each tag and how many students have it
+>   - **Group Stats** - Breakdown by tutorial group
+>     - For each group, displays:
+>       - Group name (e.g., CS2103T, CS2100)
+>       - Number of students in the group
+>       - Number of unique tags used in the group
+>       - Breakdown of each tag and how many students in that group have it
+> - Use this command to quickly identify which groups need more attention or to see tag distribution across your students.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ### Sort: `sort`
 
-Sorts students in (ascending) alphabetical order.
+Sorts all students by their names in alphabetical order.
 
 Format: `sort`
 
 #### Notes:
-> PLACEHOLDER
+> * Sorting is case-insensitive.
+> * The order is ascending.
+> * Sorting always applies to the full student list rather than the current filtered view.
+> * Sorting will reset the view to show all students instead of only the filtered results.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -439,8 +468,6 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen.
    * The remedy is to delete the `preferences.json` file created by the application before running the application again.
-3. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear.
-   * The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -468,7 +495,7 @@ _Details coming soon ..._
 | **Stats**        | Show all student statistics.                                  | `stats`                                                                                           |
 | **List**            | Show all contacts.                                       | `list`                                                                                                |
 | **Help**            | Display help information.                                | `help`                                                                                                |
-| **Sort**            | <<\PLACEHOLDER>>                                | `sort`                                                                                                |
+| **Sort**            | Sort all students alphabetically.                                | `sort`                                                                                                |
 | **Notes**            | <<\PLACEHOLDER>>                                | `<<PLACEHOLDER>>`                                                                                                |
 
 
