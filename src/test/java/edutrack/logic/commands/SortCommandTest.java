@@ -69,24 +69,13 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_duplicateLetterDifferentCase_sortedCorrectly() throws CommandException {
-        // Test names starting with same letter in different cases
+    public void execute_duplicateNameDifferentCase_throwsDuplicatePersonException() {
         Person aaronLowerCase = new PersonBuilder().withName("aaron").build();
         Person aaronUpperCase = new PersonBuilder().withName("Aaron").build();
-        Person bob = new PersonBuilder().withName("bob").build();
+
         Model testModel = new ModelManager();
-        testModel.addPerson(bob);
         testModel.addPerson(aaronUpperCase);
-        testModel.addPerson(aaronLowerCase);
-
-        // Execute the command and verify the sorted order directly on the filtered list
-        CommandResult result = new SortCommand(false).execute(testModel);
-        assertEquals(SortCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
-
-        // Verify the order is correct and stable (case-insensitive)
-        assertEquals(3, testModel.getFilteredPersonList().size());
-        assertEquals("aaron", testModel.getFilteredPersonList().get(0).getName().toString().toLowerCase());
-        assertEquals("aaron", testModel.getFilteredPersonList().get(1).getName().toString().toLowerCase());
-        assertEquals("bob", testModel.getFilteredPersonList().get(2).getName().toString().toLowerCase());
+        assertThrows(edutrack.model.person.exceptions.DuplicatePersonException.class, (
+                ) -> testModel.addPerson(aaronLowerCase));
     }
 }

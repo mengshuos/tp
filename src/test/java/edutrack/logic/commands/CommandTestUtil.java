@@ -4,6 +4,7 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NOTE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 import static edutrack.testutil.Assert.assertThrows;
@@ -39,8 +40,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_GROUP_CS2103T = "CS2103T";
     public static final String VALID_GROUP_CS2101 = "CS2101";
-    public static final String VALID_NOTE_AMY = "Needs improvement in math.";
-    public static final String VALID_NOTE_BOB = "Excellent presentation.";
+    public static final String VALID_NOTE_AMY = "Needs improvement in CS2103T.";
+    public static final String VALID_NOTE_BOB = "Excellent performance in CS2100.";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -54,6 +55,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String GROUP_DESC_CS2103T = " " + PREFIX_GROUP + VALID_GROUP_CS2103T;
     public static final String GROUP_DESC_CS2101 = " " + PREFIX_GROUP + VALID_GROUP_CS2101;
+    public static final String NOTE_DESC_AMY = " " + PREFIX_NOTE + VALID_NOTE_AMY;
+    public static final String NOTE_DESC_BOB = " " + PREFIX_NOTE + VALID_NOTE_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -61,6 +64,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + "a\0b"; // special control characters
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "CS 2103T"; // spaces not allowed in groups
+    public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE + ""; // empty note not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -74,8 +78,8 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2103T).withNote(VALID_NOTE_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2101)
-                .withNote(VALID_NOTE_BOB).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2101).withNote(VALID_NOTE_BOB)
+                .build();
     }
 
     /**
