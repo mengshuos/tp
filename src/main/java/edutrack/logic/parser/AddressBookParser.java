@@ -1,6 +1,5 @@
 package edutrack.logic.parser;
 
-import static edutrack.logic.Messages.MESSAGE_EXTRA_ARGUMENTS;
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static edutrack.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 

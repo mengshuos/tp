@@ -19,6 +19,9 @@ import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.commands.TagListCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses user input for singular commands (commands without additional arguments).
+ */
 public class SingularCommandParser implements Parser<Command> {
 
     /**
