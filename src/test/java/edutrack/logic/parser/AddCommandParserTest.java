@@ -229,7 +229,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_nameWithSlash_success() {
-        String nameWithSlash = "Arunasalam S/O Dorugutham";
+        String nameWithSlash = "Abenav S/O Dorugutham";
         Person expectedPerson = new PersonBuilder()
                 .withName(nameWithSlash)
                 .withPhone("")
@@ -241,6 +241,40 @@ public class AddCommandParserTest {
                 .build();
 
         assertParseSuccess(parser, " " + PREFIX_NAME + nameWithSlash,
+                new AddCommand(expectedPerson));
+    }
+
+    @Test
+    public void parse_nameWithAccents_success() {
+        String name = "José Álvarez";
+        Person expectedPerson = new PersonBuilder()
+                .withName(name)
+                .withPhone("")
+                .withEmail("")
+                .withAddress("")
+                .withTags()
+                .withGroup()
+                .withNote("")
+                .build();
+
+        assertParseSuccess(parser, " " + PREFIX_NAME + name,
+                new AddCommand(expectedPerson));
+    }
+
+    @Test
+    public void parse_nameWithApostrophe_success() {
+        String name = "O'Connor";
+        Person expectedPerson = new PersonBuilder()
+                .withName(name)
+                .withPhone("")
+                .withEmail("")
+                .withAddress("")
+                .withTags()
+                .withGroup()
+                .withNote("")
+                .build();
+
+        assertParseSuccess(parser, " " + PREFIX_NAME + name,
                 new AddCommand(expectedPerson));
     }
 }

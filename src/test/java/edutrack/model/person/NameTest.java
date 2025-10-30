@@ -46,6 +46,8 @@ public class NameTest {
         assertTrue(Name.isValidName("J.K. Rowling")); // dots allowed after first char
         assertTrue(Name.isValidName("J. K. Rowling")); // dots with spaces
         assertTrue(Name.isValidName("J.K.R.")); // trailing dot allowed
+        assertTrue(Name.isValidName("José Álvarez")); // accented characters
+        assertTrue(Name.isValidName("O'Connor")); // apostrophe
     }
 
     @Test
