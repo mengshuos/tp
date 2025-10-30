@@ -71,7 +71,7 @@ public class TypicalPersons {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons and their associated groups.
+     * Returns an {@code AddressBook} with all the typical persons and their associated groups and tags.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
@@ -85,7 +85,16 @@ public class TypicalPersons {
             ab.addGroup(group);
         }
 
-        // Then add persons with central group references
+        // Add all unique tags to the central list
+        Set<edutrack.model.tag.Tag> allTags = new HashSet<>();
+        for (Person person : getTypicalPersons()) {
+            allTags.addAll(person.getTags());
+        }
+        for (edutrack.model.tag.Tag tag : allTags) {
+            ab.addTag(tag);
+        }
+
+        // Then add persons with central group and tag references
         for (Person person : getTypicalPersons()) {
             // Replace person's groups with central references
             Set<Group> centralGroupRefs = new HashSet<>();
@@ -93,17 +102,23 @@ public class TypicalPersons {
                 centralGroupRefs.add(ab.getGroup(personGroup));
             }
 
-            Person personWithCentralGroups = new Person(
+            // Replace person's tags with central references
+            Set<edutrack.model.tag.Tag> centralTagRefs = new HashSet<>();
+            for (edutrack.model.tag.Tag personTag : person.getTags()) {
+                centralTagRefs.add(ab.getTag(personTag));
+            }
+
+            Person personWithCentralRefs = new Person(
                     person.getName(),
                     person.getPhone(),
                     person.getEmail(),
                     person.getAddress(),
-                    person.getTags(),
+                    centralTagRefs,
                     centralGroupRefs,
                     person.getNote()
             );
 
-            ab.addPerson(personWithCentralGroups);
+            ab.addPerson(personWithCentralRefs);
         }
         return ab;
     }

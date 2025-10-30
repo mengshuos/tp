@@ -180,4 +180,79 @@ public class UniquePersonListTest {
     public void toStringMethod() {
         assertEquals(uniquePersonList.asUnmodifiableObservableList().toString(), uniquePersonList.toString());
     }
+
+    @Test
+    public void sortByName_emptySortedList_success() {
+        uniquePersonList.sortByName();
+        assertEquals(0, uniquePersonList.asUnmodifiableObservableList().size());
+    }
+
+    @Test
+    public void sortByName_mixedCaseNames_sortsCorrectly() {
+        Person alice = new PersonBuilder().withName("alice").build();
+        Person bob = new PersonBuilder().withName("BOB").build();
+        Person charlie = new PersonBuilder().withName("Charlie").build();
+
+        // Add in unsorted order
+        uniquePersonList.add(charlie);
+        uniquePersonList.add(bob);
+        uniquePersonList.add(alice);
+
+        uniquePersonList.sortByName();
+
+        // Verify sorted order
+        assertEquals("alice",
+            uniquePersonList.asUnmodifiableObservableList()
+                .get(0)
+                .getName()
+                .toString()
+                .toLowerCase());
+        assertEquals("bob",
+            uniquePersonList.asUnmodifiableObservableList()
+                    .get(1)
+                    .getName()
+                    .toString()
+                    .toLowerCase());
+        assertEquals("charlie",
+            uniquePersonList.asUnmodifiableObservableList()
+                    .get(2)
+                    .getName()
+                    .toString()
+                    .toLowerCase());
+    }
+
+    @Test
+    public void sortByName_duplicateLetterDifferentCase_sortsCorrectly() {
+
+        Person aaronLowerCase = new PersonBuilder().withName("aaron").build();
+        Person aaronUpperCase = new PersonBuilder().withName("Aaron").build();
+        Person bob = new PersonBuilder().withName("bob").build();
+
+        // Add in unsorted order
+        uniquePersonList.add(bob);
+        uniquePersonList.add(aaronUpperCase);
+        uniquePersonList.add(aaronLowerCase);
+
+        uniquePersonList.sortByName();
+
+        // Verify sorted order (stable sort expected)
+        assertEquals("aaron",
+            uniquePersonList.asUnmodifiableObservableList()
+                .get(0)
+                .getName()
+                .toString()
+                .toLowerCase());
+        assertEquals("aaron",
+            uniquePersonList.asUnmodifiableObservableList()
+                .get(1)
+                .getName()
+                .toString()
+                .toLowerCase());
+        assertEquals("bob",
+            uniquePersonList.asUnmodifiableObservableList()
+                .get(2)
+                .getName()
+                .toString()
+                .toLowerCase());
+    }
 }

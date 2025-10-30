@@ -102,7 +102,8 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts the list of persons by name alphabetically.
      */
     public void sortByName() {
-        FXCollections.sort(internalList, Comparator.comparing(person -> person.getName().fullName));
+        FXCollections.sort(internalList,
+                Comparator.comparing(person -> person.getName().fullName, String.CASE_INSENSITIVE_ORDER));
     }
 
     /**

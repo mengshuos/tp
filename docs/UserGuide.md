@@ -132,7 +132,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 > + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
 > + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
-> + Tags can be assigned to students after creation using the `tag/assign` command.
+> + All specified groups and tags must already exist in the system.
 
 #### Example usage:
 * `add n/John Doe`
@@ -241,14 +241,7 @@ Format: `delete INDEX`
 
 Clears all entries from the address book.
 
-Format: 
-- `clear` (on first use)
-- `clear confirm` (after already typing `clear` once and hitting 'Enter')
-
-#### Notes:
-> - As a safeguard for users who may accidentally and unintentionally clear all the data, you need to type `clear confirm` to confirm your intent to delete the data, after you type and use the command `clear`
-> - If you try to type `clear confirm` before having typed `clear` at least once, you will be prompted to first initiate the clear
-> - If you type `clear` once, and you type and use any other command, and then type `clear confirm`, it will not ask you
+Format: `clear`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
@@ -257,30 +250,39 @@ Exits the program.
 
 Format: `exit`
 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Create Group: `group/create`
 
 Creates a new group with a specified name.
 
-Format: `group/create g/GROUP_NAME`
+Format:
 
-#### Notes
+`group/create g/GROUP_NAME`
+
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
->* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.​
+>* `GROUP_NAME` is case-insensitive and acceptable characters are alpha-numeric.​
+>* `GROUP_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
+
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
 Deletes an existing group and removes all group assignments from associated contacts.
 
-Format: `group/delete g/GROUP_NAME`
+Format:
+
+`group/delete g/GROUP_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
 Displays all existing groups.
 
-Format: `group/list`
+Format:
+
+`group/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
@@ -297,9 +299,8 @@ Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
 Removes one or more contacts from a specified group.
 
-Format: `group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
-
 --------------------------------------------------------------------------------------------------------------------
+
 
 ### Create Tag: `tag/create`
 
@@ -310,6 +311,8 @@ Format: `tag/create t/TAG_NAME`
 #### Notes:
 >* `TAG_NAME` refers to the name you wish to assign to the tag.
 >* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+>* `TAG_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`
