@@ -4,6 +4,7 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NOTE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 import static edutrack.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -27,6 +28,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
@@ -47,7 +49,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_GROUP + "GROUP]...\n"
+            + "[" + PREFIX_GROUP + "GROUP]..."
+            + "[" + PREFIX_NOTE + "NOTE\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -116,7 +119,8 @@ public class EditCommand extends Command {
                 editedPerson.getEmail(),
                 editedPerson.getAddress(),
                 editedPerson.getTags(),
-                centralGroups
+                centralGroups,
+                editedPerson.getNote()
         );
 
         model.setPerson(personToEdit, personWithCentralGroups);
@@ -137,8 +141,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Group> updatedGroups = editPersonDescriptor.getGroups().orElse(personToEdit.getGroups());
+        Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedGroups);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedGroups,
+                updatedNote);
     }
 
     @Override
@@ -176,6 +182,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Set<Group> groups;
+        private Note note;
 
         public EditPersonDescriptor() {}
 
@@ -190,6 +197,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setGroups(toCopy.groups);
+            setNote(toCopy.note);
         }
 
         /**
@@ -265,7 +273,13 @@ public class EditCommand extends Command {
             return (groups != null) ? Optional.of(Collections.unmodifiableSet(groups)) : Optional.empty();
         }
 
+        public void setNote(Note note) {
+            this.note = note;
+        }
 
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -284,7 +298,8 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(groups, otherEditPersonDescriptor.groups);
+                    && Objects.equals(groups, otherEditPersonDescriptor.groups)
+                    && Objects.equals(note, otherEditPersonDescriptor.note);
 
         }
 
@@ -297,6 +312,7 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("tags", tags)
                     .add("groups", groups)
+                    .add("note", note)
                     .toString();
         }
     }
