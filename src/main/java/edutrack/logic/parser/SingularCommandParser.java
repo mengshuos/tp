@@ -98,5 +98,4 @@ public class SingularCommandParser implements Parser<Command> {
     public boolean hasExtraArguments(String args) {
         return !args.trim().isEmpty();
     }
-
 }
