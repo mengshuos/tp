@@ -1,10 +1,6 @@
 package edutrack.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
-import edutrack.logic.Messages;
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import edutrack.logic.commands.AddCommand;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -39,6 +35,13 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static edutrack.testutil.TypicalPersons.AMY;
+import static edutrack.testutil.TypicalPersons.BOB;
+
+import org.junit.jupiter.api.Test;
+
+import edutrack.logic.Messages;
+import edutrack.logic.commands.AddCommand;
 import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
@@ -47,8 +50,6 @@ import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
 import edutrack.testutil.PersonBuilder;
-import static edutrack.testutil.TypicalPersons.AMY;
-import static edutrack.testutil.TypicalPersons.BOB;
 
 public class AddCommandParserTest {
     private final AddCommandParser parser = new AddCommandParser();

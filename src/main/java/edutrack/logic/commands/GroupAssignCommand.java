@@ -80,7 +80,8 @@ public class GroupAssignCommand extends Command {
                         personToEdit.getEmail(),
                         personToEdit.getAddress(),
                         personToEdit.getTags(),
-                        updatedGroups
+                        updatedGroups,
+                        personToEdit.getNote()
                 );
 
                 model.setPerson(personToEdit, updatedPerson);

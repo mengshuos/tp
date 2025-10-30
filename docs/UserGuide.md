@@ -21,13 +21,13 @@ If you type fast, you can handle and manage all your students across your differ
   * [Commands](#commands)
       * [Help page: `help`](#help-page-help)
       * [Adding a student: `add`](#adding-a-student-add)
-      * [Listing all students: `list`](#listing-all-students-list)
-      * [Editing a student: `edit`](#editing-a-student-edit)
-      * [Locating by name or group: `find`](#locating-by-name-or-group-find)
+      * [Listing all students : `list`](#listing-all-students-list)
+      * [Editing a student : `edit`](#editing-a-student-edit)
+      * [Locating by name: `find`](#locating-by-name-find)
       * [Locating by tag: `findtag`](#locating-by-tag-findtag)
-      * [Deleting a student: `delete`](#deleting-a-student--delete)
-      * [Clearing all students: `clear`](#clearing-all-students--clear)
-      * [Exiting the program: `exit`](#exiting-the-program--exit)
+      * [Deleting a student : `delete`](#deleting-a-student--delete)
+      * [Clearing all students : `clear`](#clearing-all-students--clear)
+      * [Exiting the program : `exit`](#exiting-the-program--exit)
       * [Create Group: `group/create`](#create-group-groupcreate)
       * [Delete Group: `group/delete`](#delete-group-groupdelete)
       * [List Groups: `group/list`](#list-groups-grouplist)
@@ -40,8 +40,8 @@ If you type fast, you can handle and manage all your students across your differ
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
       * [Stats: `stats`](#viewing-statistics-stats)
       * [Sorting: `sort`](#sorting-sort)
-      * [Create notes: `note/create`](#create-notes-notecreate)
-      * [Delete notes: `note/delete`](#delete-notes-notedelete)
+      * [Create note: `note/create`](#create-notes-notecreate)
+      * [Delete note: `note/delete`](#delete-notes-notedelete)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -109,8 +109,8 @@ If you type fast, you can handle and manage all your students across your differ
   > e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
   > you can also type `p/PHONE_NUMBER n/NAME`.
 
-* For single-word commands, if you type any subsequent parameters, you will get an error
-  > e.g. `help test` gives an error
+* For commands that does not take any parameters (single-word commands like `list`), you should type only the command word. If not, an error will pop up to tell you to remove the extra parameters.<br>
+  > e.g. `list` command is typed as `list` only.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands directly.
     * This is because you may accidentally copy over hidden invalid characters.
@@ -203,9 +203,9 @@ You must choose exactly one of the two forms below.
 
 Format (choose ONE):
 
-By name: `find n/ KEYWORD [MORE_KEYWORDS]...`
+By name: `find n/KEYWORD [MORE_KEYWORDS]...`
 
-By group: `find g/ GROUP_NAME [MORE_GROUPS]...`
+By group: `find g/GROUP_NAME [MORE_GROUPS]...`
 
 #### Notes:
 >* Exactly one of n/ or g/ must be present.
@@ -302,7 +302,7 @@ Format: `group/create g/GROUP_NAME`
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
-Deletes an existing group and removes all group assignments from associated contacts, useful for cleaning up unused or past groups.
+Deletes an existing group and removes all group assignments from associated students, useful for cleaning up unused or past groups.
 
 Format: `group/delete g/GROUP_NAME`
 
@@ -402,7 +402,7 @@ Unassigns an existing tag from a specified student.
 Format: `tag/unassign INDEX t/TAG_NAME`
 
 #### Notes:
-> * Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
+> * Removes the tag `TAG_NAME` from the student at the specified `INDEX`.
 > * The index refers to the index number shown in the displayed student list.
 > * The index **must be a positive integer** 1, 2, 3, ...
 > * The tag must currently be assigned to the student.
@@ -488,8 +488,8 @@ There is no need to save manually.
 EduTrack data are saved automatically as a JSON file at this file location:
 `[JAR file location]/data/edutrack.json`.
 
-Advanced users are welcome to update data directly by editing that data file.
 
+Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning"> :exclamation:  **Caution**  For ADVANCED users:
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -520,31 +520,31 @@ _Details coming soon ..._
 
 ## Command Summary
 
-| Action                  | Description                                 | Format / Example                                                                                                                                                                                   |
-|-------------------------|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action                  | Description                                 | Format / Example                                                                                                                                                                                     |
+|-------------------------|---------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**                 | Add a student to the list.                  | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]... [t/TAG]...`   <br><br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd g/CS2103T t/Good at UML Diagrams` |
-| **Clear**               | Removes all stored data.                    | `clear`                                                                                                                                                                                            |
-| **Delete**              | Deletes student from EduTrack.              | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                                                          |
-| **Edit**                | Edit an existing student.                   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]...` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                                                   |
-| **Find**                | Locate persons by keywords in their names.  | `find KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                                                                                                                   |
-| **Find by Group**       | Find all students in a specific group.      | `find g/GROUP`<br><br>Example: `find g/CS2103T`                                                                                                                                                    |
-| **Find by Tag**         | Find students with a specific tag.          | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                                                                |
-| **Create Group**        | Make a new group.                           | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                                                    |
-| **Delete Group**        | Remove an existing group.                   | `group/delete g/GROUP`<br><br>Example: `group/delete g/CS2103T`                                                                                                                                    |
-| **Assign to Group**     | Assign students to a group.                 | `group/assign INDEX [MORE_INDEXES]... g/GROUP_NAME`<br><br>Example: `group/assign 1 2 g/CS2103T`                                                                                                   |
-| **Unassign from Group** | Remove students from a group.               | `group/unassign INDEX [MORE_INDEXES]... g/GROUP_NAME`<br><br>Example: `group/unassign 1 2 g/CS2103T`                                                                                               |
-| **List Group**          | Show all existing groups.                   | `group/list`                                                                                                                                                                                       |
-| **Create Tag**          | Make a new tag.                             | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                                                                                                                       |
-| **Delete Tag**          | Remove an existing tag.                     | `tag/delete t/TAG`<br><br>Example: `tag/delete t/needs_help`                                                                                                                                       |
-| **Assign Tag**          | Assign a tag to a student.                  | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                                                                                                                          |
-| **Unassign Tag**        | Remove a tag from a student.                | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                                                                                                                      |
-| **List Tag**            | Show all existing tags.                     | `tag/list`                                                                                                                                                                                         |
-| **Stats**               | Show all student statistics.                | `stats`                                                                                                                                                                                            |
-| **List**                | Show all students.                          | `list`                                                                                                                                                                                             |
-| **Help**                | Display help information.                   | `help`                                                                                                                                                                                             |
-| **Sort**                | Sort all students alphabetically.           | `sort`                                                                                                                                                                                             |
-| **Create Note**         | Creates a note for specified student.       | `note/create INDEX no/NOTE`<br><br>Example: `note/create 3 no/Missed the past 3 deadlines. Needs more help with CS2100.`                                                                           |
-| **Delete Note**         | Deletes note attached to specified student. | `note/delete INDEX`<br><br>Example: `note/delete 3`                                                                                                                                                |
+| **Clear**               | Removes all stored data.                    | `clear`                                                                                                                                                                                              |
+| **Delete**              | Deletes student from EduTrack.              | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                                                            |
+| **Edit**                | Edit an existing student.                   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]...` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
+| **Find**                | Locate students by keywords in their names. | `find n/KEYWORD [MORE_KEYWORDS]...`<br><br>Example: `find n/James Jake`                                                                                                                              |
+| **Find by Group**       | Find all students in a specific group.      | `find g/GROUP [MORE_GROUPS]...`<br><br>Example: `find g/CS2103T`                                                                                                                                     |
+| **Find by Tag**         | Find students with a specific tag.          | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                                                                  |
+| **Create Group**        | Make a new group.                           | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                                                      |
+| **Delete Group**        | Remove an existing group.                   | `group/delete g/GROUP`<br><br>Example: `group/delete g/CS2103T`                                                                                                                                      |
+| **Assign to Group**     | Assign students to a group.                 | `group/assign INDEX [MORE_INDEXES]... g/GROUP_NAME`<br><br>Example: `group/assign 1 2 g/CS2103T`                                                                                                     |
+| **Unassign from Group** | Remove students from a group.               | `group/unassign INDEX [MORE_INDEXES]... g/GROUP_NAME`<br><br>Example: `group/unassign 1 2 g/CS2103T`                                                                                                 |
+| **List Group**          | Show all existing groups.                   | `group/list`                                                                                                                                                                                         |
+| **Create Tag**          | Make a new tag.                             | `tag/create t/TAG`<br><br>Example: `tag/create t/needs_help`                                                                                                                                         |
+| **Delete Tag**          | Remove an existing tag.                     | `tag/delete t/TAG`<br><br>Example: `tag/delete t/needs_help`                                                                                                                                         |
+| **Assign Tag**          | Assign a tag to a student.                  | `tag/assign INDEX t/TAG_NAME`<br><br>Example: `tag/assign 1 t/needs_help`                                                                                                                            |
+| **Unassign Tag**        | Remove a tag from a student.                | `tag/unassign INDEX t/TAG_NAME`<br><br>Example: `tag/unassign 1 t/needs_help`                                                                                                                        |
+| **List Tag**            | Show all existing tags.                     | `tag/list`                                                                                                                                                                                           |
+| **Stats**               | Show all student statistics.                | `stats`                                                                                                                                                                                              |
+| **List**                | Show all students.                          | `list`                                                                                                                                                                                               |
+| **Help**                | Display help information.                   | `help`                                                                                                                                                                                               |
+| **Sort**                | Sort all students alphabetically.           | `sort`                                                                                                                                                                                               |
+| **Create Note**         | Creates a note for specified student.       | `note/create INDEX no/NOTE`<br><br>Example: `note/create 3 no/Missed the past 3 deadlines. Needs more help with CS2100.`                                                                             |
+| **Delete Note**         | Deletes note attached to specified student. | `note/delete INDEX`<br><br>Example: `note/delete 3`                                                                                                                                                  |
 
 
 
