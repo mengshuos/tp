@@ -484,8 +484,8 @@ There is no need to save manually.
 EduTrack data are saved automatically as a JSON file at this file location:
 `[JAR file location]/data/edutrack.json`.
 
-Advanced users are welcome to update data directly by editing that data file.
 
+Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning"> :exclamation:  **Caution**  For ADVANCED users:
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
