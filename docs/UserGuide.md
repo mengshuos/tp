@@ -23,7 +23,7 @@ If you type fast, you can handle and manage all your students across your differ
       * [Adding a person: `add`](#adding-a-person-add)
       * [Listing all persons : `list`](#listing-all-persons-list)
       * [Editing a person : `edit`](#editing-a-person-edit)
-      * [Locating by name: `find`](#locating-by-name-find)
+      * [Locating by name or group: `find`](#locating-by-name-or-group-find)
       * [Locating by tag: `findtag`](#locating-by-tag-findtag)
       * [Deleting a person : `delete`](#deleting-a-person--delete)
       * [Clearing all persons : `clear`](#clearing-all-persons--clear)
@@ -181,7 +181,7 @@ Examples:
 *  `edit 2 n/Betsy Crower g/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing groups.
 
 --------------------------------------------------------------------------------------------------------------------
-### Locating by name: `find`
+### Locating by name or group: `find`
 
 Find persons by name or by group. 
 You must choose exactly one of the two forms below.
