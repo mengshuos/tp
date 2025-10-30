@@ -1,10 +1,10 @@
 package edutrack.model.person;
 
+import static edutrack.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
 
-import static edutrack.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 public class NameTest {
 
