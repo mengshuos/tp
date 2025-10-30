@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edutrack.commons.core.LogsCenter;
-import edutrack.logic.commands.AddCommand;
 import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
 import edutrack.logic.commands.ExitCommand;
