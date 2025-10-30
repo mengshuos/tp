@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 # EduTrack User Guide
-**EduTrack** is a classroom management system.
+**EduTrack** is a classroom management system specially catered to tutors.
 
 It allows you to manage your students on your desktop with keyboard commands.
 <br>
@@ -65,12 +65,11 @@ If you type fast, you can handle and manage all your students across your differ
    >* **Mac** / **Linux** users: search for 'Terminal'
    >* **Windows** users: search for 'Command Prompt'
 
-5. Enter the command `cd <FOLDER>` where you replace <FOLDER> with the folder name that you saved the jar file to
-
+5. Enter the command `cd <FOLDER>` where you replace <FOLDER> with the folder name that you saved the jar file to.
 
 6. Enter the command `java -jar edutrack.jar` to run the application.<br>
-   Your screen should have a window pop up that looks like this below:
 
+   Your screen should have a window pop up that looks like this below:
 
 ![Ui](images/Ui.png)
 
@@ -82,29 +81,31 @@ If you type fast, you can handle and manage all your students across your differ
 
 --------------------------------------------------------------------------------------------------------------------
 
-<br>
 
-<br>
+# Features
 
-## Features
-
---------------------------------------------------------------------------------------------------------------------
 ## Commands
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about how to understand the command formats in the guide:**<br>
 
-* You have to replace parameters in upper case with the actual values you want<br>
+* In each command section, the **Format:** line shows you how to type the command in the command box, and how to use its parameters.
+
+
+* You have to replace parameters in upper case with the actual values you want.<br>
   > e.g. in `add n/NAME`, `NAME` is to be replaced with the actual name to be used, such as `add n/John Doe`.
 
-* You can choose not to include parameters in square brackets.<br>
+* You can choose not to include parameters in square brackets, they are optional.<br>
   > e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* If you see parameters with `…`​ after them, you can use them multiple times, or not at all.<br>
-  > e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* If you see parameters with `…` after them, you can use them multiple times, or not at all.<br>
+  > e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* You can type the parameters in any order, as long as you put the correct prefix<br>
+* In EduTrack, prefixes are short labels ending with `/` that appear before values to identify them.<br>
+  > e.g. in `add n/NAME p/PHONE_NUMBER`, `n/` is the prefix for the person's name, and `p/` is the prefix for the person's phone number.
+
+* You can type the parameters in any order, as long as you put the correct prefix.<br>
   > e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
   > you can also type `p/PHONE_NUMBER n/NAME`.
 
@@ -112,9 +113,11 @@ If you type fast, you can handle and manage all your students across your differ
     * This is because you may accidentally copy over hidden invalid characters.
 </div>
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Help page: `help`
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the help page (this page).
 
 ![help message](images/helpMessage.png)
 
@@ -133,6 +136,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 #### Notes:
 
 > + All specified groups and tags must already exist in the system.
+> + You can add multiple groups by entering `g/GROUP_NAME` multiple times, as seen n the example.
 > + Groups and tags must follow their respective naming conventions (see [group/create](#create-group-groupcreate) and [tag/create](#create-tag-tagcreate) for details).
 > + Duplicate persons are not allowed in the address book. A duplicate is defined as a person with the same name as an existing person (case-insensitive). 
 
