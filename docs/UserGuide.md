@@ -132,6 +132,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 #### Notes:
 
 > + All specified groups and tags must already exist in the system.
+> + Groups and tags must follow their respective naming conventions (see [group/create](#create-group-groupcreate) and [tag/create](#create-tag-tagcreate) for details).
 > + Duplicate persons are not allowed in the address book. A duplicate is defined as a person with the same name as an existing person (case-insensitive). 
 
 #### Example usage:
