@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "<<interface>>\nUi" as Ui
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+Class HelpWindow
+Class StatsWindow
+Class ResultDisplay
+Class PersonListPanel
+Class PersonCard
+Class GroupsPanel
+Class GroupCard
+Class StatusBarFooter
+Class CommandBox
+Class GroupsDisplay
+Class GroupEntry {
+  +name: String
+  +location: String
+  +lessonTime: String
+}
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .left.|> Ui
+UiManager -down-> "1" MainWindow
+MainWindow *-down->  "1" CommandBox
+MainWindow *-down-> "1" ResultDisplay
+MainWindow *-down-> "1" PersonListPanel
+MainWindow *-down-> "1" GroupsPanel
+MainWindow *-down-> "1" StatusBarFooter
+MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" StatsWindow
+MainWindow *-left-> "1" GroupsDisplay
+GroupsDisplay -down-> "*" GroupEntry
+
+PersonListPanel -down-> "*" PersonCard
+GroupsPanel -down-> "*" GroupCard
+
+MainWindow -left-|> UiPart
+
+ResultDisplay --|> UiPart
+CommandBox --|> UiPart
+PersonListPanel --|> UiPart
+PersonCard --|> UiPart
+GroupsPanel --|> UiPart
+GroupCard --|> UiPart
+StatusBarFooter --|> UiPart
+HelpWindow --|> UiPart
+StatsWindow --|> UiPart
+GroupsDisplay --|> UiPart
+GroupEntry --|> UiPart
+
+PersonCard ..> Model
+GroupCard ..> Model
+UiManager -right-> Logic
+MainWindow -left-> Logic
+StatsWindow -left-> Logic
+
+PersonListPanel -[hidden]left- GroupsPanel
+GroupsPanel -[hidden]left- HelpWindow
+HelpWindow -[hidden]left- CommandBox
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- StatusBarFooter
+
+MainWindow -[hidden]-|> UiPart
+@enduml
