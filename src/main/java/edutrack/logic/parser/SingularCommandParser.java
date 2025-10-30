@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edutrack.commons.core.LogsCenter;
+import edutrack.logic.commands.AddCommand;
 import edutrack.logic.commands.ClearCommand;
 import edutrack.logic.commands.Command;
 import edutrack.logic.commands.ExitCommand;
@@ -53,7 +54,7 @@ public class SingularCommandParser implements Parser<Command> {
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
         if (!commandWord.equals(ClearCommand.COMMAND_WORD) && hasExtraArguments(arguments)) {
-            throw new ParseException(String.format(MESSAGE_EXTRA_ARGUMENTS, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_EXTRA_ARGUMENTS, arguments.trim()));
         }
 
         switch (commandWord) {
@@ -62,9 +63,12 @@ public class SingularCommandParser implements Parser<Command> {
             String args = arguments.trim();
             if ("confirm".equals(args)) {
                 return new ClearCommand(true);
+            } else if (args.startsWith("confirm")) {
+                logger.finer("This user input's arguments caused a ParseException: " + args);
+                throw new ParseException(String.format(MESSAGE_EXTRA_ARGUMENTS, args.substring(7).trim()));
             } else if (hasExtraArguments(args)) {
                 logger.finer("This user input's arguments caused a ParseException: " + args);
-                throw new ParseException(MESSAGE_EXTRA_ARGUMENTS);
+                throw new ParseException(String.format(MESSAGE_EXTRA_ARGUMENTS, args));
             }
             return new ClearCommand();
 
