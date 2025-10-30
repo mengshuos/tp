@@ -50,7 +50,7 @@ UniqueGroupList --> "*" Group
 
 Person *--> "1" Name
 Person *--> "0..1" Phone
-Person *--> "0..1"Email
+Person *--> "0..1" Email
 Person *--> "0..1" Address
 Person --> "*" Tag
 Person --> "*" Group
