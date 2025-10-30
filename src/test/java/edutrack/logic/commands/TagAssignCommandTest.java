@@ -44,7 +44,8 @@ public class TagAssignCommandTest {
                 personToEdit.getEmail(),
                 personToEdit.getAddress(),
                 personToEdit.getTags(),
-                personToEdit.getGroups());
+                personToEdit.getGroups(),
+                personToEdit.getNote());
 
         java.util.Set<Tag> updatedTags = new java.util.HashSet<>(editedPerson.getTags());
         updatedTags.add(tag);
@@ -54,7 +55,8 @@ public class TagAssignCommandTest {
                 editedPerson.getEmail(),
                 editedPerson.getAddress(),
                 updatedTags,
-                editedPerson.getGroups());
+                editedPerson.getGroups(),
+                editedPerson.getNote());
         expectedModel.setPerson(personToEdit, expectedPerson);
 
         TagAssignCommand assignCommand = new TagAssignCommand(INDEX_FIRST_PERSON, tag);
