@@ -22,6 +22,7 @@ import edutrack.logic.commands.ExitCommand;
 import edutrack.logic.commands.FindCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
+import edutrack.logic.commands.SortCommand;
 import edutrack.logic.parser.exceptions.ParseException;
 import edutrack.model.person.NameContainsKeywordsPredicate;
 import edutrack.model.person.Person;
@@ -86,6 +87,11 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
     }
 
     @Test

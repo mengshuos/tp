@@ -26,7 +26,7 @@ public class TagDeleteCommandTest {
         }
         TagDeleteCommand tagDeleteCommand = new TagDeleteCommand(tagToDelete);
 
-        String expectedMessage = String.format(TagDeleteCommand.MESSAGE_SUCCESS, tagToDelete);
+        String expectedMessage = String.format(TagDeleteCommand.MESSAGE_SUCCESS, tagToDelete, 0);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         if (!expectedModel.hasTag(tagToDelete)) {
             expectedModel.addTag(tagToDelete);
@@ -42,6 +42,50 @@ public class TagDeleteCommandTest {
         TagDeleteCommand tagDeleteCommand = new TagDeleteCommand(nonExistentTag);
 
         assertCommandFailure(tagDeleteCommand, model, TagDeleteCommand.MESSAGE_TAG_NOT_FOUND);
+    }
+
+    @Test
+    public void execute_tagWithAssignedPersons_cascadeDeletesFromPersons() {
+        // Create a tag and assign it to multiple persons
+        Tag testTag = new Tag("CascadeTestTag");
+        model.addTag(testTag);
+
+        // Get first two persons and assign the tag to them
+        edutrack.model.person.Person person1 = model.getFilteredPersonList().get(0);
+        edutrack.model.person.Person person2 = model.getFilteredPersonList().get(1);
+
+        java.util.Set<Tag> tags1 = new java.util.HashSet<>(person1.getTags());
+        tags1.add(testTag);
+        edutrack.model.person.Person updatedPerson1 = new edutrack.model.person.Person(
+                person1.getName(), person1.getPhone(), person1.getEmail(),
+                person1.getAddress(), tags1, person1.getGroups());
+        model.setPerson(person1, updatedPerson1);
+
+        java.util.Set<Tag> tags2 = new java.util.HashSet<>(person2.getTags());
+        tags2.add(testTag);
+        edutrack.model.person.Person updatedPerson2 = new edutrack.model.person.Person(
+                person2.getName(), person2.getPhone(), person2.getEmail(),
+                person2.getAddress(), tags2, person2.getGroups());
+        model.setPerson(person2, updatedPerson2);
+
+        // Verify persons have the tag
+        assert(model.getFilteredPersonList().get(0).getTags().contains(testTag));
+        assert(model.getFilteredPersonList().get(1).getTags().contains(testTag));
+
+        // Delete the tag
+        TagDeleteCommand tagDeleteCommand = new TagDeleteCommand(testTag);
+        try {
+            tagDeleteCommand.execute(model);
+        } catch (Exception e) {
+            throw new AssertionError("Command execution should not fail");
+        }
+
+        // Verify tag is removed from both persons
+        assert(!model.getFilteredPersonList().get(0).getTags().contains(testTag));
+        assert(!model.getFilteredPersonList().get(1).getTags().contains(testTag));
+
+        // Verify tag is removed from central registry
+        assert(!model.hasTag(testTag));
     }
 
     @Test

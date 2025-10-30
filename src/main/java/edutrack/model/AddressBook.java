@@ -183,6 +183,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the tag from the address book that matches the given tag.
+     * The tag must exist in the address book.
+     */
+    public Tag getTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.get(tag);
+    }
+
+    /**
      * Removes {@code tag} from this {@code AddressBook}.
      * {@code tag} must exist in the address book.
      */

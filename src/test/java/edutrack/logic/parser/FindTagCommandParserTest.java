@@ -45,6 +45,17 @@ public class FindTagCommandParserTest {
     }
 
     @Test
+    public void parse_multipleTags_throwsParseException() {
+        // multiple tags provided - should reject
+        assertParseFailure(parser, " t/friends t/colleagues",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE));
+
+        // multiple tags with different values
+        assertParseFailure(parser, " t/needs_help t/high-priority",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsFindTagCommand() throws Exception {
         // valid tag without whitespace
         Tag expectedTag = new Tag("friends");

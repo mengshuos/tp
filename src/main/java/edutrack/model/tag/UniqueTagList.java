@@ -39,6 +39,17 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Returns the tag in the list that matches the given tag.
+     * The tag must exist in the list.
+     */
+    public Tag get(Tag tag) {
+        requireNonNull(tag);
+        return internalList.stream()
+                .filter(tag::equals)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Tag does not exist in the list."));
+    }
 
     /**
      * Removes the equivalent tag from the list.

@@ -126,14 +126,15 @@ public class AddressBookParser {
         case TagListCommand.COMMAND_WORD:
             return new TagListCommand();
 
-
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();
+
         case SortCommand.COMMAND_WORD:
-            return new SortCommand();
+            return new SortCommandParser().parse(arguments);
+
         case NoteCreateCommand.COMMAND_WORD:
             return new NoteCreateCommandParser().parse(arguments);
 

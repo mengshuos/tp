@@ -38,9 +38,9 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
-      * [Stats: `stats`](#unassign-tag-tagunassign)
-      * [Sorting: `sort`](#unassign-tag-tagunassign)
-      * [Notes: `notes`](#unassign-tag-tagunassign)
+      * [Viewing statistics: `stats`](#viewing-statistics-stats)
+      * [Sorting: `sort`](#sorting-sort)
+      * [Student Notes: `notes`](#student-notes-notes)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -119,6 +119,8 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+#### Notes:
+> - You may use the keyboard shortcut `F1` to access the help window too.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a person: `add`
@@ -131,7 +133,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 > + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
 > + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
-> + Tags can be assigned to students after creation using the `tag/assign` command.
+> + All specified groups and tags must already exist in the system.
 
 #### Example usage:
 * `add n/John Doe`
@@ -238,16 +240,18 @@ Format: `delete INDEX`
 --------------------------------------------------------------------------------------------------------------------
 ### Clearing all persons : `clear`
 
-Clears all entries from the address book.
+Clears all the data in EduTrack.
 
 Format: 
 - `clear` (on first use)
 - `clear confirm` (after already typing `clear` once and hitting 'Enter')
 
 #### Notes:
-> - As a safeguard for users who may accidentally and unintentionally clear all the data, you need to type `clear confirm` to confirm your intent to delete the data, after you type and use the command `clear`
+> - The clear command clears all data, including people, groups, tags.
+> - After you type `clear`, you have to type `clear confirm` to complete the clear
 > - If you try to type `clear confirm` before having typed `clear` at least once, you will be prompted to first initiate the clear
-> - If you type `clear` once, and you type and use any other command, and then type `clear confirm`, it will not ask you
+> - After you type `clear`, if you type anything else other than `clear confirm`, it resets the clearing workflow and you have to start over.
+
 
 --------------------------------------------------------------------------------------------------------------------
 ### Exiting the program : `exit`
@@ -256,30 +260,39 @@ Exits the program.
 
 Format: `exit`
 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Create Group: `group/create`
 
 Creates a new group with a specified name.
 
-Format: `group/create g/GROUP_NAME`
+Format:
 
-#### Notes
+`group/create g/GROUP_NAME`
+
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
 >* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric.​
+>* `GROUP_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
+
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
 Deletes an existing group and removes all group assignments from associated contacts.
 
-Format: `group/delete g/GROUP_NAME`
+Format:
+
+`group/delete g/GROUP_NAME`
 
 --------------------------------------------------------------------------------------------------------------------
 ### List Groups: `group/list`
 
 Displays all existing groups.
 
-Format: `group/list`
+Format:
+
+`group/list`
 
 --------------------------------------------------------------------------------------------------------------------
 ### Assign Group: `group/assign`
@@ -296,9 +309,8 @@ Format: `group/assign g/GROUP_NAME INDEX [MORE_INDEXES...]`
 
 Removes one or more contacts from a specified group.
 
-Format: `group/unassign g/GROUP_NAME INDEX [MORE_INDEXES...]`
-
 --------------------------------------------------------------------------------------------------------------------
+
 
 ### Create Tag: `tag/create`
 
@@ -309,6 +321,8 @@ Format: `tag/create t/TAG_NAME`
 #### Notes:
 >* `TAG_NAME` refers to the name you wish to assign to the tag.
 >* `TAG_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
+>* `TAG_NAME` has a maximum length of 100 characters.​
+>* Spaces are not allowed.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Tag: `tag/delete`
@@ -362,27 +376,45 @@ Format: `tag/unassign INDEX t/TAG_NAME`
 
 
 --------------------------------------------------------------------------------------------------------------------
-### Stats: `stats`
+### Viewing Statistics: `stats`
 
-Displays student statistics.
+Displays comprehensive statistics about your students and groups.
 
 Format: `stats`
 
+#### Notes:
+> - The statistics window displays information in two main sections:
+>   - **Total Stats** - Overview of all students
+>     - Total number of students
+>     - Total unique tags in use
+>     - Breakdown of each tag and how many students have it
+>   - **Group Stats** - Breakdown by tutorial group
+>     - For each group, displays:
+>       - Group name (e.g., CS2103T, CS2100)
+>       - Number of students in the group
+>       - Number of unique tags used in the group
+>       - Breakdown of each tag and how many students in that group have it
+> - Use this command to quickly identify which groups need more attention or to see tag distribution across your students.
+
 --------------------------------------------------------------------------------------------------------------------
 
-### Sort: `sort`
+### Sorting: `sort`
 
-Sorts students in (ascending) alphabetical order.
+Sorts all students by their names in alphabetical order.
 
 Format: `sort`
 
 #### Notes:
-> PLACEHOLDER
+> * Sorting is case-insensitive.
+> * The order is ascending.
+> * Sorting always applies to the full student list rather than the current filtered view.
+> * Sorting will reset the view to show all students instead of only the filtered results.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Notes: `notes`
+### Student Notes: `notes`
 
 Displays notes about particular students.
 
@@ -436,8 +468,6 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen.
    * The remedy is to delete the `preferences.json` file created by the application before running the application again.
-3. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear.
-   * The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -465,7 +495,7 @@ _Details coming soon ..._
 | **Stats**        | Show all student statistics.                                  | `stats`                                                                                           |
 | **List**            | Show all contacts.                                       | `list`                                                                                                |
 | **Help**            | Display help information.                                | `help`                                                                                                |
-| **Sort**            | <<\PLACEHOLDER>>                                | `sort`                                                                                                |
+| **Sort**            | Sort all students alphabetically.                                | `sort`                                                                                                |
 | **Notes**            | <<\PLACEHOLDER>>                                | `<<PLACEHOLDER>>`                                                                                                |
 
 

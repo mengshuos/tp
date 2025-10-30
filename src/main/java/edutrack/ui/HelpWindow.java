@@ -15,8 +15,9 @@ import javafx.stage.Stage;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = // newline because exceeds 120 chars
+            "https://github.com/AY2526S1-CS2103T-F14a-3/tp/blob/master/docs/UserGuide.md";
+    public static final String HELP_MESSAGE = "Refer to the user guide at this URL: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -47,6 +48,7 @@ public class HelpWindow extends UiPart<Stage> {
     /**
      * Shows the help window.
      * @throws IllegalStateException
+     *
      *     <ul>
      *         <li>
      *             if this method is called on a thread other than the JavaFX Application Thread.
