@@ -39,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_GROUP_CS2103T = "CS2103T";
     public static final String VALID_GROUP_CS2101 = "CS2101";
+    public static final String VALID_NOTE_AMY = "Needs improvement in math.";
+    public static final String VALID_NOTE_BOB = "Excellent presentation.";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -69,10 +71,11 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2103T).build();
+                .withTags(VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2103T).withNote(VALID_NOTE_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2101).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withGroups(VALID_GROUP_CS2101)
+                .withNote(VALID_NOTE_BOB).build();
     }
 
     /**

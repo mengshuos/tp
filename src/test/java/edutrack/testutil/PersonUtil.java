@@ -4,6 +4,7 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NOTE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -69,6 +70,7 @@ public class PersonUtil {
                 groups.forEach(s -> sb.append(PREFIX_GROUP).append(s.groupName).append(" "));
             }
         }
+        descriptor.getNote().ifPresent(note -> sb.append(PREFIX_NOTE).append(note.value).append(" "));
         return sb.toString();
     }
 }

@@ -279,8 +279,6 @@ public class EditCommand extends Command {
             return (groups != null) ? Optional.of(Collections.unmodifiableSet(groups)) : Optional.empty();
         }
 
-
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -300,7 +298,6 @@ public class EditCommand extends Command {
                 && Objects.equals(tags, otherEditPersonDescriptor.tags)
                 && Objects.equals(groups, otherEditPersonDescriptor.groups)
                 && Objects.equals(note, otherEditPersonDescriptor.note);
-
         }
 
         @Override
