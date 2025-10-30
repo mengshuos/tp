@@ -9,7 +9,14 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Libraries used:
+    * [JavaFX](https://openjfx.io/) - GUI framework for building the user interface
+    * [JUnit5](https://junit.org/junit5/) - Unit testing framework for comprehensive test coverage
+* Build and development tools:
+    * [Gradle](https://gradle.org/) - Build automation and dependency management
+* Documentation:
+    * [Jekyll](https://jekyllrb.com/) - Static site generator for project documentation
+    * [PlantUML](https://plantuml.com/) - Automatic generation of UML diagrams from text descriptions.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -290,8 +297,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …        | I want to …                                                                              | So that I can…                                     |
 | -------- | ------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| `* * *`  | tutor         | track attendance                                                                         | calculate attendance grades                        |
-| `* * *`  | tutor         | track participation                                                                      | calculate participation grades                     |
 | `* * *`  | tutor         | organise students into their different classes.                                          | organize by tutorial group                         |
 | `* * *`  | tutor         | select specific groups to view                                                           | see students by group                              |
 | `* * *`  | tutor         | search for a specific student                                                            | contact him                                        |
@@ -299,11 +304,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | tutor         | add a tag to my weaker students                                                          | remember to check in on them                       |
 | `* *`    | tutor         | sort by day                                                                              | know which groups I have for that day              |
 | `* *`    | tutor         | archive students                                                                         | view current vs past students                      |
-| `* *`    | tutor         | be alerted to students with poor attendance                                              | check up on them.                                  |
 | `* *`    | tutor         | filter students by performance metrics                                                   | identify weaker students.                          |
-| `* *`    | tutor         | quickly mark attendance for multiple students at once                                    | save time                                          |
 | `* *`    | tutor         | record participation (e.g., "active," "quiet," "needs improvement")                      | monitor engagement.                                |
-| `* *`    | tutor         | pre mark my students attendance if I know they are going to be absent                    | better plan my lessons earlier.                    |
 | `* *`    | tutor         | be able to filter between students that need more help and students that are on schedule | take a glance                                      |
 | `* *`    | tutor         | add the contact details of my student                                                    | contact them                                       |
 | `* *`    | tutor         | edit the contact details of my student                                                   | have accurate info                                 |
@@ -317,7 +319,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | tutor         | filter reports by timeframe (e.g., monthly / termly)                                     | measure improvement over periods.                  |
 | `*`      | tutor         | attach files to students' absences                                                       | easily track the relevant certificates of absence. |
 | `*`      | tutor         | see progress graphs for each student                                                     | visualise improvement                              |
-| `*`      | tutor         | receive alerts for at-risk students (e.g., repeated absences)                            | monitor their status.                              |
 | `*`      | busy tutor    | check on my students' progress in one place                                              | easily differentiate who to help out more.         |
 | `*`      | busy tutor    | quickly view my student's statistics at a glance                                         | have a quick overview of my class' progress.       |
 
@@ -351,8 +352,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS:**
 
-1.  User requests to delete a specific person in the list
-2.  System deletes the person
+1.  User requests to delete a specific person in the list.
+2.  System deletes the person.
 
     Use case ends.
 
@@ -365,97 +366,81 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. The parameter is invalid.
     * 2b1. System rejects the deletion and displays an appropriate error message.
 
-**Use case: Search for a Person by Name**
+**Use case: Search for a Person by Parameter**
 
 **Preconditions:**
 - The persons list is not empty.
 
 **MSS:**
 
-1. User requests to find a person by providing a name or partial name.
+1. User requests to find a person by providing a parameter.
 2. System searches through all stored persons.
-3. System shows a list of persons whose names match the query.
+3. System shows a list of persons whose parameter match the query.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. No name provided.
-  * 1a1. System prompts User to provide a name
+* 1a. No parameter provided.
+  * 1a1. System prompts User to provide a parameter.
 
 * 3a. No matching persons found
   * 3a1. System informs the User that no results were found.
 
-**Use case: Create a Group**
+**Use case: Create a Group or Tag**
 
 **MSS:**
-1. User requests to create a new group by specifying a group name.
-2. System validates the group name.
-3. System creates the new group.
+1. User requests to create a new group or tag by specifying a name.
+2. System validates the name.
+3. System creates the new group or tag.
 4. System confirms the successful creation.
 
    Use case ends.
 
 **Extensions:**
-* 2a. Invalid group name
+* 2a. Invalid group or tag name
   * 2a1. System rejects the request and shows an appropriate error message.
-* 2b. Group name already exists
+* 2b. Group or tag name already exists
   * 2b1. System rejects the request to prevent duplicates.
-* 2c. No group name provided
+* 2c. No name provided
   * 2c1. System asks the user to input a valid name.
 
-**Use case: Assign Persons to a Group**
+**Use case: Assign Persons to a Group or Tag**
 
 **Preconditions:**
-- The group and persons exist in the system.
+- The group or tag and persons exist in the system.
 
 **MSS:**
-1. User requests to assign one or more persons to an existing group.
-2. System verifies that the specified group exists.
+1. User requests to assign one or more persons to an existing group or tag.
+2. System verifies that the specified group or tag exists.
 3. System validates that the referenced persons exist.
-4. System assigns those persons to the group.
-5. System confirms that the persons were successfully added to the group.
+4. System assigns those persons to the group or tag.
+5. System confirms that the persons were successfully added to the group or tag.
 
 **Extensions:**
-- 2a. The specified group does not exist
+- 2a. The specified group or tag does not exist
   - 2a1. System informs the user that the group is invalid.
 - 3a. One or more person references are invalid
   - 3a1. System informs the user which entries are invalid.
-- 4a. Some persons are already assigned to the group
+- 4a. Some persons are already assigned to the group or tag
   - 4a1. System informs the user about the duplicates and rejects the assignment.
 
-**Use case: Unassign a Person from a Group**
+**Use case: Unassign a Person from a Group or Tag**
 
 **Preconditions:**
-- The group exists and the person is already assigned to it.
+- The group or tag exists and the person is already assigned to it.
 
 **MSS:**
-1. User requests to remove a person from a group.
-2. System verifies that the person belongs to the specified group.
-3. System removes the person from the group.
+1. User requests to remove a person from a group or tag.
+2. System verifies that the person belongs to the specified group or tag.
+3. System removes the person from the group or tag.
 4. System confirms that the unassignment is complete.
 
 **Extensions:**
-- 1a. The specified group does not exist
-    - 1a1. System informs the user that the group is invalid.
-- 2a. The person is not assigned to that group
+- 1a. The specified group or tag does not exist
+    - 1a1. System informs the user that the group or tag is invalid.
+- 2a. The person is not assigned to that group or tag
   - 2a1. System rejects the unassignment request.
-
-**Use case: Select a Group**
-
-**Preconditions:**
-- The group already exists.
-
-**MSS:**
-1. User requests to view a specific group.
-2. System verifies that the group exists.
-3. System retrieves and displays all persons in that group.
-
-**Extensions:**
-- 2a. Group name invalid or nonexistent
-  - 2a1. System informs the user.
-- 3a. Group exists but contains no persons
-  - 3a1. System informs the user that the group is empty.
 
 ### Non-Functional Requirements
 
@@ -499,7 +484,7 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+
 
 ### Deleting a person
 
@@ -516,12 +501,138 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a person
+
+1. Adding a person with only required fields
+
+   1. Test case: `add n/John Doe`<br>
+      Expected: Person with name "John Doe" is added to the list. Details of the added person shown in the status message.
+
+   1. Test case: `add n/Jane Smith p/91234567 e/jane@example.com a/123 Baker St`<br>
+      Expected: Person with all contact details is added. Success message shown.
+
+   1. Test case: `add n/`<br>
+      Expected: No person is added. Error message indicating invalid command format shown.
+
+   1. Test case: `add n/John Doe g/NonExistentGroup`<br>
+      Expected: No person is added. Error message indicating group does not exist shown.
+
+### Creating and managing groups
+
+1. Creating a new group
+
+   1. Prerequisites: Group "CS2103T" does not exist yet.
+
+   1. Test case: `group/create g/CS2103T`<br>
+      Expected: New group "CS2103T" is created. Success message shown.
+
+   1. Test case: `group/create g/CS2103T` (when group already exists)<br>
+      Expected: No group is created. Error message indicating duplicate group shown.
+
+   1. Test case: `group/create g/`<br>
+      Expected: No group is created. Error message about invalid format shown.
+
+1. Assigning persons to a group
+
+   1. Prerequisites: List all persons using `list` command. At least 2 persons in the list. Group "CS2103T" exists.
+
+   1. Test case: `group/assign 1 g/CS2103T`<br>
+      Expected: First person is assigned to group "CS2103T". Success message shown.
+
+   1. Test case: `group/assign 1 2 g/CS2103T`<br>
+      Expected: First and second persons are assigned to the group. Success message showing number of persons assigned.
+
+   1. Test case: `group/assign 0 g/CS2103T`<br>
+      Expected: No assignment occurs. Error message about invalid index shown.
+
+1. Deleting a group
+
+   1. Prerequisites: Group "CS2103T" exists and is assigned to some persons.
+
+   1. Test case: `group/delete g/CS2103T`<br>
+      Expected: Group is deleted and removed from all assigned persons. Success message shown.
+
+   1. Test case: `group/list`<br>
+      Expected: Deleted group should not appear in the list.
+
+### Creating and managing tags
+
+1. Creating a new tag
+
+   1. Prerequisites: Tag "needs_help" does not exist yet.
+
+   1. Test case: `tag/create t/needs_help`<br>
+      Expected: New tag "needs_help" is created. Success message shown.
+
+   1. Test case: `tag/create t/needs_help` (when tag already exists)<br>
+      Expected: No tag is created. Error message indicating duplicate tag shown.
+
+1. Assigning tags to persons
+
+   1. Prerequisites: List all persons using `list` command. At least 1 person in the list. Tag "needs_help" exists.
+
+   1. Test case: `tag/assign 1 t/needs_help`<br>
+      Expected: First person is assigned the tag "needs_help". Success message shown.
+
+   1. Test case: `tag/assign 999 t/needs_help` (where 999 is larger than list size)<br>
+      Expected: No assignment occurs. Error message about invalid index shown.
+
+### Finding persons
+
+1. Finding persons by name
+
+   1. Test case: `find n/John`<br>
+      Expected: All persons with "John" in their name are listed. Number of persons found shown in status message.
+
+   1. Test case: `find n/alex david`<br>
+      Expected: All persons with either "alex" or "david" in their name are listed.
+
+   1. Test case: `find`<br>
+      Expected: No filtering occurs. Error message about invalid format shown.
+
+1. Finding persons by group
+
+    1. Test case: `find g/CS2013T`<br>
+       Expected: All persons in group "CS2103T". Number of persons found shown in status message.
+
+    1. Test case: `find`<br>
+       Expected: No filtering occurs. Error message about invalid format shown.
+
+1. Finding persons by tag
+
+   1. Test case: `findtag t/needs_help`<br>
+      Expected: All persons with the "needs_help" tag are listed. Number of persons found shown.
+
+   1. Test case: `findtag t/tag1 t/tag2`<br>
+      Expected: Error message indicating only one tag is allowed.
+
+### Editing a person
+
+1. Editing person details
+
+   1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
+
+   1. Test case: `edit 1 p/91234567 e/emailaddress@email.com`<br>
+      Expected: First person's phone and email are updated. Success message shown.
+
+   1. Test case: `edit 1 n/New Name`<br>
+      Expected: First person's name is updated to "New Name". Success message shown.
+
+   1. Test case: `edit 1 g/`<br>
+      Expected: All groups are removed from the first person. Success message shown.
+
+   1. Test case: `edit 0 n/New Name`<br>
+      Expected: No person is edited. Error message about invalid index shown.
+
+   1. Test case: `edit 1`<br>
+      Expected: No person is edited. Error message indicating at least one field must be provided.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Test case: Delete the data file at `[JAR file location]/data/edutrack.json` and launch the app.<br>
+      Expected: App starts with sample data.
 
-1. _{ more test cases …​ }_
+   1. Test case: Open the data file and add invalid JSON syntax (e.g., remove a closing brace), then launch the app.<br>
+      Expected: App starts with an empty address book, discarding the corrupted data.
