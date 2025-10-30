@@ -24,6 +24,7 @@ import edutrack.logic.commands.GroupUnassignCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.commands.NoteCreateCommand;
+import edutrack.logic.commands.NoteDeleteCommand;
 import edutrack.logic.commands.SortCommand;
 import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.commands.TagAssignCommand;
@@ -77,24 +78,8 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            String args = arguments.trim();
-            if ("confirm".equals(args)) {
-                return new ClearCommand(true);
-            }
-            return new ClearCommand();
-
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
 
         case GroupCreateCommand.COMMAND_WORD:
             return new GroupCreateCommandParser().parse(arguments);
@@ -108,9 +93,6 @@ public class AddressBookParser {
         case GroupUnassignCommand.COMMAND_WORD:
             return new GroupUnassignCommandParser().parse(arguments);
 
-        case GroupListCommand.COMMAND_WORD:
-            return new GroupListCommand();
-
         case TagCreateCommand.COMMAND_WORD:
             return new TagCreateCommandParser().parse(arguments);
 
@@ -123,14 +105,8 @@ public class AddressBookParser {
         case TagUnassignCommand.COMMAND_WORD:
             return new TagUnassignCommandParser().parse(arguments);
 
-        case TagListCommand.COMMAND_WORD:
-            return new TagListCommand();
-
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);
-
-        case StatsCommand.COMMAND_WORD:
-            return new StatsCommand();
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
@@ -138,10 +114,22 @@ public class AddressBookParser {
         case NoteCreateCommand.COMMAND_WORD:
             return new NoteCreateCommandParser().parse(arguments);
 
+        case NoteDeleteCommand.COMMAND_WORD:
+            return new NoteDeleteCommandParser().parse(arguments);
+
+        case ClearCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD:
+        case GroupListCommand.COMMAND_WORD:
+        case TagListCommand.COMMAND_WORD:
+        case StatsCommand.COMMAND_WORD:
+            return new SingularCommandParser().parse(userInput);
+
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
 
+    }
 }

@@ -38,9 +38,10 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
-      * [Viewing statistics: `stats`](#viewing-statistics-stats)
-      * [Sorting: `sort`](#sorting-sort)
-      * [Student Notes: `notes`](#student-notes-notes)
+      * [Stats: `stats`](#unassign-tag-tagunassign)
+      * [Sorting: `sort`](#unassign-tag-tagunassign)
+      * [Create note: `note/create`](#unassign-tag-tagunassign)
+      * [Delete note: `note/delete`](#unassign-tag-tagunassign)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -131,9 +132,9 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 #### Notes:
 
-> + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
-> + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
 > + All specified groups and tags must already exist in the system.
+> + Groups and tags must follow their respective naming conventions (see [group/create](#create-group-groupcreate) and [tag/create](#create-tag-tagcreate) for details).
+> + Duplicate persons are not allowed in the address book. A duplicate is defined as a person with the same name as an existing person (case-insensitive). 
 
 #### Example usage:
 * `add n/John Doe`
@@ -414,20 +415,30 @@ Sorts all students by their names in alphabetical order.
 Format: `sort`
 
 #### Notes:
-> * Sorting is case-insensitive.
-> * The order is ascending.
+> * Sorting is case-insensitive
+> * The order is ascending
 > * Sorting always applies to the full student list rather than the current filtered view.
 > * Sorting will reset the view to show all students instead of only the filtered results.
 
 
+--------------------------------------------------------------------------------------------------------------------
+
+### Create notes: `note/create`
+
+Creates a note for a student. Each student can have only one note attached.
+
+Format: `note/create INDEX no/NOTE_CONTENT`
+
+#### Notes:
+> PLACEHOLDER
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Student Notes: `notes`
+### Delete notes: `note/delete`
 
-Displays notes about particular students.
+Deletes the note attached to a student. This command does nothing if the student has no note attached.
 
-Format: `<<PLACEHOLDER>>`
+Format: `note/delete INDEX`
 
 #### Notes:
 > PLACEHOLDER
@@ -452,12 +463,11 @@ EduTrack data are saved automatically as a JSON file at this file location:
 Advanced users are welcome to update data directly by editing that data file.
 
 
-
 <div markdown="span" class="alert alert-warning"> :exclamation:  **Caution**  For ADVANCED users:
-
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the EduTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Archiving data files `[coming in v2.0]`
@@ -488,7 +498,7 @@ _Details coming soon ..._
 | **Clear**           | Removes all stored data.                                 | `clear`                                                                                                                                                           |
 | **Delete**          | Deletes contact from EduTrack.                            | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                         |
 | **Edit**            | Edit an existing contact.                                | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]…​` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                   |
-| **Find**            | Locate persons by keywords in their names.               | `find n/ KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                                                                               |
+| **Find**            | Locate persons by keywords in their names.               | `find n/KEYWORD [MORE_KEYWORDS]`<br><br>Example: `find James Jake`                                                                                               |
 | **Find by Group**   | Find all contacts in a specific group.                   | `find g/GROUP [MORE_GROUPS]`<br><br>Example: `find g/CS2103T`                                                                                                                  |
 | **Find by Tag**     | Find contacts with a specific tag.                         | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                               |
 | **Create Group**    | Make a new group.                                         | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                   |

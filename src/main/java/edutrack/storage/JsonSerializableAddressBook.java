@@ -155,7 +155,8 @@ class JsonSerializableAddressBook {
                     person.getEmail(),
                     person.getAddress(),
                     personTagsWithCentralRefs,
-                    personGroupsWithCentralRefs
+                    personGroupsWithCentralRefs,
+                    person.getNote()
             );
 
             addressBook.addPerson(personWithCentralRefs);
