@@ -20,19 +20,21 @@ public class FindCommand extends Command {
     public static final String MESSAGE_NAME_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: n/ KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " n/alice bob charlie";
 
     public static final String MESSAGE_GROUP_USAGE = COMMAND_WORD + ": Finds all persons who are in the specified "
             + "group and displays them as a list with index numbers.\n"
             + "Parameters: g/ GROUP_NAME\n"
-            + "Example: " + COMMAND_WORD + " g/ CS2103T";
+            + "Example: " + COMMAND_WORD + " g/CS2103T";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) OR finds all persons who are in the specified "
-            + "group and displays them as a list with index numbers.\n"
-            + "Parameters: g/ KEYWORD [MORE_KEYWORDS]... OR /g GROUP_NAME\n"
-            + "Examples " + COMMAND_WORD + " n/ alice bob charlie"
-            + "Example: " + COMMAND_WORD + " g/ CS2103T";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by name or group membership.\n"
+            + "Use exactly one of these formats:\n"
+            + "1. Find by name: " + COMMAND_WORD + " n/KEYWORD [MORE_KEYWORDS]... "
+            + "- Finds persons whose names contain any keyword\n"
+            + "2. Find by group: " + COMMAND_WORD + " g/GROUP_NAME - Finds persons in the specified group\n"
+            + "Examples:\n"
+            + "  " + COMMAND_WORD + " n/alice bob - Finds persons with 'alice' or 'bob' in their names\n"
+            + "  " + COMMAND_WORD + " g/CS2103T - Finds persons in group 'CS2103T'";
 
     private final Predicate<Person> predicate;
 

@@ -48,4 +48,10 @@ public class GroupNameContainsKeywordsPredicate implements Predicate<Person> {
     public String toString() {
         return new ToStringBuilder(this).add("keywords", keywords).toString();
     }
+
+    @Override
+    public int hashCode() {
+        return keywords.hashCode();
+    }
+
 }
