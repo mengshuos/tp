@@ -132,9 +132,9 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]…`
 
 #### Notes:
 
-> + GROUP parameters may include alphanumeric characters, hyphens (-), underscores (_), and slashes (/); they must not contain spaces or other punctuation.
-> + GROUP matching and equality are case-insensitive (e.g. `CS2103T` and `cs2103t` are treated as the same group).
 > + All specified groups and tags must already exist in the system.
+> + Groups and tags must follow their respective naming conventions (see [group/create](#create-group-groupcreate) and [tag/create](#create-tag-tagcreate) for details).
+> + Duplicate persons are not allowed in the address book. A duplicate is defined as a person with the same name as an existing person (case-insensitive). 
 
 #### Example usage:
 * `add n/John Doe`
@@ -454,12 +454,11 @@ EduTrack data are saved automatically as a JSON file at this file location:
 Advanced users are welcome to update data directly by editing that data file.
 
 
-
 <div markdown="span" class="alert alert-warning"> :exclamation:  **Caution**  For ADVANCED users:
-
 If your changes to the data file makes its format invalid, Edutrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the EduTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Archiving data files `[coming in v2.0]`
