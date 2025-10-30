@@ -183,23 +183,32 @@ Examples:
 --------------------------------------------------------------------------------------------------------------------
 ### Locating by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Find persons by name or by group. 
+You must choose exactly one of the two forms below.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format (choose ONE):
 
+By name: `find n/ KEYWORD [MORE_KEYWORDS]...`
+
+By group: `find g/ GROUP_NAME [MORE_GROUPS]...`
 
 #### Notes:
+>* Exactly one of n/ or g/ must be present.
+>* Keywords/Group names are separated by spaces
 >* The search is case-insensitive. e.g `hans` will match `Hans`
 >* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
->* Only the name is searched.
->* Only full words will be matched e.g. `Han` will not match `Hans`
+>* Name search matches full words in the person’s name. e.g. `Han` will not match `Hans`
+>* Group search matches group names assigned to the person.
 >* Persons matching at least one keyword will be returned (i.e. `OR` search).
    e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 #### Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find n/ John` returns `john` and `John Doe`
+* `find n/ alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+* `find g/CS2103T` returns all persons in group “CS2103T”
+* `find g/CS1101S CS1231S` returns all persons in groups “CS1101S” or "CS1231S"
 
 --------------------------------------------------------------------------------------------------------------------
 

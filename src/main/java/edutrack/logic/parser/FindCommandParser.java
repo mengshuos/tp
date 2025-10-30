@@ -1,6 +1,9 @@
 package edutrack.logic.parser;
 
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 
@@ -14,40 +17,53 @@ import edutrack.model.person.NameContainsKeywordsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
+    static final String MESSAGE_SINGLE_PARAMETER_ONLY =
+            "Only one parameter block is allowed. Use either n/… or g/… (not both, not repeated).\n\n"
+            + FindCommand.MESSAGE_USAGE;
+
+    @Override
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_NAME_USAGE));
+        requireNonNull(args);
+
+        // Ensure a leading space so ArgumentTokenizer recognises the first prefix
+        final String paddedArgs = args.startsWith(" ") ? args : " " + args;
+
+        final ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(paddedArgs, PREFIX_NAME, PREFIX_GROUP);
+
+        final String preamble = argMultimap.getPreamble().trim();
+        if (paddedArgs.trim().isEmpty() || !preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // Determine if searching by group or by name
-        if (trimmedArgs.startsWith("g/")) {
-            String groupName = trimmedArgs.substring(2).trim();
-            if (groupName.isEmpty()) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_GROUP_USAGE));
-            }
-            return new FindCommand(new GroupNameContainsKeywordsPredicate(
-                    Arrays.asList(groupName.split("\\s+"))));
+        final var names = argMultimap.getAllValues(PREFIX_NAME);
+        final var groups = argMultimap.getAllValues(PREFIX_GROUP);
+        final boolean hasName = !names.isEmpty();
+        final boolean hasGroup = !groups.isEmpty();
 
-        } else if (trimmedArgs.startsWith("n/")) {
-            String name = trimmedArgs.substring(2).trim();
-            if (name.isEmpty()) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_GROUP_USAGE));
-            }
-            String[] nameKeywords = name.split("\\s+");
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-
-        } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        if (hasName && hasGroup) {
+            throw new ParseException(MESSAGE_SINGLE_PARAMETER_ONLY);
         }
+        if (!hasName && !hasGroup) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        if (names.size() > 1 || groups.size() > 1) {
+            throw new ParseException(MESSAGE_SINGLE_PARAMETER_ONLY);
+        }
+
+        if (hasName) {
+            String keywords = names.get(0).trim();
+            if (keywords.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(keywords.split("\\s+"))));
+        }
+
+        String groupKeywords = groups.get(0).trim();
+        if (groupKeywords.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        return new FindCommand(new GroupNameContainsKeywordsPredicate(Arrays.asList(groupKeywords.split("\\s+"))));
     }
+
 }
