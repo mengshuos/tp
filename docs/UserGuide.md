@@ -23,7 +23,7 @@ If you type fast, you can handle and manage all your students across your differ
       * [Adding a student: `add`](#adding-a-student-add)
       * [Listing all students : `list`](#listing-all-students-list)
       * [Editing a student : `edit`](#editing-a-student-edit)
-      * [Locating by name: `find`](#locating-by-name-find)
+      * [Locating by name or group: `find`](#locating-by-name-or-group-find)
       * [Locating by tag: `findtag`](#locating-by-tag-findtag)
       * [Deleting a student : `delete`](#deleting-a-student--delete)
       * [Clearing all students : `clear`](#clearing-all-students--clear)
