@@ -19,6 +19,7 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class Note
 
 Class UniqueGroupList
 Class UniqueTagList
@@ -47,12 +48,13 @@ UniquePersonList --> "~* all" Person
 UniqueTagList --> "*" Tag
 UniqueGroupList --> "*" Group
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person *--> "1" Name
+Person *--> "0..1" Phone
+Person *--> "0..1"Email
+Person *--> "0..1" Address
 Person --> "*" Tag
 Person --> "*" Group
+Person *--> "0..1" Note
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
