@@ -38,9 +38,9 @@ If you type fast, you can handle and manage all your students across your differ
       * [List Tags: `tag/list`](#list-tags-taglist)
       * [Assign Tag: `tag/assign`](#assign-tag-tagassign)
       * [Unassign Tag: `tag/unassign`](#unassign-tag-tagunassign)
-      * [Stats: `stats`](#stats)
-      * [Sorting: `sort`](#sort)
-      * [Notes: `notes`](#notes)
+      * [Viewing statistics: `stats`](#viewing-statistics)
+      * [Sorting: `sort`](#sorting)
+      * [Student Notes: `notes`](#student-notes)
   * [Other functionality](#other-functionality)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
@@ -414,7 +414,7 @@ Format: `sort`
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Notes: `notes`
+### Student Notes: `notes`
 
 Displays notes about particular students.
 
