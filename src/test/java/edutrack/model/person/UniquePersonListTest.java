@@ -222,37 +222,11 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortByName_duplicateLetterDifferentCase_sortsCorrectly() {
-
+    public void add_personWithSameNameDifferentCase_throwsDuplicatePersonException() {
         Person aaronLowerCase = new PersonBuilder().withName("aaron").build();
         Person aaronUpperCase = new PersonBuilder().withName("Aaron").build();
-        Person bob = new PersonBuilder().withName("bob").build();
 
-        // Add in unsorted order
-        uniquePersonList.add(bob);
         uniquePersonList.add(aaronUpperCase);
-        uniquePersonList.add(aaronLowerCase);
-
-        uniquePersonList.sortByName();
-
-        // Verify sorted order (stable sort expected)
-        assertEquals("aaron",
-            uniquePersonList.asUnmodifiableObservableList()
-                .get(0)
-                .getName()
-                .toString()
-                .toLowerCase());
-        assertEquals("aaron",
-            uniquePersonList.asUnmodifiableObservableList()
-                .get(1)
-                .getName()
-                .toString()
-                .toLowerCase());
-        assertEquals("bob",
-            uniquePersonList.asUnmodifiableObservableList()
-                .get(2)
-                .getName()
-                .toString()
-                .toLowerCase());
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(aaronLowerCase));
     }
 }

@@ -9,6 +9,7 @@ import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
 import edutrack.model.person.Name;
+import edutrack.model.person.Note;
 import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
@@ -39,6 +40,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
         descriptor.setGroups(person.getGroups());
+        descriptor.setNote(person.getNote());
     }
 
     /**
@@ -90,6 +92,14 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withGroups(String... groups) {
         Set<Group> groupSet = Stream.of(groups).map(Group::new).collect(Collectors.toSet());
         descriptor.setGroups(groupSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withNote(String note) {
+        descriptor.setNote(new Note(note));
         return this;
     }
 
