@@ -109,6 +109,9 @@ If you type fast, you can handle and manage all your students across your differ
   > e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
   > you can also type `p/PHONE_NUMBER n/NAME`.
 
+* For commands that does not take any parameters, you should type only the command word. If not, an error will pop up to tell you to remove the extra parameters.<br>
+  > e.g. `list` command is typed as `list` only.
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands directly.
     * This is because you may accidentally copy over hidden invalid characters.
 </div>
