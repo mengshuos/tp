@@ -1,10 +1,10 @@
 package edutrack.model.person;
 
-import static edutrack.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
+import static edutrack.testutil.Assert.assertThrows;
 
 public class NameTest {
 
@@ -29,6 +29,10 @@ public class NameTest {
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName("/")); // slash only, first char must be alphanumeric
+        assertFalse(Name.isValidName("/LeadingSlash")); // first char cannot be slash
+        assertFalse(Name.isValidName(".")); // dot only, first char must be alphanumeric
+        assertFalse(Name.isValidName(".LeadingDot")); // first char cannot be dot
 
         // valid name
         assertTrue(Name.isValidName("peter jack")); // alphabets only
@@ -36,6 +40,12 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName("A/B")); // slash allowed after first char
+        assertTrue(Name.isValidName("Arunasalam S/O Dorugutham")); // common S/O format
+        assertTrue(Name.isValidName("A / B")); // spaces around slash
+        assertTrue(Name.isValidName("J.K. Rowling")); // dots allowed after first char
+        assertTrue(Name.isValidName("J. K. Rowling")); // dots with spaces
+        assertTrue(Name.isValidName("J.K.R.")); // trailing dot allowed
     }
 
     @Test

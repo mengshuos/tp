@@ -1,6 +1,10 @@
 package edutrack.logic.parser;
 
+import org.junit.jupiter.api.Test;
+
+import edutrack.logic.Messages;
 import static edutrack.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import edutrack.logic.commands.AddCommand;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static edutrack.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static edutrack.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -35,13 +39,6 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static edutrack.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static edutrack.testutil.TypicalPersons.AMY;
-import static edutrack.testutil.TypicalPersons.BOB;
-
-import org.junit.jupiter.api.Test;
-
-import edutrack.logic.Messages;
-import edutrack.logic.commands.AddCommand;
 import edutrack.model.group.Group;
 import edutrack.model.person.Address;
 import edutrack.model.person.Email;
@@ -50,9 +47,11 @@ import edutrack.model.person.Person;
 import edutrack.model.person.Phone;
 import edutrack.model.tag.Tag;
 import edutrack.testutil.PersonBuilder;
+import static edutrack.testutil.TypicalPersons.AMY;
+import static edutrack.testutil.TypicalPersons.BOB;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private final AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -226,5 +225,22 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_nameWithSlash_success() {
+        String nameWithSlash = "Arunasalam S/O Dorugutham";
+        Person expectedPerson = new PersonBuilder()
+                .withName(nameWithSlash)
+                .withPhone("")
+                .withEmail("")
+                .withAddress("")
+                .withTags()
+                .withGroup()
+                .withNote("")
+                .build();
+
+        assertParseSuccess(parser, " " + PREFIX_NAME + nameWithSlash,
+                new AddCommand(expectedPerson));
     }
 }
