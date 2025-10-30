@@ -19,6 +19,9 @@ public class GroupAssignCommandParser implements Parser<GroupAssignCommand> {
     public GroupAssignCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GROUP);
 
+        // Verify only one group is specified
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GROUP);
+
         // Parse group name
         String groupName = argMultimap.getValue(PREFIX_GROUP).orElse("").trim();
         if (groupName.isEmpty()) {
