@@ -398,7 +398,7 @@ Format: `stats`
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Sort: `sort`
+### Sorting: `sort`
 
 Sorts all students by their names in alphabetical order.
 
