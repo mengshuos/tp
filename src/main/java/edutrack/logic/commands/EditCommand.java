@@ -4,6 +4,7 @@ import static edutrack.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static edutrack.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static edutrack.logic.parser.CliSyntax.PREFIX_GROUP;
 import static edutrack.logic.parser.CliSyntax.PREFIX_NAME;
+import static edutrack.logic.parser.CliSyntax.PREFIX_NOTE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_PHONE;
 import static edutrack.logic.parser.CliSyntax.PREFIX_TAG;
 import static edutrack.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -48,7 +49,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_GROUP + "GROUP]...\n"
+            + "[" + PREFIX_GROUP + "GROUP]..."
+            + "[" + PREFIX_NOTE + "NOTE\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -112,13 +114,13 @@ public class EditCommand extends Command {
 
         // Create person with centrally tracked groups and preserve note
         Person personWithCentralGroups = new Person(
-            editedPerson.getName(),
-            editedPerson.getPhone(),
-            editedPerson.getEmail(),
-            editedPerson.getAddress(),
-            editedPerson.getTags(),
-            centralGroups,
-            editedPerson.getNote()
+                editedPerson.getName(),
+                editedPerson.getPhone(),
+                editedPerson.getEmail(),
+                editedPerson.getAddress(),
+                editedPerson.getTags(),
+                centralGroups,
+                editedPerson.getNote()
         );
 
         model.setPerson(personToEdit, personWithCentralGroups);
@@ -205,14 +207,6 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, groups, note);
         }
 
-        public void setNote(Note note) {
-            this.note = note;
-        }
-
-        public Optional<Note> getNote() {
-            return Optional.ofNullable(note);
-        }
-
         public void setName(Name name) {
             this.name = name;
         }
@@ -279,7 +273,13 @@ public class EditCommand extends Command {
             return (groups != null) ? Optional.of(Collections.unmodifiableSet(groups)) : Optional.empty();
         }
 
+        public void setNote(Note note) {
+            this.note = note;
+        }
 
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -294,12 +294,12 @@ public class EditCommand extends Command {
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
-                && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                && Objects.equals(email, otherEditPersonDescriptor.email)
-                && Objects.equals(address, otherEditPersonDescriptor.address)
-                && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                && Objects.equals(groups, otherEditPersonDescriptor.groups)
-                && Objects.equals(note, otherEditPersonDescriptor.note);
+                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
+                    && Objects.equals(email, otherEditPersonDescriptor.email)
+                    && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(groups, otherEditPersonDescriptor.groups)
+                    && Objects.equals(note, otherEditPersonDescriptor.note);
 
         }
 

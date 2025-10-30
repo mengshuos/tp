@@ -24,6 +24,7 @@ import edutrack.logic.commands.GroupUnassignCommand;
 import edutrack.logic.commands.HelpCommand;
 import edutrack.logic.commands.ListCommand;
 import edutrack.logic.commands.NoteCreateCommand;
+import edutrack.logic.commands.NoteDeleteCommand;
 import edutrack.logic.commands.SortCommand;
 import edutrack.logic.commands.StatsCommand;
 import edutrack.logic.commands.TagAssignCommand;
@@ -137,6 +138,9 @@ public class AddressBookParser {
 
         case NoteCreateCommand.COMMAND_WORD:
             return new NoteCreateCommandParser().parse(arguments);
+
+        case NoteDeleteCommand.COMMAND_WORD:
+            return new NoteDeleteCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
