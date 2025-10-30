@@ -20,13 +20,13 @@ If you type fast, you can handle and manage all your students across your differ
 * [Features](#features)
   * [Commands](#commands)
       * [Help page: `help`](#help-page-help)
-      * [Adding a student: `add`](#adding-a-person-add)
-      * [Listing all students : `list`](#listing-all-persons-list)
-      * [Editing a student : `edit`](#editing-a-person-edit)
+      * [Adding a student: `add`](#adding-a-student-add)
+      * [Listing all students : `list`](#listing-all-students-list)
+      * [Editing a student : `edit`](#editing-a-student-edit)
       * [Locating by name: `find`](#locating-by-name-find)
       * [Locating by tag: `findtag`](#locating-by-tag-findtag)
-      * [Deleting a student : `delete`](#deleting-a-person--delete)
-      * [Clearing all students : `clear`](#clearing-all-persons--clear)
+      * [Deleting a student : `delete`](#deleting-a-student--delete)
+      * [Clearing all students : `clear`](#clearing-all-students--clear)
       * [Exiting the program : `exit`](#exiting-the-program--exit)
       * [Create Group: `group/create`](#create-group-groupcreate)
       * [Delete Group: `group/delete`](#delete-group-groupdelete)
@@ -298,7 +298,7 @@ Format: `group/create g/GROUP_NAME`
 --------------------------------------------------------------------------------------------------------------------
 ### Delete Group: `group/delete`
 
-Deletes an existing group and removes all group assignments from associated contacts, useful for cleaning up unused or past groups.
+Deletes an existing group and removes all group assignments from associated students, useful for cleaning up unused or past groups.
 
 Format: `group/delete g/GROUP_NAME`
 
@@ -398,7 +398,7 @@ Unassigns an existing tag from a specified student.
 Format: `tag/unassign INDEX t/TAG_NAME`
 
 #### Notes:
-> * Removes the tag `TAG_NAME` from the contact at the specified `INDEX`.
+> * Removes the tag `TAG_NAME` from the student at the specified `INDEX`.
 > * The index refers to the index number shown in the displayed student list.
 > * The index **must be a positive integer** 1, 2, 3, ...
 > * The tag must currently be assigned to the student.
@@ -522,7 +522,7 @@ _Details coming soon ..._
 | **Clear**               | Removes all stored data.                    | `clear`                                                                                                                                                                                              |
 | **Delete**              | Deletes student from EduTrack.              | `delete INDEX`<br><br>Example: `delete 3`                                                                                                                                                            |
 | **Edit**                | Edit an existing student.                   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP]...` <br><br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
-| **Find**                | Locate persons by keywords in their names.  | `find n/KEYWORD [MORE_KEYWORDS]...`<br><br>Example: `find n/James Jake`                                                                                                                              |
+| **Find**                | Locate students by keywords in their names. | `find n/KEYWORD [MORE_KEYWORDS]...`<br><br>Example: `find n/James Jake`                                                                                                                              |
 | **Find by Group**       | Find all students in a specific group.      | `find g/GROUP [MORE_GROUPS]...`<br><br>Example: `find g/CS2103T`                                                                                                                                     |
 | **Find by Tag**         | Find students with a specific tag.          | `findtag t/TAG`<br><br>Example: `findtag t/friends`                                                                                                                                                  |
 | **Create Group**        | Make a new group.                           | `group/create g/GROUP`<br><br>Example: `group/create g/CS2103T`                                                                                                                                      |
