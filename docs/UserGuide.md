@@ -20,14 +20,14 @@ If you type fast, you can handle and manage all your students across your differ
 * [Features](#features)
   * [Commands](#commands)
       * [Help page: `help`](#help-page-help)
-      * [Adding a student: `add`](#adding-a-person-add)
-      * [Listing all students : `list`](#listing-all-persons-list)
-      * [Editing a student : `edit`](#editing-a-person-edit)
-      * [Locating by name: `find`](#locating-by-name-find)
+      * [Adding a student: `add`](#adding-a-student-add)
+      * [Listing all students: `list`](#listing-all-students-list)
+      * [Editing a student: `edit`](#editing-a-student-edit)
+      * [Locating by name or group: `find`](#locating-by-name-or-group-find)
       * [Locating by tag: `findtag`](#locating-by-tag-findtag)
-      * [Deleting a student : `delete`](#deleting-a-person--delete)
-      * [Clearing all students : `clear`](#clearing-all-persons--clear)
-      * [Exiting the program : `exit`](#exiting-the-program--exit)
+      * [Deleting a student: `delete`](#deleting-a-student--delete)
+      * [Clearing all students: `clear`](#clearing-all-students--clear)
+      * [Exiting the program: `exit`](#exiting-the-program--exit)
       * [Create Group: `group/create`](#create-group-groupcreate)
       * [Delete Group: `group/delete`](#delete-group-groupdelete)
       * [List Groups: `group/list`](#list-groups-grouplist)
@@ -109,6 +109,9 @@ If you type fast, you can handle and manage all your students across your differ
   > e.g. if the command specifies `n/NAME p/PHONE_NUMBER`,
   > you can also type `p/PHONE_NUMBER n/NAME`.
 
+* For single-word commands, if you type any subsequent parameters, you will get an error
+  > e.g. `help test` gives an error
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands directly.
     * This is because you may accidentally copy over hidden invalid characters.
 </div>
@@ -134,7 +137,7 @@ Adds a student to the address book.
 Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]... [t/TAG]...`
 
 #### Parameters:
-* `NAME` : Name of the student, only alphanumeric characters and spaces are allowed.
+* `NAME` : Name of the student. Letters (any language), digits, spaces, apostrophes ('), hyphens (-), dots (.), and slashes (/) are allowed.
 * `PHONE_NUMBER` : Phone number of the student, only numeric characters are allowed.
 * `EMAIL` : Email address of the student, must be in the format `local-part@domain`.
 * `ADDRESS` : Address of the student, can contain alphanumeric characters and spaces.
@@ -143,6 +146,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]... [t/TAG].
 
 #### Notes:
 
+> + The first character of NAME must be alphanumeric.
 > + All specified groups and tags must already exist in the system.
 > + You can add multiple groups by entering `g/GROUP_NAME` multiple times, as seen n the example.
 > + Groups and tags must follow their respective naming conventions (see [group/create](#create-group-groupcreate) and [tag/create](#create-tag-tagcreate) for details).
@@ -152,7 +156,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]... [t/TAG].
 * `add n/John Doe`
 * `add n/Chee Hin g/CS2103T-F14a`
 * `add n/Kevin p/91234567 e/kevin@outlook.com a/123 Baker St g/CS2103T-F14a`
-* `add n/Xin Zhao p/98765432 g/CS2100 g/CS2103T t/needs_help t/median`
+* `add n/J.K. Rowling p/98765432 g/CS2100 g/CS2103T t/needs_help t/median`
 
 --------------------------------------------------------------------------------------------------------------------
 
