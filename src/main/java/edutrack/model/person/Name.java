@@ -1,8 +1,8 @@
 package edutrack.model.person;
 
+import static edutrack.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-import static edutrack.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's name in the address book.
