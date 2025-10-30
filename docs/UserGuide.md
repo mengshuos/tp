@@ -192,7 +192,7 @@ Examples:
 *  `edit 2 n/Betsy Crower g/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing groups.
 
 --------------------------------------------------------------------------------------------------------------------
-### Locating by name: `find`
+### Locating by name or group: `find`
 
 Find students by name or by group, allowing you to quickly locate specific students or students belonging to certain groups.
 You must choose exactly one of the two forms below.
