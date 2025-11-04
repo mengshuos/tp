@@ -18,6 +18,7 @@ If you type fast, you can handle and manage all your students across your differ
 
 * [Quick start](#quick-start)
 * [Features](#features)
+  * [Helpful Info](#helpful-info)
   * [Commands](#commands)
       * [Help page: `help`](#help-page-help)
       * [Adding a student: `add`](#adding-a-student-add)
@@ -49,17 +50,20 @@ If you type fast, you can handle and manage all your students across your differ
 * [FAQ](#faq)
 * [Known issues](#known-issues)
 * [Command summary](#command-summary)
-
+* [Glossary](#glossary)
 --------------------------------------------------------------------------------------------------------------------
+
+At any point in time, if you encounter any terms that you do not understand, consider checking out our Glossary section for a brief explanation!
 
 ## Quick start
 
 1. Java is a programming language that needs to be installed. If you don't have it, download it from the official Java website.
 
 Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise Java version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-3/tp/releases).
+> .jar is referring to what the filename ends with.
 
 3. Save the file to the folder you want to use to store all files related to EduTrack.
 
@@ -67,11 +71,11 @@ Ensure you have Java `17` or above installed in your Computer.<br>
    >* **Mac** / **Linux** users: search for 'Terminal'
    >* **Windows** users: search for 'Command Prompt'
 
-5. Enter the command `cd <FOLDER>` where you replace <FOLDER> with the folder name that you saved the jar file to.
+5. Enter the command `cd <FOLDER>` where you replace FOLDER with the folder name that you saved the jar file to.
 
-6. Enter the command `java -jar edutrack.jar` to run the application.<br>
+6. Enter the command `java -jar edutrack.jar` to run the application. Make sure the filename you downloaded matches exactly!<br>
 
-   Your screen should have a window pop up that looks like this below:
+   Your screen should have a window pop up that looks lispoke this below:
 
 ![Ui](images/Ui.png)
 
@@ -88,7 +92,13 @@ Ensure you have Java `17` or above installed in your Computer.<br>
 
 # Features
 
-## Commands
+> For new users of EduTrack, or if you want to jump straight into using our app, you can skip past the 'Helpful Notes' section, and go straight to the 'Commands' section to see what commands you can use!
+>
+> The 'Helpful Notes' section is extra information for your use!
+
+## Helpful Info 
+
+This section contains helpful information about EduTrack as a whole.
 
 <div markdown="block" class="alert alert-info">
 
@@ -123,31 +133,38 @@ Ensure you have Java `17` or above installed in your Computer.<br>
 ### Parameter Constraints
 The table below summarises the constraints for each parameter used in commands.
 
-| Parameter | Prefix | Max Length | Format /Constraints                                                                                                                                                                                                                                                                                                             |
-|-----------|--------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| NAME      | n/     | 100        | Alphanumeric characters; may include letters (any language), digits, spaces, apostrophes ('), hyphens (-), dots (.), or slashes (/); must not be blank                                                                                                                                                                           |
+| Parameter | Prefix | Max Length | Format /Constraints                                                                                                                                                                                                                                                                                                   |
+|-----------|--------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NAME      | n/     | 100        | Alphanumeric characters; may include letters (any language), digits, spaces, apostrophes ('), hyphens (-), dots (.), or slashes (/); must not be blank                                                                                                                                                                |
 | EMAIL     | e/     | 100        | Format: `local-part@domain`<br>- Local-part: alphanumeric + `+`, `_`, `.`, `-`; cannot start or end with a special character<br>- Domain: made out of domain labels separated by `.`, each label must start/end with alphanumeric characters, hyphens allowed internally, last label ≥2 chars<br>- Optional field (can be empty) |
-| PHONE     | p/     | 20         | Digits, spaces, hyphens (-), and optional '+' prefix; must contain at least 3 digits<br>- Optional field (can be empty)                                                                                                                                                                                                          |
-| ADDRESS   | a/     | 100        | Any printable characters; must not start with whitespace; must not be blank<br>- Optional field (can be empty)                                                                                                                                                                                                                   |
-| TAG       | t/     | 50         | Alphanumeric characters only; may include hyphens (-), underscores (_), or slashes (/); no spaces allowed<br>- Case-insensitive<br>- Must be created first using `tag/create`                                                                                                                                                    |
-| GROUP     | g/     | 50         | Alphanumeric characters only; may include hyphens (-), underscores (_), or slashes (/); no spaces allowed<br>- Case-insensitive<br>- Must be created first using `group/create`                                                                                                                                                  |
-| NOTE      | no/    | 100        | Any printable characters; must not start with whitespace or control character<br>- Optional field (can be empty)                                                                                                                                                                                                                 |
+| PHONE     | p/     | 20         | Digits, spaces, hyphens (-), and optional '+' prefix; must contain at least 3 digits<br>- Optional field (can be empty)                                                                                                                                                                                               |
+| ADDRESS   | a/     | 100        | Any printable characters; must not start with whitespace; must not be blank<br>- Optional field (can be empty)                                                                                                                                                                                                        |
+| TAG       | t/     | 50         | Alphanumeric characters only; may include hyphens (-), underscores (_), or slashes (/); no spaces allowed<br>- Case-insensitive<br>- Must be created first using `tag/create`<br/>- Optional field (can be empty)                                                                                                          |
+| GROUP     | g/     | 50         | Alphanumeric characters only; may include hyphens (-), underscores (_), or slashes (/); no spaces allowed<br>- Case-insensitive<br>- Must be created first using `group/create`<br/>- Optional field (can be empty)                                                                                                   |
+| NOTE      | no/    | 100        | Any printable characters; must not start with whitespace or control character<br>- Optional field (can be empty)                                                                                                                                                                                                      |
 
 #### Notes:
 
 > - #### Colour Coding
 >   - In EduTrack, there are some visual elements that are distinguished from one another by their colour:
->     - Groups are displayed in the colour `teal` (Hex: #10938F).
->     - Tags are displayed in the colour `blue-green`(Hex: #00C4A8).
+>     - Groups are displayed in the (duller) colour `teal` (Hex: #10938F).
+>     - Tags are displayed in the (brighter) colour `blue-green`(Hex: #00C4A8).
 >
 >   - These colour distinctions make it easier to identify key details at a glance.
 >
 > - Other attributes (such as name, phone, email, address, notes) are displayed as plain text lines without colour highlighting.
 >   - For these attributes, you will see an explicit label that is displayed on the application.
+>
+> - #### Trimming of Leading Whitespace
+>   - In EduTrack, when you type a parameter with lots of whitespace at the start, all of that whitespace will be trimmed (deleted) when you enter the command
 
 <a href="#table-of-contents" style="font-size:14px;font-weight:normal">⬆️ Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Commands
+
+>Refer to the [Parameters Constraints](#parameter-constraints) or [Command Summary](#command-summary) table for additional information about our commands!
 
 ### Help page: `help`
 
@@ -171,12 +188,29 @@ Adds a student to the address book.
 Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUP]... [t/TAG]...`
 
 #### Parameters:
-* `NAME` : Name of the student. Must start with alphanumeric character; may include letters (any language), digits, spaces, apostrophes ('), hyphens (-), dots (.), and slashes (/).
-* `PHONE_NUMBER` : Phone number of the student. Digits, spaces, hyphens (-), and an optional '+' prefix are allowed. Must contain at least 3 digits. Examples: `91234567`, `9123 4567`, `+65 9123 4567`.
-* `EMAIL` : Email address of the student, must be in the format `local-part@domain`. Optional field.
-* `ADDRESS` : Address of the student, can contain any printable characters. Must not start with whitespace. Optional field.
-* `GROUP` : Group(s) the student belongs to, only alphanumeric characters, hyphens (-), underscores (_), and slashes (/) are allowed. No spaces allowed. Maximum length 50 characters.
-* `TAG` : Tag(s) to be assigned to the student, only alphanumeric characters, hyphens (-), underscores (_), and slashes (/) are allowed. No spaces allowed. Maximum length 50 characters.
+* `NAME` : Name of the student. 
+
+    Must start with alphanumeric character; may include letters (any language), digits, spaces, apostrophes ('), hyphens (-), dots (.), and slashes (/); must not be blank. Maximum length of 100 characters.
+
+* `PHONE_NUMBER` : Phone number of the student (Optional field)
+
+    Digits, spaces, hyphens (-), and an optional '+' prefix are allowed. Must contain at least 3 digits, at most 20 characters. Examples: `91234567`, `9123 4567`, `+65 9123 4567`.
+
+* `EMAIL` : Email address of the student (Optional field)
+  
+    It must be in the format `local-part@domain`. Maximum length of 100 characters.
+
+* `ADDRESS` : Address of the student (Optional field)
+
+    can contain any printable characters. Must not start with whitespace and at most 100 characters.
+
+* `GROUP` : Group(s) the student belongs to (Optional field)
+
+    Only alphanumeric characters, hyphens (-), underscores (_), and slashes (/) are allowed. No spaces allowed. Maximum length 50 characters.
+
+* `TAG` : Tag(s) to be assigned to the student (Optional field)
+
+  Only alphanumeric characters, hyphens (-), underscores (_), and slashes (/) are allowed. No spaces allowed. Maximum length 50 characters.
 
 #### Notes:
 
@@ -217,9 +251,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [g/GROUP
 > * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, ...
 > * At least one of the optional fields must be provided.
 > * Existing values will be updated to the input values.
-> * Editing tags using the `edit` command is supported via the `t/` prefix. Providing one or more `t/TAG` values replaces the student's existing tags with the given set.
+> * Editing tags using the `edit` command is supported via the `t/` prefix. Providing one or more `t/TAG` values replaces all of the student's current tags with the new tags you specify..
 >  * To clear all tags, include only one `t/` with no value (for example: `edit 2 t/`).
->* Editing groups using the `edit` command is supported via the `g/` prefix. Providing one or more `g/GROUP` values replaces the student's existing groups with the given set.
+>* Editing groups using the `edit` command is supported via the `g/` prefix. Providing one or more `g/GROUP` values replaces all of the student's existing groups with the new groups you specify.
 >  * To clear all groups, include only one `g/` with no value (for example: `edit 2 g/`).
 
 <div markdown="block" class="alert alert-warning">
@@ -354,6 +388,7 @@ Creates a new group with a specified name, can be used to organise students into
 
 Format: `group/create g/GROUP_NAME`
 
+#### Notes:
 >* `GROUP_NAME` refers to the name you wish to assign to the group.
 >* `GROUP_NAME` is case-insensitive and acceptable characters are alphanumeric, hyphens (-), underscores (_), and slashes (/).
 >* `GROUP_NAME` has a maximum length of 50 characters.
@@ -668,13 +703,18 @@ _Details coming soon ..._
 
 ## Glossary
 
-* GUI — Graphical User Interface: the visual, mouse-driven parts of the application (windows, buttons, labels). In EduTrack the GUI is implemented using JavaFX and complements the keyboard command box.
+* GUI — Graphical User Interface: the visual, mouse-driven parts of the application (windows, buttons, labels). In EduTrack the GUI is implemented using JavaFX (a programming tool) and complements the keyboard command box.
+* Alphanumeric - Numbers and letters from the Standard English alphabet 
+* Case-insensitive - This means that casing does not matter, meaning that, for example, "John" and "john" are regarded the same.
 * Prefix — A short label ending with `/` used to identify command parameters (e.g. `n/`, `t/`, `g/`).
-* Filtered list — A view of the full student list that only shows students matching a predicate; many commands (e.g. `find`) update the filtered list.
+* Filtered view / list — A view of the full student list that only shows students matching a predicate; many commands (e.g. `find`) update the filtered list.
 * Predicate — A rule (boolean test) used to decide whether a student should be included in a filtered list (e.g. "name contains keyword").
 * Index — A 1-based number shown next to each student in the UI; many commands (e.g. `edit`, `delete`) operate on the student at that index in the currently displayed (filtered) list.
 * JSON — JavaScript Object Notation, a text format used for saving EduTrack data to disk.
 * Tag — A short label used to categorise a student (no spaces, allowed characters: alphanumeric, `-`, `_`, `/`). Tags are case-insensitive for matching and searches (e.g. `t/Friends` matches `friends`).
 * Group — A central entity used to group students (no spaces, allowed characters: alphanumeric, `-`, `_`, `/`). Group names are case-insensitive for matching and searches.
+* Hex - A technical way of specifically identifying different colours digitally.
+
+
 
 <a href="#table-of-contents" style="font-size:14px;font-weight:normal">⬆️ Return to Table of Contents</a>

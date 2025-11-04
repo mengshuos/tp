@@ -709,9 +709,9 @@ Example: A successful `findtag` command on a tag with 2 students tagged, display
 
 In the future, it may be better to standardise these messages to use the word "students" instead of "persons" for a better and closer fit to our product use case.
 
-3. **Improve error message when assigning / unassigning group to existing person in group**
+3. **Improve handling of case for when assigning / unassigning group to existing person in group**
 
-Currently, if you try to assign a valid group to a valid and existing student, the command will be successful and a message is displayed that says:
+Currently, if you try to assign a valid group to a valid and existing student who already has that group assigned, the command will be successful and a message is displayed that says:
 
 > Assigned group [GROUPNAME] to 0 person(s)
 
