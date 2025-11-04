@@ -51,6 +51,7 @@ If you type fast, you can handle and manage all your students across your differ
 * [Known issues](#known-issues)
 * [Command summary](#command-summary)
 * [Glossary](#glossary)
+
 --------------------------------------------------------------------------------------------------------------------
 
 At any point in time, if you encounter any terms that you do not understand, consider checking out our Glossary section for a brief explanation!
@@ -75,7 +76,7 @@ Ensure you have Java `17` or above installed in your Computer.<br>
 
 6. Enter the command `java -jar edutrack.jar` to run the application. Make sure the filename you downloaded matches exactly!<br>
 
-   Your screen should have a window pop up that looks lispoke this below:
+   Your screen should have a window pop up that looks like this below:
 
 ![Ui](images/Ui.png)
 
